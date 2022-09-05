@@ -1,3 +1,11 @@
+:root {
+  --primary-white-color: rgb(27 29 42);
+  --default-body-color: rgb(12 15 29);
+  --default-hover-background-color: rgb(52 55 70);
+  --text-color: rgb(206 207 209);
+  --hover-color: rgb(101 126 248);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -21,8 +29,13 @@ html {
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  color: var(--text-color);
+  background-color: var(--default-body-color);
+  font-size: 1.6rem;
 }
 
 a {
   text-decoration: none;
+  color: var(--text-color);
 }
