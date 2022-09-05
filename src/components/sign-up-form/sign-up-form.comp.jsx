@@ -1,7 +1,11 @@
 //Misc
 
 //Components
+import { useRef } from "react";
 import FormInput from "../form-input/form-input.comp";
+
+//Contexts
+
 
 //Styled Components
 import {
@@ -13,16 +17,15 @@ import {
 
 const SignUpForm = () => {
 
-
   return (
     <SignUpContainer>
       <Title>Sign Up</Title>
 
       <form >
-        <FormInput label="Email" type="email" name="email" />
-        <FormInput label="Username" type="text" name="username" />
-        <FormInput label="Password" type="password" name="password" />
-        <FormInput label="Confirm Password" type="password" name="confirmPassword" />
+        <FormInput label="Email" type="email" name="email" required />
+        <FormInput label="Username" type="text" name="username" required />
+        <FormInput label="Password" type="password" name="password" required />
+        <FormInput label="Confirm Password" type="password" name="confirmPassword" required />
 
         <SButton type="submit">Sign Up</SButton>
       </form>
