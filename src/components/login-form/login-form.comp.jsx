@@ -1,7 +1,10 @@
 //Misc
 
 //Firebase
-import { signInWithGooglePopup } from "../../utils/firebase/firebase.utils";
+import {
+  signInWithGooglePopup,
+  createUserDocumentFromAuth
+} from "../../utils/firebase/firebase.utils";
 
 //Components
 import FormInput from "../form-input/form-input.comp";
@@ -16,8 +19,9 @@ import {
 const LoginForm = () => {
 
   const logGoogleUser = async () => {
-    const res = await signInWithGooglePopup();
-    console.log(res);
+    const { user } = await signInWithGooglePopup();
+    const userDocRef = await createUserDocumentFromAuth(user);
+    console.log(userDocRef);
   };
 
   return (

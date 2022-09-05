@@ -10,6 +10,13 @@ import {
   GoogleAuthProvider
 } from "firebase/auth";
 
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc
+} from "firebase/firestore";
+
 //Firbase configuration and initialization
 const firbaseConfig = {
   apiKey: process.env.REACT_APP_FIRBASE_API_KEY,
@@ -30,3 +37,29 @@ GoogleProvider.setCustomParameters({
 
 export const auth = getAuth();
 export const signInWithGooglePopup = () => signInWithPopup(auth, GoogleProvider);
+
+////Firestore
+
+export const db = getFirestore();
+
+// Users Related
+export const createUserDocumentFromAuth = async (userAuth) => {
+  // Getting the document reference to the specific user
+  const userDocRef = doc(db, "users", userAuth.uid);
+  // Getting the user snapshot data
+  const userSnapshot = await getDoc(userDocRef);
+
+  // Creates user snapshot data if it doesn't exist in the DB or returns it if it does
+  if (!userSnapshot.exists()) {
+    const { displayName, email } = userAuth;
+    const createdAt = new Date();
+
+    try {
+      await setDoc(userDocRef, { displayName, email, createdAt });
+    } catch (e) {
+      console.log("error creating the user", e.message);
+    }
+  }
+
+  return userDocRef;
+};
