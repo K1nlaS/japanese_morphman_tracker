@@ -7,11 +7,11 @@ import {
   Input
 } from "./form-input.styles";
 
-function FormInput({ label, ...otherProps }) {
+function FormInput({ label, id, ...otherProps }) {
   return (
     <Group>
-      <FormInputLabel>{label}</FormInputLabel>
-      <Input {...otherProps} />
+      {label && <FormInputLabel htmlFor={id}>{label}</FormInputLabel>}
+      <Input {...otherProps} id={id} />
     </Group>
   );
 }
