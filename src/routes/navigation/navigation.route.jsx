@@ -12,7 +12,6 @@ import { selectCurrentUser } from "../../store/user/user.selector";
 import {
   NavBar,
   NavBarContainer,
-  LogoContainer,
   JmtLogo,
   NavLinks,
   SLink,
@@ -30,9 +29,10 @@ const Navigation = () => {
       <NavBar>
         <NavBarContainer>
 
-          <LogoContainer>
-            <JmtLogo />
-          </LogoContainer>
+          <div>
+            <JmtLogo to="/" />
+          </div>
+
 
           <NavLinks>
             <SLink to="/">Home</SLink>

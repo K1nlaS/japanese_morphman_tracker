@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
 import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
+import logo from "../../assets/logo.jpg";
 
 export const NavBar = styled.div`
   width: 100%;
@@ -16,12 +18,14 @@ export const NavBarContainer = styled.div`
   align-items: center;
 `;
 
-export const LogoContainer = styled.div`
+export const JmtLogo = styled(Link)`
+  background-image: url("${logo}");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   width: 50px;
-`;
-
-export const JmtLogo = styled.div`
-  
+  height: 50px;
+  border-radius: var(--border-radius);
 `;
 
 
