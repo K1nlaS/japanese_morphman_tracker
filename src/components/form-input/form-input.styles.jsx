@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 export const FormInputLabel = styled.label`
   text-align: start;
+  font-size: 1.4rem;
   margin-bottom: 0.6rem;
 `;
 

@@ -36,8 +36,9 @@ export const SButton = styled.button`
 
 export const SLink = styled(Link)`
   margin-top: 8rem;
+  font-size: 1.3rem;
 
   span {
-    color: var(--primary-button-color)
+    color: var(--primary-button-color);
   }
 `;

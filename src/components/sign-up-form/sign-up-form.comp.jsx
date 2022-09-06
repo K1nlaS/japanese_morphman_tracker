@@ -1,7 +1,7 @@
 //Misc
+import { useState } from "react";
 
 //Components
-import { useRef, useState } from "react";
 import FormInput from "../form-input/form-input.comp";
 
 //Firebase
@@ -47,6 +47,7 @@ const SignUpForm = () => {
       const { user } = await createAuthUserWithEmailAndPassword(email, password);
 
       await createUserDocumentFromAuth(user, { username });
+
       resetFormFields();
     } catch (error) {
       console.log(error.code);

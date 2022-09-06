@@ -1,7 +1,7 @@
 //Misc
+import { useState } from "react";
 
 //Firebase
-import { useState } from "react";
 import {
   signInAuthUserWithEmailAndPassword
 } from "../../utils/firebase/firebase.utils";
@@ -42,6 +42,7 @@ const LoginForm = () => {
 
     try {
       await signInAuthUserWithEmailAndPassword(email, password);
+
       resetFormFields();
     } catch (error) {
       console.log(error.code);

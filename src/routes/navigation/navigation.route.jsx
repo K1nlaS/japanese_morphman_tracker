@@ -1,5 +1,9 @@
 //Misc
 import { Outlet } from "react-router-dom";
+import { useContext } from "react";
+
+//Firebase
+import { signOutUser } from "../../utils/firebase/firebase.utils";
 
 //Styled Components
 import {
@@ -10,13 +14,17 @@ import {
   NavLinks,
   SLink,
   AuthLinks,
-  AuthLink
+  AuthLink,
+  SButton
 } from "./navigation.styles";
 
+//Contexts
+import { UserContext } from "../../contexts/user.context";
 
 
 const Navigation = () => {
 
+  const { currentUser } = useContext(UserContext);
 
   return (
     <>
@@ -32,8 +40,17 @@ const Navigation = () => {
           </NavLinks>
 
           <AuthLinks>
-            <AuthLink to="/auth/login">Login</AuthLink>
-            <AuthLink to="/auth/signup">Sign Up</AuthLink>
+            {
+              currentUser ? (
+                <SButton onClick={signOutUser}>Sign Out</SButton>
+              ) : (
+                <>
+                  <AuthLink to="/auth/login">Login</AuthLink>
+                  <AuthLink to="/auth/signup">Sign Up</AuthLink>
+                </>
+              )
+            }
+
           </AuthLinks>
 
         </NavBarContainer>

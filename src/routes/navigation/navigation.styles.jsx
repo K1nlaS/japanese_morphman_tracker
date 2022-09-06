@@ -52,3 +52,9 @@ export const AuthLink = styled(NavLink)`
     
   }
 `;
+
+export const SButton = styled.div`
+  padding: 1rem 1.2rem;
+  white-space: nowrap;
+  cursor: pointer;
+`;
