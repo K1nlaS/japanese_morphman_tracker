@@ -3,20 +3,13 @@ import { useState } from "react";
 
 //Components
 import FormInput from "../form-input/form-input.comp";
+import { Button } from "../button/button.comp";
 
 //Firebase
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth
 } from "../../utils/firebase/firebase.utils";
-
-//Styled Components
-import {
-  SignUpContainer,
-  Title,
-  SButton
-} from "./sign-up-form.styles";
-
 
 const defaultFormFields = {
   email: "",
@@ -59,18 +52,16 @@ const SignUpForm = () => {
   };
 
   return (
-    <SignUpContainer>
-      <Title>Sign Up</Title>
-
+    <>
       <form onSubmit={formSubmitHandler}>
         <FormInput label="Email" type="email" name="email" id="email" value={email} onChange={inputChangeHandler} required />
         <FormInput label="Username" type="text" name="username" id="username" value={username} onChange={inputChangeHandler} required />
         <FormInput label="Password" type="password" name="password" id="password" value={password} onChange={inputChangeHandler} required />
         <FormInput label="Confirm Password" type="password" id="confirmPassword" value={confirmPassword} name="confirmPassword" onChange={inputChangeHandler} required />
 
-        <SButton type="submit">Sign Up</SButton>
+        <Button type="submit">Sign Up</Button>
       </form>
-    </SignUpContainer>
+    </>
   );
 };
 

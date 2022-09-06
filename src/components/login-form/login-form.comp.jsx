@@ -8,12 +8,10 @@ import {
 
 //Components
 import FormInput from "../form-input/form-input.comp";
+import { Button } from "../button/button.comp";
 
 //Styled Components
 import {
-  LoginContainer,
-  Title,
-  SButton,
   SLink
 } from "./login-form.styles";
 
@@ -50,20 +48,18 @@ const LoginForm = () => {
   };
 
   return (
-    <LoginContainer>
-      <Title>Login</Title>
-
+    <>
       <form onSubmit={formSubmitHandler}>
         <FormInput label="Email" type="email" name="email" id="email" value={email} onChange={inputChangeHandler} required />
         <FormInput label="Password" type="password" name="password" id="password" value={password} onChange={inputChangeHandler} required />
 
-        <SButton type="submit">Login</SButton>
+        <Button type="submit">Login</Button>
       </form>
 
       <SLink to="/auth/signup">
         Do not have an account? <span>Create an account</span>
       </SLink>
-    </LoginContainer>
+    </>
   );
 };
 
