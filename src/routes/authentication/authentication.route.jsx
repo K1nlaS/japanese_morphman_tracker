@@ -1,5 +1,5 @@
 //Misc
-import { Route, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 //Components
 import LoginForm from "../../components/login-form/login-form.comp";

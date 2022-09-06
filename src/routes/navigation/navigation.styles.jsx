@@ -35,27 +35,12 @@ export const NavLinks = styled.div`
   justify-content: center;
 `;
 
-export const SLink = styled(NavLink)`
-  
-`;
-
 export const AuthLinks = styled.div`
   display: flex;
+  align-items: center;
   gap: 1rem;
 `;
 
-export const AuthLink = styled(NavLink)`
-  padding: 1rem 1.2rem;
-  white-space: nowrap;
-
-  .login {
-
-  }
-
-  .sign-up {
-    
-  }
-`;
 
 export const SButton = styled.div`
   padding: 1rem 1.2rem;

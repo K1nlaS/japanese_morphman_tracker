@@ -59,7 +59,7 @@ const SignUpForm = () => {
         <FormInput label="Password" type="password" name="password" id="password" value={password} onChange={inputChangeHandler} required />
         <FormInput label="Confirm Password" type="password" id="confirmPassword" value={confirmPassword} name="confirmPassword" onChange={inputChangeHandler} required />
 
-        <Button type="submit">Sign Up</Button>
+        <Button type="submit">Create Account</Button>
       </form>
     </>
   );

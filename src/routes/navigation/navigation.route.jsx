@@ -8,15 +8,16 @@ import { signOutUser } from "../../utils/firebase/firebase.utils";
 //Redux
 import { selectCurrentUser } from "../../store/user/user.selector";
 
+//Components
+import { CustomLink, LINK_TYPE_CLASSES } from "../../components/custom-link/custom-link.comp";
+
 //Styled Components
 import {
   NavBar,
   NavBarContainer,
   JmtLogo,
   NavLinks,
-  SLink,
   AuthLinks,
-  AuthLink,
   SButton
 } from "./navigation.styles";
 
@@ -35,7 +36,7 @@ const Navigation = () => {
 
 
           <NavLinks>
-            <SLink to="/">Home</SLink>
+            <CustomLink to="/" linkType={LINK_TYPE_CLASSES.navBarLink}>Home</CustomLink>
           </NavLinks>
 
           <AuthLinks>
@@ -44,8 +45,8 @@ const Navigation = () => {
                 <SButton onClick={signOutUser}>Sign Out</SButton>
               ) : (
                 <>
-                  <AuthLink to="/auth/login">Login</AuthLink>
-                  <AuthLink to="/auth/signup">Sign Up</AuthLink>
+                  <CustomLink to="/auth/login" linkType={LINK_TYPE_CLASSES.navBarLink}>Login</CustomLink>
+                  <CustomLink to="/auth/signup" linkType={LINK_TYPE_CLASSES.defaultButtonLink}>Sign Up</CustomLink>
                 </>
               )
             }
