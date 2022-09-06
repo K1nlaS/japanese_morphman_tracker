@@ -1,9 +1,12 @@
 //Misc
 import { Outlet } from "react-router-dom";
-import { useContext } from "react";
+import { useSelector } from "react-redux";
 
 //Firebase
 import { signOutUser } from "../../utils/firebase/firebase.utils";
+
+//Redux
+import { selectCurrentUser } from "../../store/user/user.selector";
 
 //Styled Components
 import {
@@ -18,13 +21,9 @@ import {
   SButton
 } from "./navigation.styles";
 
-//Contexts
-import { UserContext } from "../../contexts/user.context";
-
-
 const Navigation = () => {
 
-  const { currentUser } = useContext(UserContext);
+  const currentUser = useSelector(selectCurrentUser);
 
   return (
     <>
