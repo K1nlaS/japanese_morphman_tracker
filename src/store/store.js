@@ -17,6 +17,7 @@ const persistConfig = {
   storage,
   whitelist: [
     "user",
+    "list"
   ]
 };
 

@@ -1,7 +1,7 @@
 //Misc
 
 //Styled Components
-import { ContentContainer } from "./home.styles";
+import { ContentContainer } from "../../components/styled/styled.components";
 
 function Home() {
 

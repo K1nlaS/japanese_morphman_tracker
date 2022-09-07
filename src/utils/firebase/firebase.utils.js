@@ -12,7 +12,10 @@ import {
   getFirestore,
   doc,
   getDoc,
-  setDoc
+  setDoc,
+  collection,
+  getDocs,
+  addDoc,
 } from "firebase/firestore";
 
 //Firbase configuration and initialization
@@ -72,3 +75,30 @@ export const signOutUser = async () => await signOut(auth);
 
 export const onAuthStateChangedListener = (callback) =>
   onAuthStateChanged(auth, callback);
+
+//// List Related
+
+//Returns list of user's shows from firestore
+export const getCollectionList = async (userAuth) => {
+  if (!userAuth) return;
+
+  const userListRef = collection(db, "users", userAuth.uid, "list");
+  const data = await getDocs(userListRef);
+
+  return data.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+};
+
+//Adds new entry to the user's list of shows
+export const addNewListDocument = async (userAuth, postData) => {
+  if (!userAuth || !postData) return;
+
+  const userListRef = collection(db, "users", userAuth.uid, "list");
+  const userListQuery = await getDocs(userListRef);
+
+  //Checks if there is an entry with the same title, if there is not it creates a new entry
+  if (!userListQuery.docs.some(doc => doc.data().title === postData.title)) {
+    await addDoc(userListRef, {
+      ...postData
+    });
+  };
+};

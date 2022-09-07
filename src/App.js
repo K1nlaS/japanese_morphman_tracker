@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import Navigation from "./routes/navigation/navigation.route";
 import Home from "./routes/home/home.route";
 import Authentication from "./routes/authentication/authentication.route.jsx";
+import List from "./routes/list/list.route";
 
 //Firebase
 import {
@@ -36,6 +37,7 @@ const App = () => {
       <Route path="/" element={<Navigation />} >
         <Route index element={<Home />} />
         <Route path="/auth/:method" element={<Authentication />} />
+        <Route path="/list" element={<List />} />
       </Route>
     </Routes>
   );

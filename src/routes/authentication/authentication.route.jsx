@@ -10,7 +10,7 @@ import {
   FormContainer,
   Title
 } from "./authentication.styles";
-import { ContentContainer } from "../home/home.styles";
+import { ContentContainer } from "../../components/styled/styled.components";
 
 const Authentication = () => {
 

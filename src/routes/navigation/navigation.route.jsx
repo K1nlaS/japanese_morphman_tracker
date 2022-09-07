@@ -37,6 +37,7 @@ const Navigation = () => {
 
           <NavLinks>
             <CustomLink to="/" linkType={LINK_TYPE_CLASSES.navBarLink}>Home</CustomLink>
+            <CustomLink to="/list" linkType={LINK_TYPE_CLASSES.navBarLink}>Anime List</CustomLink>
           </NavLinks>
 
           <AuthLinks>
