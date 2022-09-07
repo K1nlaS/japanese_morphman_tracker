@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
-export const defaultLink = styled(NavLink)`
+export const DEFAULT_LINK = styled(NavLink)`
   padding: 1rem 1.2rem;
   white-space: nowrap;
   border-bottom: 2px solid transparent;
@@ -12,13 +12,13 @@ export const defaultLink = styled(NavLink)`
   }
 `;
 
-export const NavBarLink = styled(defaultLink)`
+export const NAV_BAR_LINK = styled(DEFAULT_LINK)`
   &.active {
     border-bottom: 2px solid var(--primary-button-color);
   }
 `;
 
-export const defaultButtonLink = styled(defaultLink)`
+export const DEFAULT_BUTTON_LINK = styled(DEFAULT_LINK)`
   border: none;
   color: white;
   background-color: var(--primary-button-color);

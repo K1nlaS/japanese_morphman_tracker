@@ -15,12 +15,24 @@ import {
   createUserDocumentFromAuth
 } from "./utils/firebase/firebase.utils";
 
+//Seeder
+import { seed } from "./utils/seeder/seeder";
+
 //Redux
 import { setCurrentUser } from "./store/user/user.action";
 
 const App = () => {
 
   const dispatch = useDispatch();
+
+  //Seeder Function
+  // useEffect(() => {
+  //   const seedData = async () => {
+  //     await seed();
+  //   };
+
+  //   seedData();
+  // }, []);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChangedListener((user) => {

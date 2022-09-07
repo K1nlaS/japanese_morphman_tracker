@@ -1,15 +1,14 @@
 import styled from "styled-components";
 
-import { NavLink } from "react-router-dom";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.jpg";
 
-export const NavBar = styled.div`
+export const NAV_BAR = styled.div`
   width: 100%;
   background: var(--primary-white-color);
 `;
 
-export const NavBarContainer = styled.div`
+export const NAV_BAR_CONTAINER = styled.div`
   max-width: 1200px;
   height: 75px;
   padding: 0 40px;
@@ -18,7 +17,7 @@ export const NavBarContainer = styled.div`
   align-items: center;
 `;
 
-export const JmtLogo = styled(Link)`
+export const JMT_LOGO = styled(Link)`
   background-image: url("${logo}");
   background-position: center;
   background-repeat: no-repeat;
@@ -29,21 +28,14 @@ export const JmtLogo = styled(Link)`
 `;
 
 
-export const NavLinks = styled.div`
+export const NAV_LINKS = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
 `;
 
-export const AuthLinks = styled.div`
+export const AUTH_LINKS = styled.div`
   display: flex;
   align-items: center;
   gap: 1rem;
-`;
-
-
-export const SButton = styled.div`
-  padding: 1rem 1.2rem;
-  white-space: nowrap;
-  cursor: pointer;
 `;

@@ -7,34 +7,34 @@ import SignUpForm from "../../components/sign-up-form/sign-up-form.comp";
 
 //Styled Components
 import {
-  FormContainer,
-  Title
+  FORM_CONTAINER,
+  TITLE
 } from "./authentication.styles";
-import { ContentContainer } from "../../components/styled/styled.components";
+import { CONTENT_CONTAINER } from "../../components/styled/styled.components";
 
 const Authentication = () => {
 
   const { method } = useParams();
 
   return (
-    <ContentContainer>
+    <CONTENT_CONTAINER>
 
-      <FormContainer>
+      <FORM_CONTAINER>
         {
           method === "login" ? (
             <>
-              <Title>Login</Title>
+              <TITLE>Login</TITLE>
               <LoginForm />
             </>
           ) : method === "signup" && (
             <>
-              <Title>Sign Up</Title>
+              <TITLE>Sign Up</TITLE>
               <SignUpForm />
             </>
           )
         }
-      </FormContainer>
-    </ContentContainer>
+      </FORM_CONTAINER>
+    </CONTENT_CONTAINER>
   );
 };
 

@@ -1,15 +1,15 @@
 //Misc
 
 //Styled Components
-import { ContentContainer } from "../../components/styled/styled.components";
+import { CONTENT_CONTAINER } from "../../components/styled/styled.components";
 
 function Home() {
 
 
   return (
-    <ContentContainer>
+    <CONTENT_CONTAINER>
       Home
-    </ContentContainer>
+    </CONTENT_CONTAINER>
   );
 }
 

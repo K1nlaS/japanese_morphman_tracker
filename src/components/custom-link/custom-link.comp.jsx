@@ -1,8 +1,8 @@
 //Styled Components
 import {
-  NavBarLink,
-  defaultButtonLink,
-  defaultLink
+  NAV_BAR_LINK,
+  DEFAULT_BUTTON_LINK,
+  DEFAULT_LINK
 } from "./custom-link.styles";
 
 export const LINK_TYPE_CLASSES = {
@@ -13,9 +13,9 @@ export const LINK_TYPE_CLASSES = {
 
 const getLink = (linkType = LINK_TYPE_CLASSES.default) => (
   {
-    [LINK_TYPE_CLASSES.default]: defaultLink,
-    [LINK_TYPE_CLASSES.defaultButtonLink]: defaultButtonLink,
-    [LINK_TYPE_CLASSES.navBarLink]: NavBarLink,
+    [LINK_TYPE_CLASSES.default]: DEFAULT_LINK,
+    [LINK_TYPE_CLASSES.defaultButtonLink]: DEFAULT_BUTTON_LINK,
+    [LINK_TYPE_CLASSES.navBarLink]: NAV_BAR_LINK,
   }[linkType]
 );
 

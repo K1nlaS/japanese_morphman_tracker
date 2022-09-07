@@ -2,17 +2,17 @@
 
 //Styled Components
 import {
-  Group,
-  FormInputLabel,
-  Input
+  GROUP,
+  FORM_INPUT_LABEL,
+  INPUT
 } from "./form-input.styles";
 
 const FormInput = ({ label, id, ...otherProps }) => {
   return (
-    <Group>
-      {label && <FormInputLabel htmlFor={id}>{label}</FormInputLabel>}
-      <Input {...otherProps} id={id} />
-    </Group>
+    <GROUP>
+      {label && <FORM_INPUT_LABEL htmlFor={id}>{label}</FORM_INPUT_LABEL>}
+      <INPUT {...otherProps} id={id} />
+    </GROUP>
   );
 };
 

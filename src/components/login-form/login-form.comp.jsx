@@ -12,7 +12,7 @@ import { Button } from "../button/button.comp";
 
 //Styled Components
 import {
-  SLink
+  SIGNUP_LINK
 } from "./login-form.styles";
 
 
@@ -56,9 +56,9 @@ const LoginForm = () => {
         <Button type="submit">Login</Button>
       </form>
 
-      <SLink to="/auth/signup">
+      <SIGNUP_LINK to="/auth/signup">
         Do not have an account? <span>Create an account</span>
-      </SLink>
+      </SIGNUP_LINK>
     </>
   );
 };

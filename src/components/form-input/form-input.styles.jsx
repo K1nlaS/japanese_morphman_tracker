@@ -1,13 +1,14 @@
 import styled from "styled-components";
 
 
-export const FormInputLabel = styled.label`
+export const FORM_INPUT_LABEL = styled.label`
   text-align: start;
   font-size: 1.4rem;
+  padding: 0 1rem;
   margin-bottom: 0.6rem;
 `;
 
-export const Input = styled.input`
+export const INPUT = styled.input`
   border-radius: var(--border-radius);
   height: 4rem;
   outline: none;
@@ -18,7 +19,7 @@ export const Input = styled.input`
   color: white;
 `;
 
-export const Group = styled.div`
+export const GROUP = styled.div`
   position: relative;
   margin-bottom: 2.5rem;
   display: flex;

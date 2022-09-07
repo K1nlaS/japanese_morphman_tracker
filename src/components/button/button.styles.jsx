@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const defaultButton = styled.button`
+export const DEFAULT_BUTTON = styled.button`
   border: none;
   color: white;
   background-color: var(--primary-button-color);
@@ -14,5 +14,16 @@ export const defaultButton = styled.button`
 
   &:hover {
     background-color: var(--button-hover-color);
+  }
+`;
+
+export const PLAIN_BUTTON = styled.div`
+  padding: 1rem 1.2rem;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: .3s;
+
+  &:hover {
+    color: white;
   }
 `;

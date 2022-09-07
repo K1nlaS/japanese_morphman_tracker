@@ -13,13 +13,13 @@ import { CustomLink, LINK_TYPE_CLASSES } from "../../components/custom-link/cust
 
 //Styled Components
 import {
-  NavBar,
-  NavBarContainer,
-  JmtLogo,
-  NavLinks,
-  AuthLinks,
-  SButton
+  NAV_BAR,
+  NAV_BAR_CONTAINER,
+  JMT_LOGO,
+  NAV_LINKS,
+  AUTH_LINKS,
 } from "./navigation.styles";
+import { Button, BUTTON_TYPE_CLASSES } from "../../components/button/button.comp";
 
 const Navigation = () => {
 
@@ -27,23 +27,23 @@ const Navigation = () => {
 
   return (
     <>
-      <NavBar>
-        <NavBarContainer>
+      <NAV_BAR>
+        <NAV_BAR_CONTAINER>
 
           <div>
-            <JmtLogo to="/" />
+            <JMT_LOGO to="/" />
           </div>
 
 
-          <NavLinks>
+          <NAV_LINKS>
             <CustomLink to="/" linkType={LINK_TYPE_CLASSES.navBarLink}>Home</CustomLink>
             <CustomLink to="/list" linkType={LINK_TYPE_CLASSES.navBarLink}>Anime List</CustomLink>
-          </NavLinks>
+          </NAV_LINKS>
 
-          <AuthLinks>
+          <AUTH_LINKS>
             {
               currentUser ? (
-                <SButton onClick={signOutUser}>Sign Out</SButton>
+                <Button buttonType={BUTTON_TYPE_CLASSES.plain} onClick={signOutUser}>Sign Out</Button>
               ) : (
                 <>
                   <CustomLink to="/auth/login" linkType={LINK_TYPE_CLASSES.navBarLink}>Login</CustomLink>
@@ -52,10 +52,10 @@ const Navigation = () => {
               )
             }
 
-          </AuthLinks>
+          </AUTH_LINKS>
 
-        </NavBarContainer>
-      </NavBar>
+        </NAV_BAR_CONTAINER>
+      </NAV_BAR>
 
       <Outlet />
 
