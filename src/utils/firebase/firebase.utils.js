@@ -18,6 +18,9 @@ import {
   addDoc,
 } from "firebase/firestore";
 
+//Anilist API
+import { fetchAnilistShow } from "./anilist.api.utils";
+
 //Firbase configuration and initialization
 const firbaseConfig = {
   apiKey: process.env.REACT_APP_FIRBASE_API_KEY,
@@ -96,7 +99,14 @@ export const addNewListDocument = async (userAuth, postData) => {
   const userListQuery = await getDocs(userListRef);
 
   //Checks if there is an entry with the same title, if there is not it creates a new entry
-  if (!userListQuery.docs.some(doc => doc.data().title === postData.title)) {
+  if (!userListQuery.docs.some(doc => doc.data().title.toLowerCase() === postData.title.toLowerCase())) {
+    //Searches Anilist's API for the show
+    const { data } = await fetchAnilistShow(postData.title);
+
+    if (data) {
+      Object.assign(postData, data);
+    }
+
     await addDoc(userListRef, {
       ...postData
     });
