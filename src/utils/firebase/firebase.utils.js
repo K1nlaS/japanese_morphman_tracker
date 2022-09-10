@@ -102,7 +102,6 @@ export const addNewListDocument = async (userAuth, postData) => {
   if (!userListQuery.docs.some(doc => doc.data().title.toLowerCase() === postData.title.toLowerCase())) {
     //Searches Anilist's API for the show
     const { data } = await fetchAnilistShow(postData.title);
-
     if (data) {
       Object.assign(postData, data);
     }

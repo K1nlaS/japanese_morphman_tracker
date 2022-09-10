@@ -28,7 +28,7 @@ export const SEED_DATA = [
   },
   {
     title: "Shoujo Shuumatsu Ryokou",
-    knownInstances: "96.65%",
+    knownInstances: "96.65",
     lineReadability: "86.01",
     uknownMorphs: "2",
     type: "TV",

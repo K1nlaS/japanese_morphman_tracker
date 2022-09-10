@@ -4,7 +4,6 @@ import styled from "styled-components";
 export const DEFAULT_LINK = styled(NavLink)`
   padding: 1rem 1.2rem;
   white-space: nowrap;
-  border-bottom: 2px solid transparent;
   transition: .3s;
 
   &:hover {

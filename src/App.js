@@ -27,11 +27,7 @@ const App = () => {
 
   //Seeder Function
   // useEffect(() => {
-  //   const seedData = async () => {
-  //     await seed();
-  //   };
-
-  //   seedData();
+  //   seed();
   // }, []);
 
   useEffect(() => {
