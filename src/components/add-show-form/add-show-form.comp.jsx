@@ -1,6 +1,6 @@
 //Misc
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 //Components
 import FormInput from "../form-input/form-input.comp";
@@ -15,6 +15,7 @@ import { selectCurrentUser } from "../../store/user/user.selector";
 
 //Firebase
 import { addNewListDocument } from "../../utils/firebase/firebase.utils";
+import { fetchListAsync } from "../../store/list/list.action";
 
 const typeSelectOptions = [
   { value: "TV", label: "TV" },
@@ -38,12 +39,13 @@ const defaultFormFields = {
   status: statusSelectOptions[0].value
 };
 
-const AddShowFormComponent = ({ fetchList }) => {
+const AddShowFormComponent = () => {
 
+  const dispatch = useDispatch();
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { title, knownInstances, lineReadability, uknownMorphs } = formFields;
 
-  const user = useSelector(selectCurrentUser);
+  const currentUser = useSelector(selectCurrentUser);
 
   const resetFormField = () => setFormFields(defaultFormFields);
 
@@ -66,10 +68,10 @@ const AddShowFormComponent = ({ fetchList }) => {
     event.preventDefault();
 
     try {
-      await addNewListDocument(user, formFields);
+      await addNewListDocument(currentUser, formFields);
+      dispatch(fetchListAsync(currentUser));
 
       resetFormField();
-      fetchList(true);
     } catch (error) {
       console.log(error.code);
     }
