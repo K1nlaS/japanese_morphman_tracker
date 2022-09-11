@@ -16,14 +16,19 @@ import { LIST_CONTAINER } from "./list.styles";
 import { selectCurrentUser } from "../../store/user/user.selector";
 import { fetchListAsync } from "../../store/list/list.action";
 
+//Selectors
+import { selectList } from "../../store/list/list.selector";
+
 
 
 const List = () => {
 
   const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);
+  const { list } = useSelector(selectList);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [filteredList, setFilteredList] = useState(list);
 
   useEffect(() => {
     dispatch(fetchListAsync(currentUser));
@@ -43,7 +48,7 @@ const List = () => {
           )
         }
 
-        <ListDisplay />
+        <ListDisplay list={filteredList} />
       </LIST_CONTAINER>
 
     </CONTENT_CONTAINER>
