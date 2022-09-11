@@ -37,21 +37,22 @@ const List = () => {
 
   return (
     <CONTENT_CONTAINER>
-      <LIST_CONTAINER>
-        <div>
-          <Button buttonType={BUTTON_TYPE_CLASSES.default} onClick={toggleModal}>Add</Button>
-        </div>
-        {
-          isModalOpen && (
-            <Modal closeModal={setIsModalOpen}>
-              <AddShowFormComponent />
-            </Modal>
-          )
-        }
+      {currentUser && (
+        <LIST_CONTAINER>
+          <div>
+            <Button buttonType={BUTTON_TYPE_CLASSES.default} onClick={toggleModal}>Add</Button>
+          </div>
+          {
+            isModalOpen && (
+              <Modal closeModal={setIsModalOpen}>
+                <AddShowFormComponent />
+              </Modal>
+            )
+          }
 
-        <ListDisplay list={list} />
-      </LIST_CONTAINER>
-
+          <ListDisplay list={list} />
+        </LIST_CONTAINER>
+      )}
     </CONTENT_CONTAINER>
   );
 };

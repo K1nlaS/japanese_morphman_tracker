@@ -1,5 +1,12 @@
 //Misc
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+
+//Firebase
+import { updateListDocument } from "../../utils/firebase/firebase.utils";
+
+//Selectors
+import { selectCurrentUser } from "../../store/user/user.selector";
 
 //Components
 import { Button, BUTTON_TYPE_CLASSES } from "../button/button.comp";
@@ -19,9 +26,6 @@ import {
   FOOTER_DATES,
   FOOTER_DATE
 } from "./edit-show-form.styles";
-import { useEffect } from "react";
-
-
 
 const statusSelectOptions = [
   { value: "Planning", label: "Planning" },
@@ -37,29 +41,43 @@ const typeSelectOptions = [
 ];
 
 const defaultFormFields = {
-  formKnownInstances: "",
-  formLineReadability: "",
-  formUknownMorphs: "",
-  formStatus: "",
+  id: "",
+  knownInstances: "",
+  lineReadability: "",
+  uknownMorphs: "",
+  status: "",
   formType: ""
 };
 
 const EditShowForm = ({ show }) => {
 
-  const { Media, title, status, knownInstances, lineReadability, uknownMorphs, type, createdAt } = show;
+  const currentUser = useSelector(selectCurrentUser);
+
+  const {
+    Media,
+    id,
+    title: titleData,
+    status: statusData,
+    knownInstances: knownInstancesData,
+    lineReadability: lineReadabilityData,
+    uknownMorphs: uknownMorphsData,
+    type: typeData,
+    createdAt
+  } = show;
   const { bannerImage, coverImage } = Media;
 
 
   const [formFields, setFormFields] = useState(defaultFormFields);
-  const { formKnownInstances, formLineReadability, formUknownMorphs, formStatus, formType } = formFields;
+  const { knownInstances, lineReadability, uknownMorphs, status, formType } = formFields;
 
   useEffect(() => {
     setFormFields({
-      formKnownInstances: knownInstances,
-      formLineReadability: lineReadability,
-      formUknownMorphs: uknownMorphs,
-      formStatus: status,
-      formType: type
+      id: id,
+      knownInstances: knownInstancesData,
+      lineReadability: lineReadabilityData,
+      uknownMorphs: uknownMorphsData,
+      status: statusData,
+      formType: typeData
     });
   }, []);
 
@@ -70,7 +88,7 @@ const EditShowForm = ({ show }) => {
 
   const dropdownStatusChangeHandle = (selectedOption) => {
     const { value } = selectedOption;
-    setFormFields({ ...formFields, formStatus: value });
+    setFormFields({ ...formFields, status: value });
   };
 
   const dropdownTypeChangeHandle = (selectedOption) => {
@@ -78,24 +96,30 @@ const EditShowForm = ({ show }) => {
     setFormFields({ ...formFields, formType: value });
   };
 
+  const formSubmitHandler = async (e) => {
+    e.preventDefault();
+
+    await updateListDocument(currentUser, formFields);
+  };
+
   return (
     <EDIT_CONTAINER>
       <HEADER bannerImage={bannerImage} >
         <HEADER_CONTENT>
           <HEADER_COVER coverImg={coverImage.medium} />
-          <HEADER_TITLE>{title}</HEADER_TITLE>
-          <Button>Save</Button>
+          <HEADER_TITLE>{titleData}</HEADER_TITLE>
+          <Button form="editForm">Save</Button>
         </HEADER_CONTENT>
       </HEADER>
       <BODY>
-        <FORM_CONTAINER>
-          <DropDown onChange={dropdownStatusChangeHandle} statusValue={formStatus} label="Status" options={statusSelectOptions} />
+        <FORM_CONTAINER id="editForm" onSubmit={formSubmitHandler}>
+          <DropDown onChange={dropdownStatusChangeHandle} statusValue={status} label="Status" options={statusSelectOptions} />
 
-          <FormInput label="Line Readability %" type="number" name="formLineReadability" id="lineReadability" value={formLineReadability} onChange={inputChangeHandler} />
+          <FormInput label="Line Readability %" type="number" name="lineReadability" id="lineReadability" value={lineReadability} onChange={inputChangeHandler} min="0" max="100" step="0.01" required />
 
-          <FormInput label="Known Instances %" type="number" name="formKnownInstances" id="knownInstances" value={formKnownInstances} onChange={inputChangeHandler} />
+          <FormInput label="Known Instances %" type="number" name="knownInstances" id="knownInstances" value={knownInstances} onChange={inputChangeHandler} min="0" max="100" step="0.01" required />
 
-          <FormInput label="Uknown Morphs (Optional)" type="number" name="formUknownMorphs" id="uknownMorphs" value={formUknownMorphs} onChange={inputChangeHandler} />
+          <FormInput label="Uknown Morphs (Optional)" type="number" name="uknownMorphs" id="uknownMorphs" value={uknownMorphs} onChange={inputChangeHandler} min="0" step="1" required />
 
           <DropDown onChange={dropdownTypeChangeHandle} statusValue={formType} label="Type" options={typeSelectOptions} />
         </FORM_CONTAINER>

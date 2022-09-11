@@ -16,6 +16,7 @@ import {
   collection,
   getDocs,
   addDoc,
+  updateDoc,
 } from "firebase/firestore";
 
 //Anilist API
@@ -110,4 +111,14 @@ export const addNewListDocument = async (userAuth, postData) => {
       ...postData
     });
   };
+};
+
+//Updating signle list entry
+export const updateListDocument = async (userAuth, postData) => {
+  if (!userAuth || !postData) return;
+
+  const listItemRef = doc(db, "users", userAuth.uid, "list", postData.id);
+  await updateDoc(listItemRef, { ...postData });
+
+  console.log(postData);
 };

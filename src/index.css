@@ -13,7 +13,7 @@
   --button-hover-color-red: rgb(232, 93, 117);
 
   /* Vars */
-  --border-radius: 1.6rem;
+  --border-radius: 1.2rem;
 }
 
 * {
@@ -43,6 +43,12 @@ body {
   color: var(--text-color);
   background-color: var(--default-body-color);
   font-size: 1.6rem;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 a {
