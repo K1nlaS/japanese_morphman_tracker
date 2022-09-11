@@ -4,6 +4,10 @@ import { useState } from "react";
 //Icons
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 
+//Components
+import Modal from "../modal/modal.comp";
+import EditShowForm from "../edit-show-form/edit-show-form.comp";
+
 //Styled Components
 import {
   ITEM_CONTAINER,
@@ -17,6 +21,7 @@ import {
   ITEM_LINK,
   ITEM_EDIT
 } from "./list-display-item.styles";
+import { useEffect } from "react";
 
 const ListDisplayItem = ({ show }) => {
 
@@ -24,20 +29,37 @@ const ListDisplayItem = ({ show }) => {
   const { coverImage, siteUrl } = Media;
 
   const [itemHover, setItemHover] = useState(false);
+  const [isEditForm, setIsEditForm] = useState(false);
 
-  const itemHoverHandler = () => {
+  const itemHoverHandler = () =>
     setItemHover(!itemHover);
+
+  const editClickHandler = () => {
+    setIsEditForm(true);
   };
+
+  useEffect(() => {
+    setItemHover(false);
+  }, [isEditForm]);
 
   return (
     <ITEM_CONTAINER onMouseEnter={itemHoverHandler} onMouseLeave={itemHoverHandler}>
-      <ITEM_COVER >
+      <ITEM_COVER>
         {
           itemHover
-            ? (<ITEM_EDIT ><BiDotsHorizontalRounded /></ITEM_EDIT>)
+            ? (<ITEM_EDIT onClick={editClickHandler}><BiDotsHorizontalRounded /></ITEM_EDIT>)
             : <COVER_IMG imgUrl={coverImage.medium} />
         }
       </ITEM_COVER>
+
+      {
+        isEditForm && (
+          <Modal closeModal={setIsEditForm}>
+            <EditShowForm show={show} />
+          </Modal>
+        )
+      }
+
 
       <ITEM_TITLE>
         <ITEM_LINK href={siteUrl}>{title}</ITEM_LINK>

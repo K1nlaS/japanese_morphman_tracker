@@ -8,7 +8,10 @@ import { Button } from "../button/button.comp";
 import DropDown from "../dropdown/dropdown.comp";
 
 //Styled Components
-import { DROP_DOWNS_CONTAINER } from "./add-show-form.styles";
+import {
+  DROP_DOWNS_CONTAINER,
+  FORM_CONTAINER
+} from "./add-show-form.styles";
 
 //Redux
 import { selectCurrentUser } from "../../store/user/user.selector";
@@ -78,22 +81,24 @@ const AddShowFormComponent = () => {
   };
 
   return (
-    <form onSubmit={formSubmitHandler}>
-      <FormInput label="Title" type="text" name="title" id="title" value={title} onChange={inputChangeHandler} required />
+    <FORM_CONTAINER>
+      <form onSubmit={formSubmitHandler}>
+        <FormInput label="Title" type="text" name="title" id="title" value={title} onChange={inputChangeHandler} required />
 
-      <FormInput label="Known Instances %" type="number" name="knownInstances" id="knownInstances" value={knownInstances} onChange={inputChangeHandler} />
+        <FormInput label="Known Instances %" type="number" name="knownInstances" id="knownInstances" value={knownInstances} onChange={inputChangeHandler} />
 
-      <FormInput label="Line Readability %" type="number" name="lineReadability" id="lineReadability" value={lineReadability} onChange={inputChangeHandler} />
+        <FormInput label="Line Readability %" type="number" name="lineReadability" id="lineReadability" value={lineReadability} onChange={inputChangeHandler} />
 
-      <FormInput label="Uknown Morphs (Optional)" type="number" name="uknownMorphs" id="uknownMorphs" value={uknownMorphs} onChange={inputChangeHandler} />
+        <FormInput label="Uknown Morphs (Optional)" type="number" name="uknownMorphs" id="uknownMorphs" value={uknownMorphs} onChange={inputChangeHandler} />
 
-      <DROP_DOWNS_CONTAINER>
-        <DropDown options={typeSelectOptions} onChange={dropdownTypeChangeHandle} />
-        <DropDown options={statusSelectOptions} onChange={dropdownStatusChangeHandle} />
-      </DROP_DOWNS_CONTAINER>
+        <DROP_DOWNS_CONTAINER>
+          <DropDown options={typeSelectOptions} onChange={dropdownTypeChangeHandle} />
+          <DropDown options={statusSelectOptions} onChange={dropdownStatusChangeHandle} />
+        </DROP_DOWNS_CONTAINER>
 
-      <Button>Add</Button>
-    </form>
+        <Button>Add</Button>
+      </form>
+    </FORM_CONTAINER>
   );
 };
 

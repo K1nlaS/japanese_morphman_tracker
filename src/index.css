@@ -10,6 +10,7 @@
   /* Button */
   --primary-button-color: rgb(16, 96, 255);
   --button-hover-color: rgb(53 119 255);
+  --button-hover-color-red: rgb(232, 93, 117);
 
   /* Vars */
   --border-radius: 1.6rem;

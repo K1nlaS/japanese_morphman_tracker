@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 
-export const FORM_INPUT_LABEL = styled.label`
+export const FORM_INPUT_LABEL = styled.div`
   text-align: start;
   font-size: 1.4rem;
   padding: 0 1rem;

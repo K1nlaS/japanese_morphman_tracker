@@ -17,9 +17,9 @@ export const MODAL_CONTAINER = styled.div`
   margin: 0 auto;
   margin-top: 15vh;
   position: relative;
-  max-width: 400px;
+  width: fit-content;
+  max-width: 1000px;
   text-align: center;
-  padding: 4rem 4rem;
   border-radius: var(--border-radius);
   background-color: var(--primary-white-color);
 `;
