@@ -28,7 +28,6 @@ const List = () => {
   const { list } = useSelector(selectList);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [filteredList, setFilteredList] = useState(list);
 
   useEffect(() => {
     dispatch(fetchListAsync(currentUser));
@@ -39,7 +38,9 @@ const List = () => {
   return (
     <CONTENT_CONTAINER>
       <LIST_CONTAINER>
-        <Button buttonType={BUTTON_TYPE_CLASSES.default} onClick={toggleModal}>Add</Button>
+        <div>
+          <Button buttonType={BUTTON_TYPE_CLASSES.default} onClick={toggleModal}>Add</Button>
+        </div>
         {
           isModalOpen && (
             <Modal closeModal={setIsModalOpen}>
@@ -48,7 +49,7 @@ const List = () => {
           )
         }
 
-        <ListDisplay list={filteredList} />
+        <ListDisplay list={list} />
       </LIST_CONTAINER>
 
     </CONTENT_CONTAINER>

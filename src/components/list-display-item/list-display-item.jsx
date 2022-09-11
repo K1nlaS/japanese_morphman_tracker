@@ -1,4 +1,8 @@
 import React from 'react';
+import { useState } from "react";
+
+//Icons
+import { BiDotsHorizontalRounded } from "react-icons/bi";
 
 //Styled Components
 import {
@@ -9,23 +13,34 @@ import {
   ITEM_READABILITY,
   ITEM_KNOWN_INSTANCES,
   ITEM_UKNOWN_MORPHS,
-  ITEM_TYPE
+  ITEM_TYPE,
+  ITEM_LINK,
+  ITEM_EDIT
 } from "./list-display-item.styles";
-import { CustomLink } from "../custom-link/custom-link.comp";
 
 const ListDisplayItem = ({ show }) => {
 
-  const { id, title, lineReadability, knownInstances, uknownMorphs, type, Media } = show;
-  const { coverImage } = Media;
+  const { title, lineReadability, knownInstances, uknownMorphs, type, Media } = show;
+  const { coverImage, siteUrl } = Media;
+
+  const [itemHover, setItemHover] = useState(false);
+
+  const itemHoverHandler = () => {
+    setItemHover(!itemHover);
+  };
 
   return (
-    <ITEM_CONTAINER>
+    <ITEM_CONTAINER onMouseEnter={itemHoverHandler} onMouseLeave={itemHoverHandler}>
       <ITEM_COVER >
-        <COVER_IMG imgUrl={coverImage.medium} />
+        {
+          itemHover
+            ? (<ITEM_EDIT ><BiDotsHorizontalRounded /></ITEM_EDIT>)
+            : <COVER_IMG imgUrl={coverImage.medium} />
+        }
       </ITEM_COVER>
 
       <ITEM_TITLE>
-        <CustomLink to={id}>{title}</CustomLink>
+        <ITEM_LINK href={siteUrl}>{title}</ITEM_LINK>
       </ITEM_TITLE>
 
       <ITEM_READABILITY>{lineReadability}%</ITEM_READABILITY>

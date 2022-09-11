@@ -1,8 +1,5 @@
 //Misc
-import { useSelector } from "react-redux";
 
-//Redux
-import { selectList } from "../../store/list/list.selector";
 
 //Components
 import ListStatus from "../list-status/list-status.comp";
@@ -20,7 +17,7 @@ const statuses = [
   "completed",
 ];
 
-const ListPreview = ({ list }) => {
+const ListDisplay = ({ list }) => {
 
   //Checks if there are shows with the specified status in the list array
   const statusShowsExist = (list, status) => {
@@ -33,7 +30,7 @@ const ListPreview = ({ list }) => {
         statuses.map(status => (
 
           statusShowsExist(list, status) && (
-            <ListStatus status={status}>
+            <ListStatus key={status} status={status}>
               <ListHead />
               <div>
                 {
@@ -48,4 +45,4 @@ const ListPreview = ({ list }) => {
   );
 };
 
-export default ListPreview;
+export default ListDisplay;

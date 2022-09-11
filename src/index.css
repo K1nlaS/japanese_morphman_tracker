@@ -5,6 +5,7 @@
   --default-hover-background-color: rgb(52 55 70);
   --text-color: rgb(206 207 209);
   --hover-color: rgb(101 126 248);
+  --color-overlay: 32, 20, 20;
 
   /* Button */
   --primary-button-color: rgb(16, 96, 255);

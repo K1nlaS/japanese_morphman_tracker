@@ -1,5 +1,3 @@
-import React from 'react';
-
 //Styled Components
 import {
   ITEM_CONTAINER,
@@ -10,10 +8,11 @@ import {
   ITEM_UKNOWN_MORPHS,
   ITEM_TYPE
 } from "../list-display-item/list-display-item.styles";
+import { ITEM_CONTAINER_HEAD } from "./list-display-head.styles";
 
 const ListHead = () => {
   return (
-    <ITEM_CONTAINER>
+    <ITEM_CONTAINER_HEAD>
       <ITEM_COVER ></ITEM_COVER>
 
       <ITEM_TITLE>Title</ITEM_TITLE>
@@ -25,7 +24,7 @@ const ListHead = () => {
       <ITEM_UKNOWN_MORPHS>Study</ITEM_UKNOWN_MORPHS>
 
       <ITEM_TYPE>Type</ITEM_TYPE>
-    </ITEM_CONTAINER>
+    </ITEM_CONTAINER_HEAD>
   );
 };
 

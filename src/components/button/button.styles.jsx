@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const DEFAULT_BUTTON = styled.button`
+  display: block;
   border: none;
   color: white;
   background-color: var(--primary-button-color);
