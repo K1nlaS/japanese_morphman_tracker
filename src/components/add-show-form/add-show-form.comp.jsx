@@ -86,7 +86,7 @@ const AddShowFormComponent = ({ closeModal }) => {
 
         <FormInput label="Line Readability %" type="number" name="lineReadability" id="lineReadability" value={lineReadability} onChange={inputChangeHandler} min="0" max="100" step="0.01" required />
 
-        <FormInput label="Uknown Morphs (Optional)" type="number" name="uknownMorphs" id="uknownMorphs" value={uknownMorphs} onChange={inputChangeHandler} min="0" max="100" step="1" />
+        <FormInput label="Uknown Morphs (Optional)" type="number" name="uknownMorphs" id="uknownMorphs" value={uknownMorphs} onChange={inputChangeHandler} min="0" step="1" />
 
         <DROP_DOWNS_CONTAINER>
           <DropDown options={typeSelectOptions} onChange={dropdownTypeChangeHandle} />

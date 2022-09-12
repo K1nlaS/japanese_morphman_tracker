@@ -1,6 +1,7 @@
 //Misc
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import defaultBanner from "../../assets/404_banner.jpg";
 
 //Firebase
 import { updateListDocument, deleteListDocument } from "../../utils/firebase/firebase.utils";
@@ -127,9 +128,9 @@ const EditShowForm = ({ show, closeModal }) => {
 
   return (
     <EDIT_CONTAINER>
-      <HEADER bannerImage={bannerImage} >
+      <HEADER bannerImage={bannerImage ? bannerImage : defaultBanner} >
         <HEADER_CONTENT>
-          <HEADER_COVER coverImg={coverImage.medium} />
+          <HEADER_COVER coverImg={coverImage ? coverImage.medium : defaultBanner} />
           <HEADER_TITLE onChange={titleChangeHandler} value={title} name="title" spellCheck={false} />
           <Button form="editForm">Save</Button>
         </HEADER_CONTENT>

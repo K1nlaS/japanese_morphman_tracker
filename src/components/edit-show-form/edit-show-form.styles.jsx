@@ -34,6 +34,8 @@ export const HEADER_COVER = styled.div`
   max-width: 100px;
   margin-bottom: -3rem;
   border-radius: 0.3rem;
+  background-position: 50%;
+  background-size: cover;
   background-image: url('${props => props.coverImg}');
 `;
 

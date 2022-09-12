@@ -1,5 +1,7 @@
+//Misc
 import React from 'react';
 import { useState } from "react";
+import defaultBanner from "../../assets/404_banner.jpg";
 
 //Icons
 import { BiDotsHorizontalRounded } from "react-icons/bi";
@@ -51,7 +53,7 @@ const ListDisplayItem = ({ show }) => {
           {
             itemHover
               ? (<ITEM_EDIT onClick={editClickHandler}><BiDotsHorizontalRounded /></ITEM_EDIT>)
-              : <COVER_IMG imgUrl={coverImage.medium} />
+              : <COVER_IMG imgUrl={coverImage ? coverImage.medium : defaultBanner} />
           }
         </ITEM_COVER>
 
