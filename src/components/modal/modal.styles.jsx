@@ -37,6 +37,7 @@ export const CLOSE_BUTTON = styled.div`
   top: 2rem;
   background-color: transparent;
   transition: .3s;
+  user-select: none;
   
   &:hover {
     color: white;

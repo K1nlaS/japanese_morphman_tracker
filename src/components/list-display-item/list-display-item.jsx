@@ -34,10 +34,6 @@ const ListDisplayItem = ({ show }) => {
   const [itemHover, setItemHover] = useState(false);
   const [isEditForm, setIsEditForm] = useState(false);
 
-  const itemHoverHandler = (e) => {
-    setItemHover(!itemHover);
-  };
-
   const editClickHandler = (e) => {
     setIsEditForm(true);
   };
@@ -48,7 +44,7 @@ const ListDisplayItem = ({ show }) => {
 
   return (
     <>
-      <ITEM_CONTAINER onMouseEnter={itemHoverHandler} onMouseLeave={itemHoverHandler}>
+      <ITEM_CONTAINER onMouseEnter={() => setItemHover(true)} onMouseLeave={() => setItemHover(false)}>
         <ITEM_COVER>
           {
             itemHover

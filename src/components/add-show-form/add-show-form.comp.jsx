@@ -89,8 +89,8 @@ const AddShowFormComponent = ({ closeModal }) => {
         <FormInput label="Uknown Morphs (Optional)" type="number" name="uknownMorphs" id="uknownMorphs" value={uknownMorphs} onChange={inputChangeHandler} min="0" step="1" />
 
         <DROP_DOWNS_CONTAINER>
-          <DropDown options={typeSelectOptions} onChange={dropdownTypeChangeHandle} />
-          <DropDown options={statusSelectOptions} onChange={dropdownStatusChangeHandle} />
+          <DropDown label="Type" options={typeSelectOptions} onChange={dropdownTypeChangeHandle} />
+          <DropDown label="Status" options={statusSelectOptions} onChange={dropdownStatusChangeHandle} />
         </DROP_DOWNS_CONTAINER>
 
         <Button>Add</Button>

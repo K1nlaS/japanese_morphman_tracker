@@ -24,6 +24,9 @@ import {
 //Anilist API
 import { fetchAnilistShow } from "./anilist.api.utils";
 
+//Firebase Helpers
+import { doesEntryExist } from "./firebase.helpers";
+
 //Firbase configuration and initialization
 const firbaseConfig = {
   apiKey: process.env.REACT_APP_FIRBASE_API_KEY,
@@ -102,7 +105,7 @@ export const addNewListDocument = async (userAuth, postData) => {
   const userListQuery = await getDocs(userListRef);
 
   //Checks if there is an entry with the same title, if there is not it creates a new entry
-  if (!userListQuery.docs.some(doc => doc.data().title.toLowerCase() === postData.title.toLowerCase())) {
+  if (doesEntryExist(userListQuery, postData)) {
 
     //Searches Anilist's API for the show
     try {
@@ -139,7 +142,7 @@ export const updateListDocument = async (userAuth, postData) => {
   const listItemDoc = await getDoc(listItemRef);
 
   //If user tries to change the name of the show to one that already exists in the db the changes will not be applied
-  if (userListQuery.docs.some(doc => doc.data().title.toLowerCase() === postData.title.toLowerCase())) { return; };
+  if (!doesEntryExist(userListQuery, postData)) { return; };
 
   //Checks if the title is the same as the one in DB, if not creates a new fetch request to Anilist API
   try {

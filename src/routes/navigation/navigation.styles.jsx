@@ -30,8 +30,9 @@ export const JMT_LOGO = styled(Link)`
 
 export const NAV_LINKS = styled.div`
   width: 100%;
+  padding: 0 2rem;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
 `;
 
 export const AUTH_LINKS = styled.div`

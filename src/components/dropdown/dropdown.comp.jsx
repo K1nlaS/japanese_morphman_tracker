@@ -24,16 +24,19 @@ const customStyles = {
     color: "var(--text-color)"
   }),
 
-  option: (styles) => ({
+  option: (styles, state) => ({
     ...styles,
     borderRadius: "var(--border-radius)",
     margingBotton: "1rem",
     transiton: ".3s",
+    cursor: "pointer",
 
     '&:hover': {
       backgroundColor: 'var(--primary-button-color)',
       color: "white"
-    }
+    },
+
+    backgroundColor: state.isFocused & 'var(--primary-button-color)'
   }),
 
   menu: (styles) => ({
