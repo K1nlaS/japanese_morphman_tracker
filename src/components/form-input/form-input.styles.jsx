@@ -14,7 +14,7 @@ export const INPUT = styled.input`
   outline: none;
   padding: 0 2rem;
   border: none;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   background-color: var(--default-body-color);
   color: white;
 `;

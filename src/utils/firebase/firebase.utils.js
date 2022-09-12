@@ -115,6 +115,13 @@ export const addNewListDocument = async (userAuth, postData) => {
     const createdAt = new Date();
     const historyChange = {};
 
+    // Setting percent values to 00.00 format
+    const localeOptions = { minimumFractionDigits: 2, maximumFractionDigits: 2, minimumIntegerDigits: 2 };
+
+    postData.lineReadability = parseInt(postData.lineReadability).toLocaleString(undefined, localeOptions);
+    postData.knownInstances = parseInt(postData.knownInstances).toLocaleString(undefined, localeOptions);
+
+
     await addDoc(userListRef, {
       ...postData, createdAt, updatedAt: createdAt, historyChange
     });
@@ -125,8 +132,14 @@ export const addNewListDocument = async (userAuth, postData) => {
 export const updateListDocument = async (userAuth, postData) => {
   if (!userAuth || !postData) return;
 
+  const userListRef = collection(db, "users", userAuth.uid, "list");
+  const userListQuery = await getDocs(userListRef);
+
   const listItemRef = doc(db, "users", userAuth.uid, "list", postData.id);
   const listItemDoc = await getDoc(listItemRef);
+
+  //If user tries to change the name of the show to one that already exists in the db the changes will not be applied
+  if (userListQuery.docs.some(doc => doc.data().title.toLowerCase() === postData.title.toLowerCase())) { return; };
 
   //Checks if the title is the same as the one in DB, if not creates a new fetch request to Anilist API
   try {
@@ -148,7 +161,13 @@ export const updateListDocument = async (userAuth, postData) => {
     console.log(error.message);
   }
 
-  await updateDoc(listItemRef, { ...postData });
+  // Setting percent values to 00.00 format
+  const localeOptions = { minimumFractionDigits: 2, maximumFractionDigits: 2, minimumIntegerDigits: 2 };
+
+  postData.lineReadability = parseInt(postData.lineReadability).toLocaleString(undefined, localeOptions);
+  postData.knownInstances = parseInt(postData.knownInstances).toLocaleString(undefined, localeOptions);
+
+  await updateDoc(listItemRef, { ...postData, updatedAt: new Date() });
 };
 
 //Deleting list entry along side the subcollections

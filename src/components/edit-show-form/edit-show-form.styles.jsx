@@ -78,8 +78,12 @@ export const BODY_FOOTER = styled.div`
 
 export const FOOTER_DATES = styled.div`
   display: flex;
+  gap: 0.2rem;
   flex-direction: column;
 `;
 export const FOOTER_DATE = styled.div`
-  color: white;
+  color: #a1a1a1;
+  display: flex;
+  gap: 0.6rem;
+  justify-content: space-between;
 `;

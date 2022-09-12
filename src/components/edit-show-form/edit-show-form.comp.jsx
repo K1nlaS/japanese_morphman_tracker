@@ -69,7 +69,8 @@ const EditShowForm = ({ show, closeModal }) => {
     lineReadability: lineReadabilityData,
     uknownMorphs: uknownMorphsData,
     type: typeData,
-    createdAt
+    createdAt,
+    updatedAt
   } = show;
   const { bannerImage = "", coverImage = "" } = Media;
 
@@ -150,7 +151,8 @@ const EditShowForm = ({ show, closeModal }) => {
 
         <BODY_FOOTER>
           <FOOTER_DATES>
-            <FOOTER_DATE>Created: {new Date(createdAt.seconds * 1000).toLocaleDateString("ukr")}</FOOTER_DATE>
+            <FOOTER_DATE>Updated: <span>{new Date(updatedAt.seconds * 1000).toLocaleDateString("ukr")}</span></FOOTER_DATE>
+            <FOOTER_DATE>Created: <span>{new Date(createdAt.seconds * 1000).toLocaleDateString("ukr")}</span></FOOTER_DATE>
           </FOOTER_DATES>
           <Button onClick={deleteClickHandler} buttonType={BUTTON_TYPE_CLASSES.formDelete}>Delete</Button>
         </BODY_FOOTER>
