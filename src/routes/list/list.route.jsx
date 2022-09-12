@@ -36,24 +36,28 @@ const List = () => {
   const toggleModal = () => setIsModalOpen(!isModalOpen);
 
   return (
-    <CONTENT_CONTAINER>
-      {currentUser && (
-        <LIST_CONTAINER>
-          <div>
-            <Button buttonType={BUTTON_TYPE_CLASSES.default} onClick={toggleModal}>Add</Button>
-          </div>
-          {
-            isModalOpen && (
-              <Modal closeModal={setIsModalOpen}>
-                <AddShowFormComponent />
-              </Modal>
-            )
-          }
+    <>
+      <CONTENT_CONTAINER>
+        {currentUser && (
+          <LIST_CONTAINER>
+            <div>
+              <Button buttonType={BUTTON_TYPE_CLASSES.default} onClick={toggleModal}>Add</Button>
+            </div>
 
-          <ListDisplay list={list} />
-        </LIST_CONTAINER>
-      )}
-    </CONTENT_CONTAINER>
+
+            <ListDisplay list={list} />
+          </LIST_CONTAINER>
+        )}
+      </CONTENT_CONTAINER>
+
+      {
+        isModalOpen && (
+          <Modal closeModal={setIsModalOpen}>
+            <AddShowFormComponent />
+          </Modal>
+        )
+      }
+    </>
   );
 };
 

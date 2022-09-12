@@ -37,10 +37,24 @@ export const HEADER_COVER = styled.div`
   background-image: url('${props => props.coverImg}');
 `;
 
-export const HEADER_TITLE = styled.div`
+export const HEADER_TITLE = styled.input`
+  background: none;
+  width: 100%;
+  border: none;
+  outline: none;
+  cursor: pointer;
   font-size: 1.6rem;
-  padding: 2rem;
+  padding: 0.9rem 1rem;
+  margin: 1.5rem;
   color: white;
+  transition: .3s;
+  border-radius: var(--border-radius);
+
+  &:focus {
+    box-shadow: inset 0 0 0 100px var(--primary-button-color);
+  }
+
+  &::selection { background: var(--primary-white-color); }
 `;
 
 export const BODY = styled.div`

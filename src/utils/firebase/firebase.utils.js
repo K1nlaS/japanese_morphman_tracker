@@ -109,8 +109,11 @@ export const addNewListDocument = async (userAuth, postData) => {
       Object.assign(postData, data);
     }
 
+    const createdAt = new Date();
+    const historyChange = {};
+
     await addDoc(userListRef, {
-      ...postData
+      ...postData, createdAt, updatedAt: createdAt, historyChange
     });
   };
 };

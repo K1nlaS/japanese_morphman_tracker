@@ -14,5 +14,6 @@ export const LIST_STATUS_CONTAINER = styled.div`
 
 export const LIST_STATUS_SECTION = styled.div`
   background: var(--primary-white-color);
+  box-shadow: 0 2px 20px rgba(49,54,68,.09);
   border-radius: 0.4rem;
 `;

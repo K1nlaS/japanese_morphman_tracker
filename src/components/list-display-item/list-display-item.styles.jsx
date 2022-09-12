@@ -79,6 +79,10 @@ export const ITEM_KNOWN_INSTANCES = styled.div`
 export const ITEM_UKNOWN_MORPHS = styled.div`
   flex: 1;
   text-align: center;
+
+  span {
+    color: #9b9b9b
+  }
 `;
 
 export const ITEM_TYPE = styled.div`

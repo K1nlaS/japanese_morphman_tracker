@@ -1,4 +1,5 @@
 //Misc
+import React from "react";
 
 //Styled Components
 import {
@@ -15,7 +16,7 @@ const Modal = ({ children, closeModal }) => {
     <MODAL_BACKGROUND>
       <MODAL_CONTAINER>
         < CLOSE_BUTTON onClick={closeHandle}>x</CLOSE_BUTTON>
-        {children}
+        {React.cloneElement(children, { closeModal: closeModal })}
       </MODAL_CONTAINER>
     </MODAL_BACKGROUND>
   );

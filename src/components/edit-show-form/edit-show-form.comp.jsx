@@ -1,12 +1,15 @@
 //Misc
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 //Firebase
 import { updateListDocument, deleteListDocument } from "../../utils/firebase/firebase.utils";
 
 //Selectors
 import { selectCurrentUser } from "../../store/user/user.selector";
+
+//Redux
+import { fetchListAsync } from "../../store/list/list.action";
 
 //Components
 import { Button, BUTTON_TYPE_CLASSES } from "../button/button.comp";
@@ -42,6 +45,7 @@ const typeSelectOptions = [
 
 const defaultFormFields = {
   id: "",
+  title: "",
   knownInstances: "",
   lineReadability: "",
   uknownMorphs: "",
@@ -49,9 +53,11 @@ const defaultFormFields = {
   formType: ""
 };
 
-const EditShowForm = ({ show }) => {
+const EditShowForm = ({ show, closeModal }) => {
 
   const currentUser = useSelector(selectCurrentUser);
+
+  const dispatch = useDispatch();
 
   const {
     Media,
@@ -68,7 +74,7 @@ const EditShowForm = ({ show }) => {
 
 
   const [formFields, setFormFields] = useState(defaultFormFields);
-  const { knownInstances, lineReadability, uknownMorphs, status, formType } = formFields;
+  const { knownInstances, lineReadability, uknownMorphs, status, title, formType } = formFields;
 
   useEffect(() => {
     setFormFields({
@@ -77,9 +83,15 @@ const EditShowForm = ({ show }) => {
       lineReadability: lineReadabilityData,
       uknownMorphs: uknownMorphsData,
       status: statusData,
-      formType: typeData
+      formType: typeData,
+      title: titleData,
     });
   }, []);
+
+  const titleChangeHandler = (event) => {
+    const { name, value } = event.target;
+    setFormFields({ ...formFields, [name]: value });
+  };
 
   const inputChangeHandler = (event) => {
     const { name, value } = event.target;
@@ -100,18 +112,27 @@ const EditShowForm = ({ show }) => {
     e.preventDefault();
 
     await updateListDocument(currentUser, formFields);
+    closeModal(false);
+
+    dispatch(fetchListAsync(currentUser));
   };
 
   const deleteClickHandler = async () => {
     await deleteListDocument(currentUser, id);
+
+    closeModal(false);
+
+    dispatch(fetchListAsync(currentUser));
   };
+
+  console.log(formFields);
 
   return (
     <EDIT_CONTAINER>
       <HEADER bannerImage={bannerImage} >
         <HEADER_CONTENT>
           <HEADER_COVER coverImg={coverImage.medium} />
-          <HEADER_TITLE>{titleData}</HEADER_TITLE>
+          <HEADER_TITLE onChange={titleChangeHandler} value={title} name="title" spellCheck={false} />
           <Button form="editForm">Save</Button>
         </HEADER_CONTENT>
       </HEADER>
@@ -123,14 +144,14 @@ const EditShowForm = ({ show }) => {
 
           <FormInput label="Known Instances %" type="number" name="knownInstances" id="knownInstances" value={knownInstances} onChange={inputChangeHandler} min="0" max="100" step="0.01" required />
 
-          <FormInput label="Uknown Morphs (Optional)" type="number" name="uknownMorphs" id="uknownMorphs" value={uknownMorphs} onChange={inputChangeHandler} min="0" step="1" required />
+          <FormInput label="Uknown Morphs (Optional)" type="number" name="uknownMorphs" id="uknownMorphs" value={uknownMorphs} onChange={inputChangeHandler} min="0" step="1" />
 
           <DropDown onChange={dropdownTypeChangeHandle} statusValue={formType} label="Type" options={typeSelectOptions} />
         </FORM_CONTAINER>
 
         <BODY_FOOTER>
           <FOOTER_DATES>
-            <FOOTER_DATE>Created: {new Date(createdAt * 1000).toLocaleDateString("ukr")}</FOOTER_DATE>
+            <FOOTER_DATE>Created: {new Date(createdAt.seconds * 1000).toLocaleDateString("ukr")}</FOOTER_DATE>
           </FOOTER_DATES>
           <Button onClick={deleteClickHandler} buttonType={BUTTON_TYPE_CLASSES.formDelete}>Delete</Button>
         </BODY_FOOTER>
