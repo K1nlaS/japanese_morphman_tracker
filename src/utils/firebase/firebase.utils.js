@@ -1,5 +1,6 @@
-//Firebase
+//Firebase & Firestore
 import { initializeApp } from "firebase/app";
+import 'firebase/firestore';
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -17,6 +18,7 @@ import {
   getDocs,
   addDoc,
   updateDoc,
+  deleteDoc,
 } from "firebase/firestore";
 
 //Anilist API
@@ -120,5 +122,12 @@ export const updateListDocument = async (userAuth, postData) => {
   const listItemRef = doc(db, "users", userAuth.uid, "list", postData.id);
   await updateDoc(listItemRef, { ...postData });
 
-  console.log(postData);
+};
+
+//Deleting list entry along side the subcollections
+export const deleteListDocument = async (userAuth, documentId) => {
+  if (!userAuth || !documentId) return;
+
+  const listDocumentRef = doc(db, "users", userAuth.uid, "list", documentId);
+  await deleteDoc(listDocumentRef);
 };

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
 //Firebase
-import { updateListDocument } from "../../utils/firebase/firebase.utils";
+import { updateListDocument, deleteListDocument } from "../../utils/firebase/firebase.utils";
 
 //Selectors
 import { selectCurrentUser } from "../../store/user/user.selector";
@@ -102,6 +102,10 @@ const EditShowForm = ({ show }) => {
     await updateListDocument(currentUser, formFields);
   };
 
+  const deleteClickHandler = async () => {
+    await deleteListDocument(currentUser, id);
+  };
+
   return (
     <EDIT_CONTAINER>
       <HEADER bannerImage={bannerImage} >
@@ -128,7 +132,7 @@ const EditShowForm = ({ show }) => {
           <FOOTER_DATES>
             <FOOTER_DATE>Created: {new Date(createdAt * 1000).toLocaleDateString("ukr")}</FOOTER_DATE>
           </FOOTER_DATES>
-          <Button buttonType={BUTTON_TYPE_CLASSES.formDelete}>Delete</Button>
+          <Button onClick={deleteClickHandler} buttonType={BUTTON_TYPE_CLASSES.formDelete}>Delete</Button>
         </BODY_FOOTER>
 
       </BODY>
