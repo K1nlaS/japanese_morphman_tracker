@@ -25,8 +25,9 @@ import { useEffect } from "react";
 
 const ListDisplayItem = ({ show }) => {
 
-  const { title, lineReadability, knownInstances, uknownMorphs, type, Media } = show;
-  const { coverImage, siteUrl } = Media;
+  const { title, lineReadability, knownInstances, uknownMorphs, type, Media = {} } = show;
+  const { coverImage = "", siteUrl = "" } = Media;
+
 
   const [itemHover, setItemHover] = useState(false);
   const [isEditForm, setIsEditForm] = useState(false);

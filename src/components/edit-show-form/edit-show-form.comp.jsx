@@ -60,7 +60,7 @@ const EditShowForm = ({ show, closeModal }) => {
   const dispatch = useDispatch();
 
   const {
-    Media,
+    Media = {},
     id,
     title: titleData,
     status: statusData,
@@ -70,7 +70,7 @@ const EditShowForm = ({ show, closeModal }) => {
     type: typeData,
     createdAt
   } = show;
-  const { bannerImage, coverImage } = Media;
+  const { bannerImage = "", coverImage = "" } = Media;
 
 
   const [formFields, setFormFields] = useState(defaultFormFields);
@@ -124,8 +124,6 @@ const EditShowForm = ({ show, closeModal }) => {
 
     dispatch(fetchListAsync(currentUser));
   };
-
-  console.log(formFields);
 
   return (
     <EDIT_CONTAINER>

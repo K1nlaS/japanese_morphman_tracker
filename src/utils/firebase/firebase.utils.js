@@ -103,10 +103,13 @@ export const addNewListDocument = async (userAuth, postData) => {
 
   //Checks if there is an entry with the same title, if there is not it creates a new entry
   if (!userListQuery.docs.some(doc => doc.data().title.toLowerCase() === postData.title.toLowerCase())) {
+
     //Searches Anilist's API for the show
-    const { data } = await fetchAnilistShow(postData.title);
-    if (data) {
+    try {
+      const { data } = await fetchAnilistShow(postData.title);
       Object.assign(postData, data);
+    } catch (error) {
+      console.log(error.message);
     }
 
     const createdAt = new Date();
@@ -123,8 +126,29 @@ export const updateListDocument = async (userAuth, postData) => {
   if (!userAuth || !postData) return;
 
   const listItemRef = doc(db, "users", userAuth.uid, "list", postData.id);
-  await updateDoc(listItemRef, { ...postData });
+  const listItemDoc = await getDoc(listItemRef);
 
+  //Checks if the title is the same as the one in DB, if not creates a new fetch request to Anilist API
+  try {
+    if (listItemDoc.data().Media) {
+      const mediaTitle = Object.values(listItemDoc.data().Media.title);
+      const isMatched = mediaTitle.some(title => title.toLowerCase() === postData.title.toLowerCase());
+
+      //Searches Anilist's API for the show data
+      if (!isMatched) {
+        const { data } = await fetchAnilistShow(postData.title);
+        Object.assign(postData, data);
+      }
+
+    } else if (listItemDoc.data().title.toLowerCase() !== postData.title.toLowerCase()) {
+      const { data } = await fetchAnilistShow(postData.title);
+      Object.assign(postData, data);
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+
+  await updateDoc(listItemRef, { ...postData });
 };
 
 //Deleting list entry along side the subcollections
