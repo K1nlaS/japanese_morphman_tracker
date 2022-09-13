@@ -3,6 +3,9 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import defaultBanner from "../../assets/404_banner.jpg";
 
+//Icons
+import { MdEdit } from "react-icons/md";
+
 //Firebase
 import { updateListDocument, deleteListDocument } from "../../utils/firebase/firebase.utils";
 
@@ -24,11 +27,12 @@ import {
   EDIT_CONTAINER,
   HEADER_CONTENT,
   HEADER_COVER,
+  HEADER_TITLE_CONTAINER,
   HEADER_TITLE,
   FORM_CONTAINER,
   BODY_FOOTER,
   FOOTER_DATES,
-  FOOTER_DATE
+  FOOTER_DATE,
 } from "./edit-show-form.styles";
 
 const statusSelectOptions = [
@@ -132,7 +136,10 @@ const EditShowForm = ({ show, closeModal }) => {
       <HEADER bannerImage={bannerImage ? bannerImage : defaultBanner} >
         <HEADER_CONTENT>
           <HEADER_COVER coverImg={coverImage ? coverImage.medium : defaultBanner} />
-          <HEADER_TITLE onChange={titleChangeHandler} value={title} name="title" spellCheck={false} />
+          <HEADER_TITLE_CONTAINER>
+            <MdEdit />
+            <HEADER_TITLE onChange={titleChangeHandler} value={title} name="title" spellCheck={false} />
+          </HEADER_TITLE_CONTAINER>
           <Button form="editForm">Save</Button>
         </HEADER_CONTENT>
       </HEADER>

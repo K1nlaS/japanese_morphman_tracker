@@ -19,13 +19,14 @@ import {
   addDoc,
   updateDoc,
   deleteDoc,
+  arrayUnion,
 } from "firebase/firestore";
 
 //Anilist API
 import { fetchAnilistShow } from "./anilist.api.utils";
 
 //Firebase Helpers
-import { doesEntryExist } from "./firebase.helpers";
+import { createHistoryEntry, doesEntryExist } from "./firebase.helpers";
 
 //Firbase configuration and initialization
 const firbaseConfig = {
@@ -116,13 +117,13 @@ export const addNewListDocument = async (userAuth, postData) => {
     }
 
     const createdAt = new Date();
-    const historyChange = {};
+    const historyChange = [];
 
     // Setting percent values to 00.00 format
     const localeOptions = { minimumFractionDigits: 2, maximumFractionDigits: 2, minimumIntegerDigits: 2 };
 
-    postData.lineReadability = parseInt(postData.lineReadability).toLocaleString(undefined, localeOptions);
-    postData.knownInstances = parseInt(postData.knownInstances).toLocaleString(undefined, localeOptions);
+    postData.lineReadability = parseFloat(postData.lineReadability).toLocaleString(undefined, localeOptions);
+    postData.knownInstances = parseFloat(postData.knownInstances).toLocaleString(undefined, localeOptions);
 
 
     await addDoc(userListRef, {
@@ -142,7 +143,7 @@ export const updateListDocument = async (userAuth, postData) => {
   const listItemDoc = await getDoc(listItemRef);
 
   //If user tries to change the name of the show to one that already exists in the db the changes will not be applied
-  if (!doesEntryExist(userListQuery, postData)) { return; };
+  if (doesEntryExist(userListQuery, postData)) { return; };
 
   //Checks if the title is the same as the one in DB, if not creates a new fetch request to Anilist API
   try {
@@ -167,10 +168,15 @@ export const updateListDocument = async (userAuth, postData) => {
   // Setting percent values to 00.00 format
   const localeOptions = { minimumFractionDigits: 2, maximumFractionDigits: 2, minimumIntegerDigits: 2 };
 
-  postData.lineReadability = parseInt(postData.lineReadability).toLocaleString(undefined, localeOptions);
-  postData.knownInstances = parseInt(postData.knownInstances).toLocaleString(undefined, localeOptions);
+  postData.lineReadability = parseFloat(postData.lineReadability).toLocaleString(undefined, localeOptions);
+  postData.knownInstances = parseFloat(postData.knownInstances).toLocaleString(undefined, localeOptions);
+
+  //Creates a history entry object and adds it to the item's history change array if the values of lineReadability or knownInstances are changed
+  const historyEntry = createHistoryEntry(listItemDoc, postData);
+  historyEntry && await updateDoc(listItemRef, { historyChange: arrayUnion(historyEntry) });
 
   await updateDoc(listItemRef, { ...postData, updatedAt: new Date() });
+
 };
 
 //Deleting list entry along side the subcollections

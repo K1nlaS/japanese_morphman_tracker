@@ -28,6 +28,18 @@ export const HEADER_CONTENT = styled.div`
   }
 `;
 
+export const HEADER_TITLE_CONTAINER = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 1.5rem;
+  width: 100%;
+
+  svg {
+    font-size: 1.8rem;
+    color: white;
+  }
+`;
+
 export const HEADER_COVER = styled.div`
   height: 100%;
   width: 100%;
@@ -47,7 +59,7 @@ export const HEADER_TITLE = styled.input`
   cursor: pointer;
   font-size: 1.6rem;
   padding: 0.9rem 1rem;
-  margin: 1.5rem;
+  
   color: white;
   transition: .3s;
   border-radius: var(--border-radius);

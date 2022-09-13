@@ -27,7 +27,7 @@ const App = () => {
 
   const dispatch = useDispatch();
 
-  //Seeder Function
+  // Seeder Function
   // useEffect(() => {
   //   seed();
   // }, []);
