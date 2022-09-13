@@ -39,3 +39,11 @@ export const FORM_DELETE_BUTTOM = styled(DEFAULT_BUTTON)`
     background-color: var(--button-hover-color-red);
   }
 `;
+
+export const FORM_ACTION_BUTTON = styled(FORM_DELETE_BUTTOM)`
+  background-color: var(--primary-button-color);
+
+  &:hover {
+    background-color: var(--button-hover-color);
+  }
+`;

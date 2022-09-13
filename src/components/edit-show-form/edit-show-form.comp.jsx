@@ -19,6 +19,7 @@ import { fetchListAsync } from "../../store/list/list.action";
 import { Button, BUTTON_TYPE_CLASSES } from "../button/button.comp";
 import FormInput from "../form-input/form-input.comp";
 import DropDown from "../dropdown/dropdown.comp";
+import ListDisplayItemHistory from "../list-display-item-history/list-display-item-history.comp";
 
 //Styled Components
 import {
@@ -31,8 +32,8 @@ import {
   HEADER_TITLE,
   FORM_CONTAINER,
   BODY_FOOTER,
-  FOOTER_DATES,
-  FOOTER_DATE,
+  DATES,
+  DATE,
 } from "./edit-show-form.styles";
 
 const statusSelectOptions = [
@@ -78,6 +79,7 @@ const EditShowForm = ({ show, closeModal }) => {
   } = show;
   const { bannerImage = "", coverImage = "" } = Media;
 
+  const [isHistory, setIsHistory] = useState(false);
 
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { knownInstances, lineReadability, uknownMorphs, status, title, formType } = formFields;
@@ -132,40 +134,54 @@ const EditShowForm = ({ show, closeModal }) => {
   };
 
   return (
-    <EDIT_CONTAINER>
-      <HEADER bannerImage={bannerImage ? bannerImage : defaultBanner} >
-        <HEADER_CONTENT>
-          <HEADER_COVER coverImg={coverImage ? coverImage.medium : defaultBanner} />
-          <HEADER_TITLE_CONTAINER>
-            <MdEdit />
-            <HEADER_TITLE onChange={titleChangeHandler} value={title} name="title" spellCheck={false} />
-          </HEADER_TITLE_CONTAINER>
-          <Button form="editForm">Save</Button>
-        </HEADER_CONTENT>
-      </HEADER>
-      <BODY>
-        <FORM_CONTAINER id="editForm" onSubmit={formSubmitHandler}>
-          <DropDown onChange={dropdownStatusChangeHandle} statusValue={status} label="Status" options={statusSelectOptions} />
+    <>
+      <EDIT_CONTAINER>
+        <DATES>
+          <DATE>Updated: <span>{new Date(updatedAt.seconds * 1000).toLocaleDateString("ukr")}</span></DATE>
+          <DATE>Created: <span>{new Date(createdAt.seconds * 1000).toLocaleDateString("ukr")}</span></DATE>
+        </DATES>
 
-          <FormInput label="Line Readability %" type="number" name="lineReadability" id="lineReadability" value={lineReadability} onChange={inputChangeHandler} min="0" max="100" step="0.01" required />
+        <HEADER bannerImage={bannerImage ? bannerImage : defaultBanner} >
+          <HEADER_CONTENT>
+            <HEADER_COVER coverImg={coverImage ? coverImage.medium : defaultBanner} />
+            <HEADER_TITLE_CONTAINER>
+              <MdEdit />
+              <HEADER_TITLE onChange={titleChangeHandler} value={title} name="title" spellCheck={false} />
+            </HEADER_TITLE_CONTAINER>
 
-          <FormInput label="Known Instances %" type="number" name="knownInstances" id="knownInstances" value={knownInstances} onChange={inputChangeHandler} min="0" max="100" step="0.01" required />
+            {!isHistory && (<Button form="editForm">Save</Button>)}
 
-          <FormInput label="Uknown Morphs (Optional)" type="number" name="uknownMorphs" id="uknownMorphs" value={uknownMorphs} onChange={inputChangeHandler} min="0" step="1" />
+          </HEADER_CONTENT>
+        </HEADER>
+        <BODY>
+          {
+            !isHistory ? (
+              <FORM_CONTAINER id="editForm" onSubmit={formSubmitHandler}>
+                <DropDown onChange={dropdownStatusChangeHandle} statusValue={status} label="Status" options={statusSelectOptions} />
 
-          <DropDown onChange={dropdownTypeChangeHandle} statusValue={formType} label="Type" options={typeSelectOptions} />
-        </FORM_CONTAINER>
+                <FormInput label="Line Readability %" type="number" name="lineReadability" id="lineReadability" value={lineReadability} onChange={inputChangeHandler} min="0" max="100" step="0.01" required />
 
-        <BODY_FOOTER>
-          <FOOTER_DATES>
-            <FOOTER_DATE>Updated: <span>{new Date(updatedAt.seconds * 1000).toLocaleDateString("ukr")}</span></FOOTER_DATE>
-            <FOOTER_DATE>Created: <span>{new Date(createdAt.seconds * 1000).toLocaleDateString("ukr")}</span></FOOTER_DATE>
-          </FOOTER_DATES>
-          <Button onClick={deleteClickHandler} buttonType={BUTTON_TYPE_CLASSES.formDelete}>Delete</Button>
-        </BODY_FOOTER>
+                <FormInput label="Known Instances %" type="number" name="knownInstances" id="knownInstances" value={knownInstances} onChange={inputChangeHandler} min="0" max="100" step="0.01" required />
 
-      </BODY>
-    </EDIT_CONTAINER>
+                <FormInput label="Uknown Morphs (Optional)" type="number" name="uknownMorphs" id="uknownMorphs" value={uknownMorphs} onChange={inputChangeHandler} min="0" step="1" />
+
+                <DropDown onChange={dropdownTypeChangeHandle} statusValue={formType} label="Type" options={typeSelectOptions} />
+              </FORM_CONTAINER>
+            ) : (<ListDisplayItemHistory show={show} />)
+          }
+
+
+
+
+          <BODY_FOOTER>
+            <Button onClick={() => setIsHistory(!isHistory)} buttonType={BUTTON_TYPE_CLASSES.formAction}>History</Button>
+
+            <Button onClick={deleteClickHandler} buttonType={BUTTON_TYPE_CLASSES.formDelete}>Delete</Button>
+          </BODY_FOOTER>
+        </BODY>
+      </EDIT_CONTAINER>
+
+    </>
   );
 };
 

@@ -20,6 +20,7 @@ import {
   updateDoc,
   deleteDoc,
   arrayUnion,
+  arrayRemove,
 } from "firebase/firestore";
 
 //Anilist API
@@ -106,8 +107,7 @@ export const addNewListDocument = async (userAuth, postData) => {
   const userListQuery = await getDocs(userListRef);
 
   //Checks if there is an entry with the same title, if there is not it creates a new entry
-  if (doesEntryExist(userListQuery, postData)) {
-
+  if (!doesEntryExist(userListQuery, postData)) {
     //Searches Anilist's API for the show
     try {
       const { data } = await fetchAnilistShow(postData.title);
@@ -127,8 +127,9 @@ export const addNewListDocument = async (userAuth, postData) => {
 
 
     await addDoc(userListRef, {
-      ...postData, createdAt, updatedAt: createdAt, historyChange
+      ...postData, createdAt, historyChange, updatedAt: createdAt
     });
+
   };
 };
 
@@ -176,7 +177,6 @@ export const updateListDocument = async (userAuth, postData) => {
   historyEntry && await updateDoc(listItemRef, { historyChange: arrayUnion(historyEntry) });
 
   await updateDoc(listItemRef, { ...postData, updatedAt: new Date() });
-
 };
 
 //Deleting list entry along side the subcollections
@@ -185,4 +185,30 @@ export const deleteListDocument = async (userAuth, documentId) => {
 
   const listDocumentRef = doc(db, "users", userAuth.uid, "list", documentId);
   await deleteDoc(listDocumentRef);
+};
+
+//Updating history entry
+export const updateHistoryEntry = async (userAuth, documentId, postData) => {
+  if (!userAuth || !documentId || !postData) return;
+
+  const listItemRef = doc(db, "users", userAuth.uid, "list", documentId);
+  const listItemDoc = await getDoc(listItemRef);
+
+  const history = listItemDoc.data().historyChange;
+
+  // Setting percent values to 00.00 format
+  const localeOptions = { minimumFractionDigits: 2, maximumFractionDigits: 2, minimumIntegerDigits: 2 };
+
+  postData.lineReadability = parseFloat(postData.lineReadability).toLocaleString(undefined, localeOptions);
+  postData.knownInstances = parseFloat(postData.knownInstances).toLocaleString(undefined, localeOptions);
+
+  for (let entry of history) {
+    if (entry.id === postData.id) {
+      entry.lineReadability = postData.lineReadability;
+      entry.knownInstances = postData.knownInstances;
+      entry.uknownMorphs = postData.uknownMorphs;
+    }
+  }
+
+  await updateDoc(listItemRef, { historyChange: history });
 };

@@ -3,6 +3,8 @@ import styled from "styled-components";
 
 export const EDIT_CONTAINER = styled.div`
   width: 100rem;
+  min-height: 60.1rem;
+  position: relative;
 `;
 
 export const HEADER = styled.div`
@@ -74,6 +76,10 @@ export const HEADER_TITLE = styled.input`
 export const BODY = styled.div`
   padding: 5rem;
   padding-top: 6rem;
+  height: 42rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 export const FORM_CONTAINER = styled.form`
@@ -88,13 +94,16 @@ export const BODY_FOOTER = styled.div`
   align-items: flex-end;
 `;
 
-export const FOOTER_DATES = styled.div`
-  display: flex;
+export const DATES = styled.div`
+  left: 5rem;
+  top: 2rem;
+  position: absolute;
+  display: inline-block;
   gap: 0.2rem;
   flex-direction: column;
 `;
-export const FOOTER_DATE = styled.div`
-  color: #a1a1a1;
+export const DATE = styled.div`
+  color: #cccccc;
   display: flex;
   gap: 0.6rem;
   justify-content: space-between;

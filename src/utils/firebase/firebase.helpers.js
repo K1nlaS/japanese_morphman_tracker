@@ -1,3 +1,6 @@
+//Misc
+import { uuidv4 } from "@firebase/util";
+
 //Checks if there is a show with the same title in the DB
 export const doesEntryExist = (userListQuery, postData) => {
   return userListQuery.docs
@@ -10,6 +13,7 @@ export const createHistoryEntry = (listItemDoc, postData) => {
   const { knownInstances, lineReadability, uknownMorphs, updatedAt } = listItemDoc.data();
 
   const historyEntry = {
+    id: uuidv4(),
     knownInstances,
     lineReadability,
     uknownMorphs,

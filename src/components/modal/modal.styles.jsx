@@ -18,7 +18,8 @@ export const MODAL_CONTAINER = styled.div`
   margin-top: 15vh;
   position: relative;
   width: fit-content;
-  max-width: 1000px;
+  max-width: 100%;
+  max-height: 100%;
   text-align: center;
   border-radius: var(--border-radius);
   background-color: var(--primary-white-color);
@@ -33,6 +34,7 @@ export const CLOSE_BUTTON = styled.div`
   height: 2rem;
   font-size: 1.8rem;
   position: absolute;
+  z-index: 1000;
   right: 2rem;
   top: 2rem;
   background-color: transparent;

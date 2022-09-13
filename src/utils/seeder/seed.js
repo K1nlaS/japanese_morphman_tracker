@@ -6,7 +6,6 @@ export const SEED_DATA = [
     uknownMorphs: 34,
     type: "TV",
     status: "Completed",
-    createdAt: new Date()
   },
   {
     title: "Monster Musume no Iru Nichijou",
@@ -15,7 +14,6 @@ export const SEED_DATA = [
     uknownMorphs: 98,
     type: "TV",
     status: "Planning",
-    createdAt: new Date()
   },
   {
     title: "Fate stay night",
@@ -24,7 +22,6 @@ export const SEED_DATA = [
     uknownMorphs: 23,
     type: "TV",
     status: "Planning",
-    createdAt: new Date()
   },
   {
     title: "Shoujo Shuumatsu Ryokou",
@@ -33,7 +30,6 @@ export const SEED_DATA = [
     uknownMorphs: 2,
     type: "TV",
     status: "Completed",
-    createdAt: new Date()
   },
   {
     title: "Honzuki no Gekokujou Shisho ni Naru Tame ni wa Shudan wo Erandeiraremasen",
@@ -42,7 +38,6 @@ export const SEED_DATA = [
     uknownMorphs: 3,
     type: "TV",
     status: "Completed",
-    createdAt: new Date()
   },
   {
     title: "Youkoso Jitsuryoku Shijou Shugi no Kyoushitsu e",
@@ -51,7 +46,6 @@ export const SEED_DATA = [
     uknownMorphs: 10,
     type: "TV",
     status: "Completed",
-    createdAt: new Date()
   },
   {
     title: "Koroshi Ai",
@@ -60,7 +54,6 @@ export const SEED_DATA = [
     uknownMorphs: 47,
     type: "TV",
     status: "Ready",
-    createdAt: new Date()
   },
   {
     title: "Youjo Senki",
@@ -69,7 +62,6 @@ export const SEED_DATA = [
     uknownMorphs: 354,
     type: "TV",
     status: "Legacy",
-    createdAt: new Date()
   },
   {
     title: "Fragtime",
@@ -78,7 +70,6 @@ export const SEED_DATA = [
     uknownMorphs: 0,
     type: "Movie",
     status: "Completed",
-    createdAt: new Date()
   },
   {
     title: "PERFECT BLUE",
@@ -87,6 +78,5 @@ export const SEED_DATA = [
     uknownMorphs: 62,
     type: "Movie",
     status: "Planning",
-    createdAt: new Date()
   },
 ];
