@@ -23,6 +23,7 @@ import { fetchListAsync } from "../../store/list/list.action";
 const typeSelectOptions = [
   { value: "TV", label: "TV" },
   { value: "Movie", label: "Movie" },
+  { value: "OVA", label: "OVA" },
 ];
 
 const statusSelectOptions = [
@@ -76,6 +77,8 @@ const AddShowFormComponent = ({ closeModal }) => {
       console.log(error.code);
     }
   };
+
+  console.log(formFields);
 
   return (
     <FORM_CONTAINER>

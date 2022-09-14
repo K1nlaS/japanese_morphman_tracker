@@ -36,3 +36,6 @@ export const fetchListAsync = (currentUser) => async (dispatch) => {
 
 export const setSearchString = (searchString) => (dispatch) =>
   dispatch(createAction(LIST_ACTION_TYPES.SET_SEARCH_STRING, searchString));
+
+export const setFilterType = (filterType) => (dispatch) =>
+  dispatch(createAction(LIST_ACTION_TYPES.SET_FILTER_TYPE, filterType));

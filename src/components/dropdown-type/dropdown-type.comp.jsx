@@ -2,7 +2,7 @@
 import Select from "react-select";
 
 //Styled Components
-import { GROUP, FORM_INPUT_LABEL } from "./dropdown.styles";
+
 
 //Select Styles
 const customStyles = {
@@ -13,15 +13,21 @@ const customStyles = {
 
   control: (styles) => ({
     ...styles,
-    backgroundColor: "var(--default-body-color)",
+    backgroundColor: "var(--primary-white-color)",
     border: "none",
-    height: "4rem",
+    height: "2rem",
     borderRadius: "var(--border-radius)",
+    fontSize: "1.4rem",
+  }),
+
+  placeholder: (styles) => ({
+    ...styles,
+    color: "var(--text-color)"
   }),
 
   singleValue: (styles) => ({
     ...styles,
-    color: "var(--text-color)"
+    color: "var(--text-color)",
   }),
 
   option: (styles, state) => ({
@@ -30,6 +36,7 @@ const customStyles = {
     margingBotton: "1rem",
     transiton: ".3s",
     cursor: "pointer",
+    fontSize: "1.4rem",
 
     '&:hover': {
       backgroundColor: 'var(--primary-button-color)',
@@ -41,29 +48,18 @@ const customStyles = {
 
   menu: (styles) => ({
     ...styles,
-    backgroundColor: "var(--default-body-color)",
+    backgroundColor: "var(--primary-white-color)",
     borderRadius: "var(--border-radius)",
   })
 };
 
-const DropDown = ({ label, statusValue, options, ...otherProps }) => {
-
-  let optionSet = options;
-  if (statusValue) {
-    optionSet = options.filter(option => option.value === statusValue);
-  }
+const DropDownType = ({ options, ...otherProps }) => {
 
   return (
-    <GROUP>
-      {label && <FORM_INPUT_LABEL >{label}</FORM_INPUT_LABEL>}
-
-      {
-        statusValue ? (<Select options={options} {...otherProps} value={optionSet[0]} styles={customStyles} />)
-          : (<Select options={options} {...otherProps} defaultValue={optionSet[0]} styles={customStyles} />)
-      }
-
-    </GROUP>
+    <>
+      <Select options={options} {...otherProps} styles={customStyles} />
+    </>
   );
 };
 
-export default DropDown;
+export default DropDownType;

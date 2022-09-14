@@ -5,7 +5,7 @@ import { uuidv4 } from "@firebase/util";
 export const doesEntryExist = (userListQuery, postData) => {
 
   const anilistTitleFilter = (anilistTitles) => {
-    return Object.values(anilistTitles).some(title => title.toLowerCase().includes(postData.title.toLowerCase()));
+    return Object.values(anilistTitles).some(title => title.toLowerCase() === postData.title.toLowerCase());
   };
 
   return userListQuery.docs

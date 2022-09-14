@@ -18,17 +18,19 @@ import { fetchListAsync, setSearchString } from "../../store/list/list.action";
 
 //Selectors
 import { selectCurrentUser } from "../../store/user/user.selector";
-import { selectList, selectSearchString } from "../../store/list/list.selector";
+import { selectFilterType, selectList, selectSearchString, } from "../../store/list/list.selector";
 
 
 function Home() {
 
+  const dispatch = useDispatch();
+
   const { status } = useParams();
 
-  const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);
   const { list } = useSelector(selectList);
   const searchString = useSelector(selectSearchString);
+  const filterType = useSelector(selectFilterType);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [filteredList, setFilteredList] = useState(list);
@@ -53,8 +55,13 @@ function Home() {
         .filter(show => show.status === status);
     }
 
+    if (filterType) {
+      newFilteredList = newFilteredList
+        .filter(show => show.type.toLowerCase() === filterType.value.toLowerCase());
+    }
+
     setFilteredList(newFilteredList);
-  }, [searchString, list, status]);
+  }, [searchString, list, status, filterType]);
 
   return (
     <>

@@ -47,6 +47,7 @@ const statusSelectOptions = [
 const typeSelectOptions = [
   { value: "TV", label: "TV" },
   { value: "Movie", label: "Movie" },
+  { value: "OVA", label: "OVA" },
 ];
 
 const defaultFormFields = {
@@ -91,7 +92,7 @@ const EditShowForm = ({ show, closeModal }) => {
       lineReadability: lineReadabilityData,
       uknownMorphs: uknownMorphsData,
       status: statusData,
-      formType: typeData,
+      type: typeData,
       title: titleData,
     });
   }, []);
@@ -113,7 +114,7 @@ const EditShowForm = ({ show, closeModal }) => {
 
   const dropdownTypeChangeHandle = (selectedOption) => {
     const { value } = selectedOption;
-    setFormFields({ ...formFields, formType: value });
+    setFormFields({ ...formFields, type: value });
   };
 
   const formSubmitHandler = async (e) => {
@@ -132,6 +133,7 @@ const EditShowForm = ({ show, closeModal }) => {
 
     dispatch(fetchListAsync(currentUser));
   };
+
 
   return (
     <>
