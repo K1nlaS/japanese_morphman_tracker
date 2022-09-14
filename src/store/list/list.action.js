@@ -7,6 +7,7 @@ import { createAction } from "../../utils/reducer/reducer.utils";
 //Action types
 import { LIST_ACTION_TYPES } from "./list.types";
 
+//DB List Acitons
 export const fetchListStart = () =>
   createAction(LIST_ACTION_TYPES.FETCH_LIST_START);
 
@@ -30,3 +31,8 @@ export const fetchListAsync = (currentUser) => async (dispatch) => {
     }
   }
 };
+
+//Filtered List Actions
+
+export const setSearchString = (searchString) => (dispatch) =>
+  dispatch(createAction(LIST_ACTION_TYPES.SET_SEARCH_STRING, searchString));

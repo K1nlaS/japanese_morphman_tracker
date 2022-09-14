@@ -6,44 +6,54 @@ import { useDispatch, useSelector } from "react-redux";
 import { CONTENT_CONTAINER } from "../../components/styled/styled.components";
 import AddShowFormComponent from "../../components/add-show-form/add-show-form.comp";
 import ListDisplay from "../../components/list-display/list-display.comp";
-import { Button, BUTTON_TYPE_CLASSES } from "../../components/button/button.comp";
 import Modal from "../../components/modal/modal.comp";
+import ListFilter from "../../components/list-filter/list-filter.comp";
 
 //Styled Components
 import { LIST_CONTAINER } from "./home.styles";
 
 //Redux
-import { selectCurrentUser } from "../../store/user/user.selector";
-import { fetchListAsync } from "../../store/list/list.action";
+import { fetchListAsync, setSearchString } from "../../store/list/list.action";
 
 //Selectors
-import { selectList } from "../../store/list/list.selector";
+import { selectCurrentUser } from "../../store/user/user.selector";
+import { selectList, selectSearchString } from "../../store/list/list.selector";
 
 function Home() {
 
   const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);
   const { list } = useSelector(selectList);
+  const searchString = useSelector(selectSearchString);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [filteredList, setFilteredList] = useState(list);
 
   useEffect(() => {
     dispatch(fetchListAsync(currentUser));
+    dispatch(setSearchString(""));
   }, [dispatch, currentUser]);
 
-  const toggleModal = () => setIsModalOpen(!isModalOpen);
+  useEffect(() => {
+    const anilistTitleFilter = (anilistTitles) => {
+      return Object.values(anilistTitles).some(title => title.toLowerCase().includes(searchString.toLowerCase()));
+    };
+
+    const newFilteredList = list.filter(show => {
+      return show.title.toLowerCase().includes(searchString.toLowerCase()) || anilistTitleFilter(show.Media.title);
+    });
+
+    setFilteredList(newFilteredList);
+  }, [searchString, list]);
 
   return (
     <>
       <CONTENT_CONTAINER>
         {currentUser && (
           <LIST_CONTAINER>
-            <div>
-              <Button buttonType={BUTTON_TYPE_CLASSES.default} onClick={toggleModal}>Add</Button>
-            </div>
+            <ListFilter addShowModalToggle={setIsModalOpen} isModal={isModalOpen} />
 
-
-            <ListDisplay list={list} />
+            <ListDisplay list={filteredList} />
           </LIST_CONTAINER>
         )}
       </CONTENT_CONTAINER>
