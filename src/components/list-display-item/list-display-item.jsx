@@ -21,7 +21,8 @@ import {
   ITEM_UKNOWN_MORPHS,
   ITEM_TYPE,
   ITEM_LINK,
-  ITEM_EDIT
+  ITEM_EDIT,
+  HOVER_COVER_PREVIEW
 } from "./list-display-item.styles";
 import { useEffect } from "react";
 
@@ -45,6 +46,11 @@ const ListDisplayItem = ({ show }) => {
   return (
     <>
       <ITEM_CONTAINER onMouseEnter={() => setItemHover(true)} onMouseLeave={() => setItemHover(false)}>
+
+        {
+          itemHover && (<HOVER_COVER_PREVIEW coverImage={coverImage ? coverImage.large : defaultBanner} />)
+        }
+
         <ITEM_COVER>
           {
             itemHover

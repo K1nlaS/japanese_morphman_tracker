@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const ITEM_CONTAINER = styled.div`
   display: flex;
-  overflow: hidden;
   align-items: center;
   justify-content: space-between;
   padding: 1rem 0;
@@ -12,11 +11,24 @@ export const ITEM_CONTAINER = styled.div`
   &:hover {
     background-color: var(--primary-button-color);
     color: white;
+    position: relative;
 
     a {
       color: white;
     }
   }
+`;
+
+export const HOVER_COVER_PREVIEW = styled.div`
+  content: "";
+  background-image: url('${props => props.coverImage}');
+  background-size: cover;
+  display: block;
+  position: absolute;
+  width: 12.6rem;
+  height: 18rem;
+  border-radius: var(--border-radius);
+  left: -14rem;
 `;
 
 export const ITEM_COVER = styled.div`
