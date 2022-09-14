@@ -3,6 +3,7 @@
 //Components
 import { Button, BUTTON_TYPE_CLASSES } from "../button/button.comp";
 import FilterSearch from "../list-filter-search/list-filter-search.comp";
+import ListFilterStatus from "../list-filter-status/list-filter-status.comp";
 
 //Styled Components
 import {
@@ -10,7 +11,7 @@ import {
   FILTER_BUTTONS
 } from "./list-filter.styles";
 
-const ListFilter = ({ addShowModalToggle, isModal }) => {
+const ListFilter = ({ addShowModalToggle, isModal, list }) => {
 
   const toggleModal = () => addShowModalToggle(!isModal);
 
@@ -22,6 +23,8 @@ const ListFilter = ({ addShowModalToggle, isModal }) => {
       </FILTER_BUTTONS>
 
       <FilterSearch />
+
+      <ListFilterStatus list={list} />
 
 
     </FILTER_CONTAINER>

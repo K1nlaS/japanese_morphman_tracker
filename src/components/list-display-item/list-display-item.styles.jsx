@@ -23,6 +23,7 @@ export const HOVER_COVER_PREVIEW = styled.div`
   content: "";
   background-image: url('${props => props.coverImage}');
   background-size: cover;
+  background-position: 50%;
   display: block;
   position: absolute;
   width: 12.6rem;

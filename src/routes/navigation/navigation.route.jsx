@@ -31,12 +31,12 @@ const Navigation = () => {
         <NAV_BAR_CONTAINER>
 
           <div>
-            <JMT_LOGO to="/" />
+            <JMT_LOGO to="/home" />
           </div>
 
 
           <NAV_LINKS>
-            <CustomLink to="/" linkType={LINK_TYPE_CLASSES.navBarLink}>Home</CustomLink>
+            <CustomLink to="/home" linkType={LINK_TYPE_CLASSES.navBarLink}>Home</CustomLink>
           </NAV_LINKS>
 
           <AUTH_LINKS>

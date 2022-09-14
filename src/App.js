@@ -8,9 +8,6 @@ import Navigation from "./routes/navigation/navigation.route";
 import Home from "./routes/home/home.route";
 import Authentication from "./routes/authentication/authentication.route.jsx";
 
-//Components
-import ProtectedRoutes from "./components/protected-routes/protected-routes";
-
 //Firebase
 import {
   onAuthStateChangedListener,
@@ -45,10 +42,10 @@ const App = () => {
   return (
     <Routes>
       <Route path="/" element={<Navigation />} >
-        <Route index element={<Home />} />
-        <Route element={<ProtectedRoutes protectedFromUser={true} navigatePath={"/"} />} >
-          <Route path="/auth/:method" element={<Authentication />} />
+        <Route path="/home" element={<Home />} >
+          <Route path="/home/:status" element={<Home />} />
         </Route>
+        <Route path="/auth/:method" element={<Authentication />} />
       </Route>
     </Routes>
   );

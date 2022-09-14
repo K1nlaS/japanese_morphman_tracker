@@ -1,4 +1,5 @@
 //Misc
+import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -19,7 +20,10 @@ import { fetchListAsync, setSearchString } from "../../store/list/list.action";
 import { selectCurrentUser } from "../../store/user/user.selector";
 import { selectList, selectSearchString } from "../../store/list/list.selector";
 
+
 function Home() {
+
+  const { status } = useParams();
 
   const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);
@@ -39,12 +43,18 @@ function Home() {
       return Object.values(anilistTitles).some(title => title.toLowerCase().includes(searchString.toLowerCase()));
     };
 
-    const newFilteredList = list.filter(show => {
-      return show.title.toLowerCase().includes(searchString.toLowerCase()) || anilistTitleFilter(show.Media.title);
-    });
+    let newFilteredList = list
+      .filter(show => {
+        return show.title.toLowerCase().includes(searchString.toLowerCase()) || anilistTitleFilter(show.Media.title);
+      });
+
+    if (status) {
+      newFilteredList = newFilteredList
+        .filter(show => show.status === status);
+    }
 
     setFilteredList(newFilteredList);
-  }, [searchString, list]);
+  }, [searchString, list, status]);
 
   return (
     <>
