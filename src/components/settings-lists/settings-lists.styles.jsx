@@ -17,5 +17,5 @@ export const SINGLE_SETTING = styled.div`
 `;
 
 export const SETTING_NAME = styled.div`
-  font-size: 1.6rem;
+  font-size: 1.4rem;
 `;

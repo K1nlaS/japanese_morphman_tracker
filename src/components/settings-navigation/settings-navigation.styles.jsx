@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
 export const SETTINGS_NAVIGATION_CONTAINER = styled.div`
-  
+  font-size: 1.4rem;
 `;
 
 export const SETTINGS_TITLE = styled.div`
   margin-bottom: 1rem;
-  font-size: 1.4rem;
+  font-size: 1.3rem;
 `;
 
 export const SETTINGS_LINKS = styled.div`

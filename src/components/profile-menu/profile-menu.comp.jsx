@@ -42,7 +42,7 @@ const ProfileMenu = ({ children }) => {
 
             <SINGLE_ITEM>
               <IoMdSettings />
-              <NavLink to={"/settings"}>Settings</NavLink>
+              <NavLink to={"/settings/"}>Settings</NavLink>
             </SINGLE_ITEM>
 
             <SINGLE_ITEM>

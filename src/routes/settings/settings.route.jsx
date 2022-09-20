@@ -2,7 +2,6 @@
 
 //Components
 import SettingsNavigation from "../../components/settings-navigation/settings-navigation.comp";
-import SettingsLists from "../../components/settings-lists/settings-lists.comp";
 
 //Styled Components
 import {
