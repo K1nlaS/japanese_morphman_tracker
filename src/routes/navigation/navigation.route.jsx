@@ -10,6 +10,7 @@ import { selectCurrentUser } from "../../store/user/user.selector";
 
 //Components
 import { CustomLink, LINK_TYPE_CLASSES } from "../../components/custom-link/custom-link.comp";
+import ProfileMenu from "../../components/profile-menu/profile-menu.comp";
 
 //Styled Components
 import {
@@ -39,19 +40,19 @@ const Navigation = () => {
             <CustomLink to="/home" linkType={LINK_TYPE_CLASSES.navBarLink}>Home</CustomLink>
           </NAV_LINKS>
 
-          <AUTH_LINKS>
-            {
-              currentUser ? (
-                <Button buttonType={BUTTON_TYPE_CLASSES.plain} onClick={signOutUser}>Sign Out</Button>
-              ) : (
-                <>
-                  <CustomLink to="/auth/login" linkType={LINK_TYPE_CLASSES.navBarLink}>Login</CustomLink>
-                  <CustomLink to="/auth/signup" linkType={LINK_TYPE_CLASSES.defaultButtonLink}>Sign Up</CustomLink>
-                </>
-              )
-            }
+          {
+            currentUser ? (
+              <ProfileMenu >
+                <Button buttonType={BUTTON_TYPE_CLASSES.plain} onClick={signOutUser}>Logout</Button>
+              </ProfileMenu>
+            ) : (
+              <AUTH_LINKS>
+                <CustomLink to="/auth/login" linkType={LINK_TYPE_CLASSES.navBarLink}>Login</CustomLink>
+                <CustomLink to="/auth/signup" linkType={LINK_TYPE_CLASSES.defaultButtonLink}>Sign Up</CustomLink>
+              </AUTH_LINKS>
+            )
+          }
 
-          </AUTH_LINKS>
 
         </NAV_BAR_CONTAINER>
       </NAV_BAR>

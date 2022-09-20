@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import Select from "react-select";
 import { selectSettings } from "../../store/user/user.selector";
 
+
 //Select Styles
 const customStyles = {
   container: (styles) => ({
@@ -12,7 +13,7 @@ const customStyles = {
 
   control: (styles) => ({
     ...styles,
-    backgroundColor: "var(--primary-white-color)",
+    backgroundColor: "var(--default-body-color)",
     border: "none",
     height: "2rem",
     borderRadius: "var(--border-radius)",
@@ -47,29 +48,27 @@ const customStyles = {
 
   menu: (styles) => ({
     ...styles,
-    backgroundColor: "var(--primary-white-color)",
+    backgroundColor: "var(--default-body-color)",
     borderRadius: "var(--border-radius)",
   })
 };
 
 const options = [
-  { value: "Title", label: "Title" },
-  { value: "Readability", label: "Readability" },
-  { value: "Known Instances", label: "Known Instances" },
-  { value: "Uknown Morphs", label: "Uknown Morphs" },
-  { value: "Last Updated", label: "Last Updated" },
+  { value: "Romaji", label: "Romaji" },
+  { value: "Native", label: "Native" },
+  { value: "English", label: "English" },
 ];
 
-const DropDownSort = ({ specificStyles, ...otherProps }) => {
+const DropDownTitleLanguage = ({ ...otherProps }) => {
 
-  const { defaultSort } = useSelector(selectSettings);
-  const defaultOption = { value: defaultSort, label: defaultSort };
+  const { titleLanguage } = useSelector(selectSettings);
+  const defaultOption = { value: titleLanguage, label: titleLanguage };
 
   return (
     <>
-      <Select options={options} {...otherProps} defaultValue={defaultOption} styles={{ ...customStyles, ...specificStyles }} />
+      <Select options={options} {...otherProps} defaultValue={defaultOption} styles={customStyles} />
     </>
   );
 };
 
-export default DropDownSort;
+export default DropDownTitleLanguage;

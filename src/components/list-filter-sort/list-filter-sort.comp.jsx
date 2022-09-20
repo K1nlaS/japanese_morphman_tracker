@@ -36,7 +36,7 @@ const ListFilterSort = () => {
 
   useEffect(() => {
     dispatch(setFilterSort(defaultSort));
-  }, []);
+  }, [dispatch, defaultSort]);
 
   const dropDownSortChangeHandler = (selectedOption) => {
     dispatch(setFilterSort(selectedOption));

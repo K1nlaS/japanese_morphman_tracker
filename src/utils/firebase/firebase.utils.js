@@ -60,9 +60,12 @@ export const createUserDocumentFromAuth = async (userAuth, additionalInfo = {}) 
     const { email } = userAuth;
     const createdAt = new Date();
 
+    const titleLanguage = "romanji";
+    const defaultSort = "Title";
+
     try {
       await setDoc(userDocRef, {
-        email, createdAt, ...additionalInfo
+        email, createdAt, ...additionalInfo, titleLanguage, defaultSort
       });
     } catch (e) {
       console.log("error creating the user", e.message);
@@ -211,4 +214,25 @@ export const updateHistoryEntry = async (userAuth, documentId, postData) => {
   }
 
   await updateDoc(listItemRef, { historyChange: history });
+};
+
+//// Settings Related
+
+// Returns an object of user's settings
+export const getSettingsList = async (userAuth) => {
+  if (!userAuth) return;
+
+  const userRef = doc(db, "users", userAuth.uid);
+  const data = await getDoc(userRef);
+
+  return { ...data.data(), id: userAuth.uid };
+};
+
+// Updating user's settings
+export const updateUserSettings = async (userAuth, postData) => {
+  if (!userAuth || !postData) return;
+
+  const userRef = doc(db, "users", userAuth.uid);
+
+  await updateDoc(userRef, { ...postData });
 };

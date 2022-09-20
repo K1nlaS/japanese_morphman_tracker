@@ -1,7 +1,11 @@
 //Misc
 import React from 'react';
-import { useState } from "react";
+import { useSelector } from "react-redux";
+import { useState, useEffect } from "react";
 import defaultBanner from "../../assets/404_banner.jpg";
+
+//Selectors
+import { selectSettings } from "../../store/user/user.selector";
 
 //Icons
 import { BiDotsHorizontalRounded } from "react-icons/bi";
@@ -24,13 +28,14 @@ import {
   ITEM_EDIT,
   HOVER_COVER_PREVIEW
 } from "./list-display-item.styles";
-import { useEffect } from "react";
+
 
 const ListDisplayItem = ({ show }) => {
 
-  const { title, lineReadability, knownInstances, uknownMorphs, type, Media = {} } = show;
-  const { coverImage = "", siteUrl = "" } = Media;
+  const { titleLanguage } = useSelector(selectSettings);
 
+  const { title, lineReadability, knownInstances, uknownMorphs, type, Media = {} } = show;
+  const { coverImage = "", siteUrl = "", title: mediaTitle = null } = Media;
 
   const [itemHover, setItemHover] = useState(false);
   const [isEditForm, setIsEditForm] = useState(false);
@@ -60,7 +65,7 @@ const ListDisplayItem = ({ show }) => {
         </ITEM_COVER>
 
         <ITEM_TITLE>
-          <ITEM_LINK href={siteUrl}>{title}</ITEM_LINK>
+          <ITEM_LINK href={siteUrl}>{mediaTitle ? mediaTitle[titleLanguage.toLowerCase()] : title}</ITEM_LINK>
         </ITEM_TITLE>
 
         <ITEM_READABILITY>{lineReadability}%</ITEM_READABILITY>
