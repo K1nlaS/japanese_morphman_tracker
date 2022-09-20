@@ -78,7 +78,6 @@ const AddShowFormComponent = ({ closeModal }) => {
     }
   };
 
-  console.log(formFields);
 
   return (
     <FORM_CONTAINER>

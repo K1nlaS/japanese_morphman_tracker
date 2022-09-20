@@ -6,6 +6,7 @@ export const LIST_INITIAL_STATE = {
   filteredList: [],
   searchString: "",
   filterType: "",
+  sortOption: "",
   isLoading: false,
   error: null
 };
@@ -28,6 +29,9 @@ export const listReducer = (state = LIST_INITIAL_STATE, action = {}) => {
 
     case LIST_ACTION_TYPES.SET_FILTER_TYPE:
       return { ...state, filterType: payload };
+
+    case LIST_ACTION_TYPES.SET_FILTER_SORT:
+      return { ...state, sortOption: payload };
 
     default: return state;
   }

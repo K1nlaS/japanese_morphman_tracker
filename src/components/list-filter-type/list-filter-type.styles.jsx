@@ -6,5 +6,6 @@ export const TYPE_CONTAINER = styled.div`
 `;
 
 export const TYPE_BODY = styled.div`
-  
+  display: flex;
+  flex-direction: column;
 `;

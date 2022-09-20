@@ -50,13 +50,13 @@ const customStyles = {
   })
 };
 
-const DropDownType = ({ options, ...otherProps }) => {
+const DropDownSort = ({ options, defaultOption, ...otherProps }) => {
 
   return (
     <>
-      <Select options={options} {...otherProps} styles={customStyles} />
+      <Select options={options} {...otherProps} defaultValue={defaultOption} styles={customStyles} />
     </>
   );
 };
 
-export default DropDownType;
+export default DropDownSort;

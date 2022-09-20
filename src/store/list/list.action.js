@@ -39,3 +39,6 @@ export const setSearchString = (searchString) => (dispatch) =>
 
 export const setFilterType = (filterType) => (dispatch) =>
   dispatch(createAction(LIST_ACTION_TYPES.SET_FILTER_TYPE, filterType));
+
+export const setFilterSort = (filterSort) => (dispatch) =>
+  dispatch(createAction(LIST_ACTION_TYPES.SET_FILTER_SORT, filterSort));

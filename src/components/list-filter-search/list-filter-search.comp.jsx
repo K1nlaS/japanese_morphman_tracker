@@ -24,7 +24,7 @@ const FilterSearch = () => {
   return (
     <SEARCH_CONTAINER>
       <AiOutlineSearch />
-      <FILTER_INPUT placeholder="Filter" onChange={inputChangeHandler} />
+      <FILTER_INPUT type="search" placeholder="Filter" onChange={inputChangeHandler} />
     </SEARCH_CONTAINER>
   );
 };

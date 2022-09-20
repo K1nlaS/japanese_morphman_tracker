@@ -18,7 +18,7 @@ import { fetchListAsync, setSearchString } from "../../store/list/list.action";
 
 //Selectors
 import { selectCurrentUser } from "../../store/user/user.selector";
-import { selectFilterType, selectList, selectSearchString, } from "../../store/list/list.selector";
+import { selectFilterSort, selectFilterType, selectList, selectSearchString, } from "../../store/list/list.selector";
 
 
 function Home() {
@@ -31,6 +31,7 @@ function Home() {
   const { list } = useSelector(selectList);
   const searchString = useSelector(selectSearchString);
   const filterType = useSelector(selectFilterType);
+  const filterSort = useSelector(selectFilterSort);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [filteredList, setFilteredList] = useState(list);
@@ -60,8 +61,50 @@ function Home() {
         .filter(show => show.type.toLowerCase() === filterType.value.toLowerCase());
     }
 
+    if (filterSort) {
+
+      switch (filterSort.value) {
+        case "Title": newFilteredList = newFilteredList
+          .sort((a, b) => {
+            let fa = a.title.toLowerCase();
+            let fb = b.title.toLowerCase();
+
+            if (fa < fb) {
+              return -1;
+            }
+            if (fa > fb) {
+              return 1;
+            }
+            return 0;
+          });
+          break;
+
+        case "Readability": newFilteredList = newFilteredList
+          .sort((a, b) => parseFloat(b.lineReadability) - parseFloat(a.lineReadability));
+          break;
+
+        case "Known Instances": newFilteredList = newFilteredList
+          .sort((a, b) => parseFloat(b.knownInstances) - parseFloat(a.knownInstances));
+          break;
+
+        case "Uknown Morphs": newFilteredList = newFilteredList
+          .sort((a, b) => parseFloat(a.uknownMorphs) - parseFloat(b.uknownMorphs));
+          break;
+
+        case "Last Updated": newFilteredList = newFilteredList
+          .sort((a, b) => b.updatedAt - a.updatedAt);
+          break;
+
+        case "Last Added": newFilteredList = newFilteredList
+          .sort((a, b) => b.createdAt - a.createdAt);
+          break;
+
+        default: break;
+      }
+    }
+
     setFilteredList(newFilteredList);
-  }, [searchString, list, status, filterType]);
+  }, [searchString, list, status, filterType, filterSort]);
 
   return (
     <>
