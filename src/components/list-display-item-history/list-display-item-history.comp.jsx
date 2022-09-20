@@ -11,6 +11,7 @@ import {
   HISTORY_HEADER,
   HISTORY_STAT,
   HISTORY_STATS,
+  NO_HISTORY
 } from "./list-display-item-history.styles";
 
 const ListDisplayItemHistory = ({ show }) => {
@@ -20,7 +21,7 @@ const ListDisplayItemHistory = ({ show }) => {
   return (
     <div>
       {
-        historyChange.length && (
+        historyChange.length ? (
           <HISTORY_HEADER>
             <AiOutlineFieldNumber />
             <HISTORY_STAT>Line Readability</HISTORY_STAT>
@@ -29,18 +30,18 @@ const ListDisplayItemHistory = ({ show }) => {
             <HISTORY_STAT>Updated</HISTORY_STAT>
             <HISTORY_STAT></HISTORY_STAT>
           </HISTORY_HEADER>
-        )
+        ) : ""
       }
       <HISTORY_STATS>
         {
           historyChange.length ? (
             historyChange.map((entry, index) => <ItemHistoryEntry historyEntry={entry} key={index} arrayIndex={index} showId={id} />)
           ) : (
-            <div>No history so far</div>
+            <NO_HISTORY>No history so far</NO_HISTORY>
           )
         }
       </HISTORY_STATS>
-    </div>
+    </div >
   );
 };
 

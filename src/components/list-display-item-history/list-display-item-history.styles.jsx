@@ -40,3 +40,7 @@ export const HISTORY_STATS = styled.div`
   }
 
 `;
+
+export const NO_HISTORY = styled.div`
+  font-size: 1.6rem;
+`;
