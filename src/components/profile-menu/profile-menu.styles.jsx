@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const PROFILE_MENU_CONTAINER = styled.div`
   position: relative;
+  z-index: 1000;
 `;
 
 export const PROFILE_CONTAINER = styled.div`
@@ -22,11 +23,10 @@ export const PROFILE_CONTAINER = styled.div`
   }
 `;
 
-export const PROFILE_ICON = styled.div`
-  width: 4rem;
-  height: 4rem;
-  background-color: white;
-  border-radius: 50%;
+export const PROFILE_USERNAME = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 1.6rem;
 `;
 
 export const PROFILE_DROPDOWN_CONTAINER = styled.div`

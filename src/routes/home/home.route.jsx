@@ -61,6 +61,7 @@ function Home() {
         .filter(show => show.type.toLowerCase() === filterType.value.toLowerCase());
     }
 
+    //Filters the list if there are parameters to do so
     if (filterSort) {
 
       switch (filterSort.value) {

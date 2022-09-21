@@ -7,6 +7,8 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
+  updateEmail,
+  updatePassword,
 } from "firebase/auth";
 
 import {
@@ -20,7 +22,6 @@ import {
   updateDoc,
   deleteDoc,
   arrayUnion,
-  arrayRemove,
 } from "firebase/firestore";
 
 //Anilist API
@@ -235,4 +236,26 @@ export const updateUserSettings = async (userAuth, postData) => {
   const userRef = doc(db, "users", userAuth.uid);
 
   await updateDoc(userRef, { ...postData });
+};
+
+//Updating user's email
+export const updateUserEmail = async (userAuth, email) => {
+  if (!userAuth || !email) return;
+
+  try {
+    await updateEmail(userAuth, email);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+//Updateing user's password
+export const updateUserPassword = async (userAuth, newPassword) => {
+  if (!userAuth, !newPassword) return;
+
+  try {
+    await updatePassword(userAuth, newPassword);
+  } catch (error) {
+    console.log(error);
+  }
 };

@@ -1,5 +1,9 @@
 //Misc
 import { useState } from "react";
+import { useSelector } from "react-redux";
+
+//Selectors
+import { selectSettings } from "../../store/user/user.selector";
 
 //Icons
 import { MdKeyboardArrowDown } from "react-icons/md";
@@ -10,15 +14,17 @@ import { NavLink } from "react-router-dom";
 //Styled Components
 import {
   PROFILE_MENU_CONTAINER,
-  PROFILE_ICON,
+  PROFILE_USERNAME,
   PROFILE_CONTAINER,
   PROFILE_DROPDOWN_CONTAINER,
   SINGLE_ITEM
 } from "./profile-menu.styles";
 
+
 const ProfileMenu = ({ children }) => {
 
   const [isDropDown, setIsDropDown] = useState(false);
+  const { username } = useSelector(selectSettings);
 
   const onProfileEnterHandler = () => {
     setIsDropDown(true);
@@ -32,7 +38,7 @@ const ProfileMenu = ({ children }) => {
     <PROFILE_MENU_CONTAINER>
 
       <PROFILE_CONTAINER onMouseEnter={onProfileEnterHandler} >
-        <PROFILE_ICON />
+        <PROFILE_USERNAME>{username}</PROFILE_USERNAME>
         <MdKeyboardArrowDown />
       </PROFILE_CONTAINER>
 
