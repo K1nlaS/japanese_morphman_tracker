@@ -7,6 +7,7 @@ export const ITEM_CONTAINER = styled.div`
   padding: 1rem 0;
   transition: .1s;
   border-radius: 0.4rem;
+  font-size: 1.4rem;
 
   &:hover {
     background-color: var(--primary-button-color);

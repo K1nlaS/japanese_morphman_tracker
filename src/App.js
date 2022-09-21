@@ -10,7 +10,9 @@ import Authentication from "./routes/authentication/authentication.route.jsx";
 import Settings from "./routes/settings/settings.route";
 
 //Components
+import ProtectedRoute from "./components/protected-route/protected-route.comp";
 import SettingsLists from "./components/settings-lists/settings-lists.comp";
+import SettingsAccount from "./components/settings-account/settings-account.comp";
 
 //Firebase
 import {
@@ -60,10 +62,13 @@ const App = () => {
 
         <Route path="/auth/:method" element={<Authentication />} />
 
-        <Route path="/settings" element={<Settings />} >
-          <Route path="/settings/lists" element={<SettingsLists />} />
-
+        <Route element={<ProtectedRoute />}>
+          <Route path="/settings" element={<Settings />} >
+            <Route index element={<SettingsAccount />} />
+            <Route path="/settings/lists" element={<SettingsLists />} />
+          </Route>
         </Route>
+
       </Route>
     </Routes>
   );
