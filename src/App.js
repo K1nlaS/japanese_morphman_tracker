@@ -20,9 +20,6 @@ import {
   createUserDocumentFromAuth,
 } from "./utils/firebase/firebase.utils";
 
-//Seeder
-import { seed } from "./utils/seeder/seeder";
-
 //Redux
 import { fetchSettingsAsync, setCurrentUser } from "./store/user/user.action";
 import { selectCurrentUser } from "./store/user/user.selector";
@@ -32,11 +29,6 @@ const App = () => {
   const dispatch = useDispatch();
 
   const currentUser = useSelector(selectCurrentUser);
-
-  // Seeder Function
-  // useEffect(() => {
-  //   seed();
-  // }, []);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChangedListener((user) => {
