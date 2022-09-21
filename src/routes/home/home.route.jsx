@@ -9,6 +9,7 @@ import AddShowFormComponent from "../../components/add-show-form/add-show-form.c
 import ListDisplay from "../../components/list-display/list-display.comp";
 import Modal from "../../components/modal/modal.comp";
 import ListFilter from "../../components/list-filter/list-filter.comp";
+import BatchUpdateForm from "../../components/batch-updater/batch-updater.comp";
 
 //Styled Components
 import { LIST_CONTAINER } from "./home.styles";
@@ -33,7 +34,8 @@ function Home() {
   const filterType = useSelector(selectFilterType);
   const filterSort = useSelector(selectFilterSort);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAddFormModalOpen, setIsModalOpen] = useState(false);
+  const [isBatchFormModalOpen, setIsBatchFormModalOpen] = useState(false);
   const [filteredList, setFilteredList] = useState(list);
 
   useEffect(() => {
@@ -112,7 +114,7 @@ function Home() {
       <CONTENT_CONTAINER>
         {currentUser && (
           <LIST_CONTAINER>
-            <ListFilter addShowModalToggle={setIsModalOpen} isModal={isModalOpen} />
+            <ListFilter addShowModalToggle={setIsModalOpen} batchFormModal={setIsBatchFormModalOpen} />
 
             <ListDisplay list={filteredList} />
           </LIST_CONTAINER>
@@ -120,9 +122,17 @@ function Home() {
       </CONTENT_CONTAINER>
 
       {
-        isModalOpen && (
+        isAddFormModalOpen && (
           <Modal closeModal={setIsModalOpen}>
             <AddShowFormComponent />
+          </Modal>
+        )
+      }
+
+      {
+        isBatchFormModalOpen && (
+          <Modal closeModal={setIsBatchFormModalOpen}>
+            <BatchUpdateForm />
           </Modal>
         )
       }

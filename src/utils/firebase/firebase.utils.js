@@ -28,7 +28,7 @@ import {
 import { fetchAnilistShow } from "./anilist.api.utils";
 
 //Firebase Helpers
-import { createHistoryEntry, doesEntryExist } from "./firebase.helpers";
+import { batchReaderFile, createHistoryEntry, doesEntryExist } from "./firebase.helpers";
 
 //Firbase configuration and initialization
 const firbaseConfig = {
@@ -129,9 +129,12 @@ export const addNewListDocument = async (userAuth, postData) => {
     postData.lineReadability = parseFloat(postData.lineReadability).toLocaleString(undefined, localeOptions);
     postData.knownInstances = parseFloat(postData.knownInstances).toLocaleString(undefined, localeOptions);
 
+    const status = "Planning";
+    const type = "TV";
+    const uknownMorphs = "";
 
     await addDoc(userListRef, {
-      ...postData, createdAt, historyChange, updatedAt: createdAt
+      uknownMorphs, status, type, ...postData, createdAt, historyChange, updatedAt: createdAt
     });
 
   };
@@ -143,6 +146,13 @@ export const updateListDocument = async (userAuth, postData) => {
 
   const userListRef = collection(db, "users", userAuth.uid, "list");
   const userListQuery = await getDocs(userListRef);
+
+  //Checks whether post data has an id of the document or not, if not it looks it up by title and adds it to post data
+  if (!postData.id) {
+    userListQuery.docs
+      .map(doc => doc.data().title.toLowerCase() === postData.title.toLowerCase()
+        ? postData.id = doc.id : "");
+  }
 
   const listItemRef = doc(db, "users", userAuth.uid, "list", postData.id);
   const listItemDoc = await getDoc(listItemRef);
@@ -217,6 +227,25 @@ export const updateHistoryEntry = async (userAuth, documentId, postData) => {
   await updateDoc(listItemRef, { historyChange: history });
 };
 
+//List batch updater
+export const listBatchUpdate = async (userAuth, fileRaw) => {
+  if (!userAuth || !fileRaw) return;
+
+  const userListRef = collection(db, "users", userAuth.uid, "list");
+  const userListQuery = await getDocs(userListRef);
+
+  const fileReady = batchReaderFile(fileRaw);
+
+  //Checks if there is a show with the provided title, if not it creates a new entry, if there is it updates the values.
+  for (const show of fileReady) {
+    if (!doesEntryExist(userListQuery, show)) {
+      await addNewListDocument(userAuth, show);
+    } else {
+      await updateListDocument(userAuth, show);
+    }
+  }
+};
+
 //// Settings Related
 
 // Returns an object of user's settings
@@ -251,7 +280,7 @@ export const updateUserEmail = async (userAuth, email) => {
 
 //Updateing user's password
 export const updateUserPassword = async (userAuth, newPassword) => {
-  if (!userAuth, !newPassword) return;
+  if (!userAuth || !newPassword) return;
 
   try {
     await updatePassword(userAuth, newPassword);

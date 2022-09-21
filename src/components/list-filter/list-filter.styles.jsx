@@ -7,10 +7,18 @@ export const FILTER_CONTAINER = styled.div`
 `;
 
 export const FILTER_BUTTONS = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 1rem;
   
   button {
     flex: 1;
     margin: 0;
+  }
+
+  button:last-child {
+    background-color: orange;
+    display: flex;
+    justify-content: center;
   }
 `;

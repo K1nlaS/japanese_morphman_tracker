@@ -27,7 +27,7 @@ const ListDisplay = ({ list }) => {
   return (
     <LIST_SECTION>
       {
-        statuses.map(status => (
+        list.length > 0 ? (statuses.map(status => (
 
           statusShowsExist(list, status) && (
             <ListStatus key={status} status={status}>
@@ -39,7 +39,8 @@ const ListDisplay = ({ list }) => {
               </div>
             </ListStatus>
           )
-        ))
+        )))
+          : <div>No shows</div>
       }
     </LIST_SECTION>
   );

@@ -13,15 +13,17 @@ import {
   FILTER_BUTTONS
 } from "./list-filter.styles";
 
-const ListFilter = ({ addShowModalToggle, isModal, list }) => {
+const ListFilter = ({ addShowModalToggle, batchFormModal, list }) => {
 
-  const toggleModal = () => addShowModalToggle(!isModal);
+  const toggleAddFormModal = () => addShowModalToggle(true);
+  const toggleBatchFormModal = () => batchFormModal(true);
 
   return (
     <FILTER_CONTAINER>
 
       <FILTER_BUTTONS>
-        <Button buttonType={BUTTON_TYPE_CLASSES.default} onClick={toggleModal}>Add</Button>
+        <Button buttonType={BUTTON_TYPE_CLASSES.default} onClick={toggleAddFormModal}>Add</Button>
+        <Button buttonType={BUTTON_TYPE_CLASSES.default} onClick={toggleBatchFormModal}>Batch</Button>
       </FILTER_BUTTONS>
 
       <FilterSearch />
