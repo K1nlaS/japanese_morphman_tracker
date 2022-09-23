@@ -48,5 +48,4 @@ Add these Environment variables in newly created .env and fill them with what Fi
  
 ## Notes
 **This web application is not associated with AniList in anyway.**
-Currently there are little to now error handling present. If something is not working as expected please keep an eye on the console. It may provide some insight into what is going on. 
-
+Currently there are little to now error handling present. If something is not working as expected please keep an eye on the console. It may provide some insight into what is going on. Also, when adding a new show entry makes sure that the title of the show matches the one on [Anilist](https://anilist.co/), this is needed for an Anilist's API to fetch media data from.
