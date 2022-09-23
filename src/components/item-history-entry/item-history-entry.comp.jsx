@@ -65,10 +65,8 @@ const ItemHistoryEntry = ({ historyEntry, showId, arrayIndex }) => {
       value = "0";
     }
 
-    if (value > 100) {
-      name === "lineReadability" || name === "knownInstances"
-        ? value = "100"
-        : value = value;
+    if ((value > 100) || (name === "lineReadability" || name === "knownInstances")) {
+      value = "100";
     }
 
     setFormFields({ ...formFields, [name]: value });
