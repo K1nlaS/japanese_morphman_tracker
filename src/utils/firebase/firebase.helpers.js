@@ -3,9 +3,12 @@ import { uuidv4 } from "@firebase/util";
 
 //Checks if there is a show with the same title in the DB
 export const doesEntryExist = (userListQuery, postData) => {
-
   const anilistTitleFilter = (anilistTitles) => {
     if (!anilistTitles) return false;
+
+    if (!anilistTitles.english) {
+      anilistTitles.english = anilistTitles.native;
+    }
 
     return Object.values(anilistTitles).some(title => title.toLowerCase() === postData.title.toLowerCase());
   };
