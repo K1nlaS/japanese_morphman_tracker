@@ -45,6 +45,12 @@ function Home() {
 
   useEffect(() => {
     const anilistTitleFilter = (anilistTitles) => {
+      if (!anilistTitles) return false;
+
+      if (!anilistTitles.english) {
+        anilistTitles.english = anilistTitles.native;
+      }
+
       return Object.values(anilistTitles).some(title => title.toLowerCase().includes(searchString.toLowerCase()));
     };
 
