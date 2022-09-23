@@ -47,7 +47,7 @@ const ItemHistoryEntry = ({ historyEntry, showId, arrayIndex }) => {
       knownInstances: dataKnownInstances,
       uknownMorphs: dataUknownMorphs,
     });
-  }, []);
+  }, [id, dataLineReadability, dataKnownInstances, dataUknownMorphs]);
 
   const inputFocusHandler = e => {
     e.target.placeholder = "";

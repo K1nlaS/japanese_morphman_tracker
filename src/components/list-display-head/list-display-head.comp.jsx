@@ -1,6 +1,5 @@
 //Styled Components
 import {
-  ITEM_CONTAINER,
   ITEM_COVER,
   ITEM_TITLE,
   ITEM_READABILITY,

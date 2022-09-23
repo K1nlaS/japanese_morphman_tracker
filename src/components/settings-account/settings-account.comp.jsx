@@ -47,7 +47,7 @@ const SettingsAccount = () => {
   useEffect(() => {
     setUsername(dataUsername);
     setEmail(dataEmail);
-  }, []);
+  }, [dataUsername, dataEmail]);
 
   //Username
   const usernameChangeHandler = (e) => {

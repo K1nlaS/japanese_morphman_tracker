@@ -95,7 +95,7 @@ const EditShowForm = ({ show, closeModal }) => {
       type: typeData,
       title: titleData,
     });
-  }, []);
+  }, [knownInstancesData, lineReadabilityData, uknownMorphsData, statusData, typeData, titleData, id]);
 
   const titleChangeHandler = (event) => {
     const { name, value } = event.target;
