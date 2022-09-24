@@ -75,8 +75,8 @@ function Home() {
       switch (filterSort.value) {
         case "Title": newFilteredList = newFilteredList
           .sort((a, b) => {
-            let fa = a.title.toLowerCase();
-            let fb = b.title.toLowerCase();
+            let fa = a.Media ? a.Media.title.romaji.toLowerCase() : a.title.toLowerCase();
+            let fb = b.Media ? b.Media.title.romaji.toLowerCase() : b.title.toLowerCase();
 
             if (fa < fb) {
               return -1;
