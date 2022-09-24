@@ -7,7 +7,7 @@ import { createAction } from "../../utils/reducer/reducer.utils";
 //Action types
 import { LIST_ACTION_TYPES } from "./list.types";
 
-//DB List Acitons
+//DB List Actions
 export const fetchListStart = () =>
   createAction(LIST_ACTION_TYPES.FETCH_LIST_START);
 
@@ -31,6 +31,16 @@ export const fetchListAsync = (currentUser) => async (dispatch) => {
     }
   }
 };
+
+//Local DB Actions
+export const addShowList = (newShow) =>
+  createAction(LIST_ACTION_TYPES.ADD_LIST_SHOW, newShow);
+
+export const updateShowList = (updatedShow) =>
+  createAction(LIST_ACTION_TYPES.UPDATE_LIST_SHOW, updatedShow);
+
+export const deleteShowList = (deletedShow) =>
+  createAction(LIST_ACTION_TYPES.DELETE_LIST_SHOW, deletedShow);
 
 //Filtered List Actions
 

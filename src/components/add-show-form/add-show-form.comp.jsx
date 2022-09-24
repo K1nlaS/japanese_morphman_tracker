@@ -17,8 +17,8 @@ import {
 import { selectCurrentUser } from "../../store/user/user.selector";
 
 //Firebase
-import { addNewListDocument } from "../../utils/firebase/firebase.utils";
-import { fetchListAsync } from "../../store/list/list.action";
+import { addNewListDocument, getCollectionItem } from "../../utils/firebase/firebase.utils";
+import { addShowList } from "../../store/list/list.action";
 
 const typeSelectOptions = [
   { value: "TV", label: "TV" },
@@ -71,8 +71,9 @@ const AddShowFormComponent = ({ closeModal }) => {
 
     try {
       closeModal(false);
-      await addNewListDocument(currentUser, formFields);
-      dispatch(fetchListAsync(currentUser));
+      const newShow = await addNewListDocument(currentUser, formFields);
+      const show = await getCollectionItem(currentUser, newShow);
+      dispatch(addShowList(show));
     } catch (error) {
       console.log(error.code);
     }

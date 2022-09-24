@@ -33,6 +33,19 @@ export const listReducer = (state = LIST_INITIAL_STATE, action = {}) => {
     case LIST_ACTION_TYPES.SET_FILTER_SORT:
       return { ...state, sortOption: payload };
 
+    case LIST_ACTION_TYPES.ADD_LIST_SHOW:
+      return { ...state, list: [...state.list, payload] };
+
+    case LIST_ACTION_TYPES.UPDATE_LIST_SHOW:
+      const updatedList = state.list
+        .map(show => show.id === payload.id ? show = { ...payload } : show);
+      return { ...state, list: updatedList };
+
+    case LIST_ACTION_TYPES.DELETE_LIST_SHOW:
+      const filteredList = state.list
+        .filter(show => show.id !== payload.id);
+      return { ...state, list: filteredList };
+
     default: return state;
   }
 };

@@ -103,6 +103,13 @@ export const getCollectionList = async (userAuth) => {
   return data.docs.map(doc => ({ ...doc.data(), id: doc.id }));
 };
 
+export const getCollectionItem = async (userAuth, showRef) => {
+  if (!userAuth) return;
+
+  const show = await getDoc(showRef);
+  return { ...show.data(), id: show.id };
+};
+
 //Adds new entry to the user's list of shows
 export const addNewListDocument = async (userAuth, postData) => {
   if (!userAuth || !postData) return;
@@ -133,10 +140,11 @@ export const addNewListDocument = async (userAuth, postData) => {
     const type = "TV";
     const uknownMorphs = "";
 
-    await addDoc(userListRef, {
+    const show = await addDoc(userListRef, {
       uknownMorphs, status, type, ...postData, createdAt, historyChange, updatedAt: createdAt
     });
 
+    return show;
   };
 };
 
@@ -191,6 +199,8 @@ export const updateListDocument = async (userAuth, postData) => {
   historyEntry && await updateDoc(listItemRef, { historyChange: arrayUnion(historyEntry) });
 
   await updateDoc(listItemRef, { ...postData, updatedAt: new Date() });
+
+  return listItemRef;
 };
 
 //Deleting list entry along side the subcollections
@@ -199,6 +209,8 @@ export const deleteListDocument = async (userAuth, documentId) => {
 
   const listDocumentRef = doc(db, "users", userAuth.uid, "list", documentId);
   await deleteDoc(listDocumentRef);
+
+  return listDocumentRef;
 };
 
 //Updating history entry
