@@ -1,10 +1,14 @@
 //Misc
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 
 //Firebase
 import {
   signInAuthUserWithEmailAndPassword
 } from "../../utils/firebase/firebase.utils";
+
+//Redux
+import { fetchSettingsAsync } from "../../store/user/user.action";
 
 //Components
 import FormInput from "../form-input/form-input.comp";
@@ -23,6 +27,8 @@ const defaultFormFields = {
 
 const LoginForm = () => {
 
+  const dispatch = useDispatch();
+
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
 
@@ -39,9 +45,10 @@ const LoginForm = () => {
     event.preventDefault();
 
     try {
-      await signInAuthUserWithEmailAndPassword(email, password);
+      const currentUser = await signInAuthUserWithEmailAndPassword(email, password);
 
       resetFormFields();
+      dispatch(fetchSettingsAsync(currentUser));
     } catch (error) {
       console.log(error.code);
     }

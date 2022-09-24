@@ -1,15 +1,20 @@
 //Misc
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 
 //Components
 import FormInput from "../form-input/form-input.comp";
 import { Button } from "../button/button.comp";
+
+//Redux
+import { fetchSettingsAsync } from "../../store/user/user.action";
 
 //Firebase
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth
 } from "../../utils/firebase/firebase.utils";
+
 
 const defaultFormFields = {
   email: "",
@@ -19,6 +24,8 @@ const defaultFormFields = {
 };
 
 const SignUpForm = () => {
+
+  const dispatch = useDispatch();
 
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, username, password, confirmPassword } = formFields;
@@ -40,6 +47,7 @@ const SignUpForm = () => {
       const { user } = await createAuthUserWithEmailAndPassword(email, password);
 
       await createUserDocumentFromAuth(user, { username });
+      dispatch(fetchSettingsAsync(user));
 
       resetFormFields();
     } catch (error) {

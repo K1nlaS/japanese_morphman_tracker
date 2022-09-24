@@ -61,7 +61,7 @@ export const createUserDocumentFromAuth = async (userAuth, additionalInfo = {}) 
     const { email } = userAuth;
     const createdAt = new Date();
 
-    const titleLanguage = "romanji";
+    const titleLanguage = "romaji";
     const defaultSort = "Title";
 
     try {
