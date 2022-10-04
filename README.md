@@ -12,32 +12,50 @@ A react based web application for tracking your japanese progress by utilizing A
 ## Disclaimer
 This is my first React project made for personal use. There may be a lot of issues and unexpected behaviours.
 
+## How to use
+
+### Adding a show to the list
+On the home page click the `Add` button, fill in the popped up form and click `Add`. If the show that you added has a different banner from what you expected, please visit [Anilist](https://anilist.co/) and make sure that the title that you are using appears as the first item in their search since that is the show that JMT gets data pulled of.
+
+### Adding shows as a batch
+1. Put all of the desired shows that you want analyzed into its own folders and rename those folders to match their titles.
+2. Open you Morph Man Readability Analyzer in Anki and analyze 2 or more shows at once using these settings:
+- Outputs: Build Study Plan(true), Set Frequency List(false), Write Word Report(false), Group by Directory(true), Line Stats(true)
+- Advanced Settings: set everything to false
+- Target: 97% is recommended.
+3. Navigate to the Anki's output folder that should look something like this `C:\Users\User\AppData\Roaming\Anki2\Japanese\dbs` and get the `readability_log.txt` file. Open it and make sure there are no empty lines in there. Once that is done open up the application and click the "Batch" button, upload the `readability_log.txt` and wait for the application to add each entry to your list.
+
+Make sure that you choose the parent folder to analyze. In other words the folder that you choose to analyze has to contain nothing but folders that in its turn hold the subitle files. The depth of the parent folder can be whatever you want.
+[Example of readability_log.txt](https://github.com/K1nlaS/japanese_morphman_tracker/files/9706683/readability_log.txt)
+
+### Updating shows readabilty
+Manual:
+- Hover over an entry you wish to update, click the 3 dots that will appear in the cover image's place, fill in the form with the updated values and click "Update". The show will update its values and save the old ones in the history log.
+Batch:
+- Simply reanalyze your shows using Morph Man Readabilty Analyzer and redo the `Adding shows as a batch` steps.
+
 ## Dependencies
 Tested with [Node](https://nodejs.org/en/) >= 18.1.0
 
 ## Set up
+
 `git clone git://github.com/your_username/japanese_morphman_tracker.git` - replace [your_username] with your github username if you fork first.
-
-`cd japanese_morphman_tracker`
-
-`touch .env`
-
+```
+cd japanese_morphman_tracker
+touch .env
+```
 Add these Environment variables in newly created .env and fill them with what Firebase provided you with.
 
-`REACT_APP_FIRBASE_API_KEY=apiKey`
-
-`REACT_APP_FIRBASE_AUTH_DOMAIN=authDomain`
-
-`REACT_APP_FIRBASE_PROJECT_ID=projectId`
-
-`REACT_APP_FIRBASE_STORAGE_BUCKET=storageBucket`
-
-`REACT_APP_FIRBASE_MESSAGING_SENDER_ID=messagingSenderId`
-
-`REACT_APP_FIRBASE_APP_ID=appId`
+```
+REACT_APP_FIRBASE_API_KEY=apiKey
+REACT_APP_FIRBASE_AUTH_DOMAIN=authDomain
+REACT_APP_FIRBASE_PROJECT_ID=projectId
+REACT_APP_FIRBASE_STORAGE_BUCKET=storageBucket
+REACT_APP_FIRBASE_MESSAGING_SENDER_ID=messagingSenderId
+REACT_APP_FIRBASE_APP_ID=appId
 
 `npm start`
-
+```
 ## ToDo
 - Add responsivness
 - Add error handling and flash messages associated with them.
