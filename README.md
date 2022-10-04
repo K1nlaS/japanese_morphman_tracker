@@ -69,4 +69,6 @@ REACT_APP_FIRBASE_APP_ID=appId
 **This web application is not associated with AniList in anyway.**
 Currently there are little to now error handling present. If something is not working as expected please keep an eye on the console. It may provide some insight into what is going on. Also, when adding a new show entry makes sure that the title of the show matches the one on [Anilist](https://anilist.co/), this is needed for an Anilist's API to fetch media data from.
 
+If you wish to know more about Anki's Morph Man Readabilty Analyzer you can see an extended guide from Jo-Mako [here](https://sites.google.com/view/jo-mako/readability-list/morphman?authuser=0)
+
 P.S. The application is using a subcollection for storing individual shows, so the amount of reads can go over the limit of 50K very quickly if you are planning on adding a lot of shows.  
