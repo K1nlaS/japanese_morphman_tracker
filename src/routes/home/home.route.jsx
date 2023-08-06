@@ -30,9 +30,9 @@ function Home() {
 
   const currentUser = useSelector(selectCurrentUser);
   const { list } = useSelector(selectList);
-  const searchString = useSelector(selectSearchString);
-  const filterType = useSelector(selectFilterType);
-  const filterSort = useSelector(selectFilterSort);
+  const { searchString } = useSelector(selectList);
+  const { filterType } = useSelector(selectList);
+  const { filterSort } = useSelector(selectList);
 
   const [isAddFormModalOpen, setIsModalOpen] = useState(false);
   const [isBatchFormModalOpen, setIsBatchFormModalOpen] = useState(false);
