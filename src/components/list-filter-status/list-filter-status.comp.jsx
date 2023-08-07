@@ -36,7 +36,7 @@ const ListFilterStatus = () => {
 
     counts.current = { ...countsInitial };
 
-    for (const show of list) {
+    for (const show of Object.keys(list)) {
       const { status } = show;
 
       switch (status) {

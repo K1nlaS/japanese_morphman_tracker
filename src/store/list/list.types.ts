@@ -13,15 +13,26 @@ export enum LIST_ACTION_TYPES {
 	DELETE_LIST_SHOW = "/list/DELETE_LIST_SHOW",
 }
 
-export type List = {
-	createdAt: Timestamp;
-	defaultSort: string;
-	email: string;
-	titleLanguage: string;
-	username: string;
-};
-
 export type Show = {
+	Media: {
+		bannerImage: string;
+		coverImage: {
+			color: string;
+			extraLarge: string;
+			large: string;
+			meduim: string;
+			description: string;
+			id: number;
+			sideUrl: string;
+			title: {
+				english: string;
+				native: string;
+				romaji: string;
+			};
+		};
+	};
+	createdAt: Timestamp;
+	historyChange: historyChange[];
 	id: string;
 	title: string;
 	knownInstances: string;
@@ -29,4 +40,13 @@ export type Show = {
 	unknownMorphs: string;
 	type: string;
 	status: string;
+	updatedAt: Timestamp;
+};
+
+type historyChange = {
+	id: string;
+	knownInstances: string;
+	lineReadability: string;
+	uknownMorphs: string;
+	updatedAt: Timestamp;
 };

@@ -16,7 +16,7 @@ import { FILTER_HEADER } from "../list-filter-status/list-filter-status.styles";
 import { setFilterSort } from "../../store/list/list.action";
 
 //Selectors
-import { selectFilterSort } from "../../store/list/list.selector";
+import { selectList } from "../../store/list/list.selector";
 
 
 const sortSelectOptions = [
@@ -32,11 +32,11 @@ const ListFilterSort = () => {
 
   const dispatch = useDispatch();
 
-  const defaultSort = useSelector(selectFilterSort);
+  const { sortOption } = useSelector(selectList);
 
   useEffect(() => {
-    dispatch(setFilterSort(defaultSort));
-  }, [dispatch, defaultSort]);
+    dispatch(setFilterSort(sortOption));
+  }, [dispatch, sortOption]);
 
   const dropDownSortChangeHandler = (selectedOption) => {
     dispatch(setFilterSort(selectedOption));
@@ -47,7 +47,7 @@ const ListFilterSort = () => {
       <FILTER_HEADER>Sort</FILTER_HEADER>
 
       <SORT_BODY>
-        <DropDownSort onChange={dropDownSortChangeHandler} options={sortSelectOptions} defaultOption={defaultSort} />
+        <DropDownSort onChange={dropDownSortChangeHandler} options={sortSelectOptions} defaultOption={sortOption} />
       </SORT_BODY>
     </SORT_CONTAINER>
   );

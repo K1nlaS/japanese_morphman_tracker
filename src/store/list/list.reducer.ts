@@ -1,7 +1,6 @@
 //Action types
-import { LIST_ACTION_TYPES } from "./list.types";
+import { LIST_ACTION_TYPES, Show } from "./list.types";
 import { CategoryAction } from "./list.action";
-import { Show } from "./list.types";
 
 export type ListState = {
 	readonly list: Show[];
@@ -38,6 +37,7 @@ export const listReducer = (
 			return { ...state, isLoading: false, error: action.payload };
 
 		case LIST_ACTION_TYPES.SET_SEARCH_STRING:
+			console.log(action.payload);
 			return { ...state, searchString: action.payload };
 
 		case LIST_ACTION_TYPES.SET_FILTER_TYPE:
@@ -50,16 +50,16 @@ export const listReducer = (
 			return { ...state, list: [...state.list, action.payload] };
 
 		case LIST_ACTION_TYPES.UPDATE_LIST_SHOW:
-			const updatedList = state.list.map(show =>
-				show.id === action.payload.id ? (show = { ...action.payload }) : show
+			const updatedList = state.list.map((show: Show) =>
+				show.id === action.payload.id ? { ...action.payload } : show
 			);
-			return { ...state, list: updatedList };
+			return { ...state, list: [...updatedList] };
 
 		case LIST_ACTION_TYPES.DELETE_LIST_SHOW:
 			const filteredList = state.list.filter(
-				show => show.id !== action.payload.id
+				(show: Show) => show.id !== action.payload.id
 			);
-			return { ...state, list: filteredList };
+			return { ...state, list: [...filteredList] };
 
 		default:
 			return state;
