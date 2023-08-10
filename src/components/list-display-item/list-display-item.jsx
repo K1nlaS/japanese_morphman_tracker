@@ -53,14 +53,14 @@ const ListDisplayItem = ({ show }) => {
       <ITEM_CONTAINER onMouseEnter={() => setItemHover(true)} onMouseLeave={() => setItemHover(false)}>
 
         {
-          itemHover && (<HOVER_COVER_PREVIEW coverImage={coverImage ? coverImage.large : defaultBanner} />)
+          itemHover && (<HOVER_COVER_PREVIEW $coverImage={coverImage ? coverImage.large : defaultBanner} />)
         }
 
         <ITEM_COVER>
           {
             itemHover
               ? (<ITEM_EDIT onClick={editClickHandler}><BiDotsHorizontalRounded /></ITEM_EDIT>)
-              : <COVER_IMG imgUrl={coverImage ? coverImage.medium : defaultBanner} />
+              : <COVER_IMG $imgurl={coverImage ? coverImage.medium : defaultBanner} />
           }
         </ITEM_COVER>
 

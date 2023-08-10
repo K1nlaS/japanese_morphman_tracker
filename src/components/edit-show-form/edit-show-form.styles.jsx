@@ -8,7 +8,7 @@ export const EDIT_CONTAINER = styled.div`
 `;
 
 export const HEADER = styled.div`
-  background-image: url('${props => props.bannerImage}');
+  background-image: url('${props => props.$bannerImage}');
   background-position: 50%;
   background-size: cover;
   background-repeat: no-repeat;
@@ -50,7 +50,7 @@ export const HEADER_COVER = styled.div`
   border-radius: 0.3rem;
   background-position: 50%;
   background-size: cover;
-  background-image: url('${props => props.coverImg}');
+  background-image: url('${props => props.$coverImg}');
 `;
 
 export const HEADER_TITLE = styled.input`

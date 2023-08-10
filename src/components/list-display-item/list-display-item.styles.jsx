@@ -22,7 +22,7 @@ export const ITEM_CONTAINER = styled.div`
 
 export const HOVER_COVER_PREVIEW = styled.div`
   content: "";
-  background-image: url('${props => props.coverImage}');
+  background-image: url('${props => props.$coverImage}');
   background-size: cover;
   background-position: 50%;
   display: block;
@@ -58,7 +58,7 @@ export const ITEM_EDIT = styled.div`
 `;
 
 export const COVER_IMG = styled.div`
-  background-image: url('${props => props.imgUrl}');
+  background-image: url('${props => props.$imgurl}');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 50%;
