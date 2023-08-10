@@ -6,6 +6,7 @@ import {
 	createAction,
 	Action,
 	ActionWithPayLoad,
+	withMatcher,
 } from "../../utils/reducer/reducer.utils";
 import { Dispatch } from "redux";
 
@@ -20,7 +21,7 @@ export type FetchCategoriesFailed = ActionWithPayLoad<
 >;
 export type FetchCategoriesSuccess = ActionWithPayLoad<
 	LIST_ACTION_TYPES.FETCH_LIST_SUCCESS,
-	Show
+	Show[]
 >;
 
 //Local Actions
@@ -51,29 +52,31 @@ export type SetFilterType = ActionWithPayLoad<
 	string
 >;
 
-export type CategoryAction =
+export type ListAction =
 	| FetchCategoriesStart
 	| FetchCategoriesFailed
 	| FetchCategoriesSuccess
-	| AddShowList
-	| UpdateShowList
-	| DeleteShowList
 	| SetSearchString
 	| SetFilterSort
 	| SetFilterType;
 
 //DB List Actions
-export const fetchListStart = (): FetchCategoriesStart =>
-	createAction(LIST_ACTION_TYPES.FETCH_LIST_START);
+export const fetchListStart = withMatcher(
+	(): FetchCategoriesStart => createAction(LIST_ACTION_TYPES.FETCH_LIST_START)
+);
 
-export const fetchListSuccess = (listArray: Show): FetchCategoriesSuccess =>
-	createAction(LIST_ACTION_TYPES.FETCH_LIST_SUCCESS, listArray);
+export const fetchListSuccess = withMatcher(
+	(listArray: Show[]): FetchCategoriesSuccess =>
+		createAction(LIST_ACTION_TYPES.FETCH_LIST_SUCCESS, listArray)
+);
 
-export const fetchListFailed = (error: Error): FetchCategoriesFailed =>
-	createAction(LIST_ACTION_TYPES.FETCH_LIST_FAILED, error);
+export const fetchListFailed = withMatcher(
+	(error: Error): FetchCategoriesFailed =>
+		createAction(LIST_ACTION_TYPES.FETCH_LIST_FAILED, error)
+);
 
 export const fetchListAsync =
-	(currentUser: any) => async (dispatch: Dispatch<CategoryAction>) => {
+	(currentUser: any) => async (dispatch: Dispatch<ListAction>) => {
 		dispatch(fetchListStart());
 
 		if (!currentUser) {
@@ -89,28 +92,34 @@ export const fetchListAsync =
 	};
 
 //Local DB Actions
-export const addShowList = (newShow: Show): AddShowList =>
-	createAction(LIST_ACTION_TYPES.ADD_LIST_SHOW, newShow);
+export const addShowList = withMatcher(
+	(newShow: Show): AddShowList =>
+		createAction(LIST_ACTION_TYPES.ADD_LIST_SHOW, newShow)
+);
 
-export const updateShowList = (updatedShow: Show): UpdateShowList =>
-	createAction(LIST_ACTION_TYPES.UPDATE_LIST_SHOW, updatedShow);
+export const updateShowList = withMatcher(
+	(updatedShow: Show): UpdateShowList =>
+		createAction(LIST_ACTION_TYPES.UPDATE_LIST_SHOW, updatedShow)
+);
 
-export const deleteShowList = (deletedShow: Show): DeleteShowList =>
-	createAction(LIST_ACTION_TYPES.DELETE_LIST_SHOW, deletedShow);
+export const deleteShowList = withMatcher(
+	(deletedShow: Show): DeleteShowList =>
+		createAction(LIST_ACTION_TYPES.DELETE_LIST_SHOW, deletedShow)
+);
 
 //Filtered List Actions
 
 export const setSearchString =
 	(searchString: string) =>
-	(dispatch: Dispatch<CategoryAction>): SetSearchString =>
+	(dispatch: Dispatch<ListAction>): SetSearchString =>
 		dispatch(createAction(LIST_ACTION_TYPES.SET_SEARCH_STRING, searchString));
 
 export const setFilterType =
 	(filterType: string) =>
-	(dispatch: Dispatch<CategoryAction>): SetFilterType =>
+	(dispatch: Dispatch<ListAction>): SetFilterType =>
 		dispatch(createAction(LIST_ACTION_TYPES.SET_FILTER_TYPE, filterType));
 
 export const setFilterSort =
 	(filterSort: string) =>
-	(dispatch: Dispatch<CategoryAction>): SetFilterSort =>
+	(dispatch: Dispatch<ListAction>): SetFilterSort =>
 		dispatch(createAction(LIST_ACTION_TYPES.SET_FILTER_SORT, filterSort));
