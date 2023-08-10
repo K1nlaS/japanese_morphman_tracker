@@ -9,17 +9,20 @@ import thunk from "redux-thunk";
 import { rootReducer } from "./root-reducer";
 
 //Middlewares
-const middleWares = [logger, thunk];
-const composedEnhancers = compose(applyMiddleware(...middleWares));
+const middleWares = [process.env.NODE_ENV !== "production" && logger, thunk].filter(Boolean);
+
+const composeEnhancer = (process.env.NODE_ENV !== "production" && logger && window && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
+
+const composedEnhancers = composeEnhancer(applyMiddleware(...middleWares));
 
 //Redux Persist
 const persistConfig = {
   key: "root",
   storage,
   whitelist: [
-    "user",
     "list"
-  ]
+  ],
+  blacklist: ["user"]
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

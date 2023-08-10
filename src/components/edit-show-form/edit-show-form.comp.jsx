@@ -144,9 +144,9 @@ const EditShowForm = ({ show, closeModal }) => {
           <DATE>Created: <span>{new Date(createdAt.seconds * 1000).toLocaleDateString("ukr")}</span></DATE>
         </DATES>
 
-        <HEADER bannerImage={bannerImage ? bannerImage : defaultBanner} >
+        <HEADER $bannerImage={bannerImage ? bannerImage : defaultBanner} >
           <HEADER_CONTENT>
-            <HEADER_COVER coverImg={coverImage ? coverImage.medium : defaultBanner} />
+            <HEADER_COVER $coverImg={coverImage ? coverImage.medium : defaultBanner} />
             <HEADER_TITLE_CONTAINER>
               <MdEdit />
               <HEADER_TITLE onChange={titleChangeHandler} value={title} name="title" spellCheck={false} />
