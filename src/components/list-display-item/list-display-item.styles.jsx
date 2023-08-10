@@ -58,7 +58,7 @@ export const ITEM_EDIT = styled.div`
 `;
 
 export const COVER_IMG = styled.div`
-  background-image: url('${props => props.$imgurl}');
+  background-image: url('${props => props.$imgUrl}');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 50%;

@@ -60,7 +60,7 @@ const ListDisplayItem = ({ show }) => {
           {
             itemHover
               ? (<ITEM_EDIT onClick={editClickHandler}><BiDotsHorizontalRounded /></ITEM_EDIT>)
-              : <COVER_IMG $imgurl={coverImage ? coverImage.medium : defaultBanner} />
+              : <COVER_IMG $imgUrl={coverImage ? coverImage.medium : defaultBanner} />
           }
         </ITEM_COVER>
 
