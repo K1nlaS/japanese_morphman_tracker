@@ -43,7 +43,7 @@ export type Show = {
 	updatedAt: Timestamp;
 };
 
-type historyChange = {
+export type historyChange = {
 	id: string;
 	knownInstances: string;
 	lineReadability: string;
