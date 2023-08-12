@@ -1,12 +1,10 @@
 //Misc
 import { Outlet } from "react-router-dom";
-import { useSelector } from "react-redux";
-
-//Firebase
-import { signOutUser } from "../../utils/firebase/firebase.utils";
+import { useDispatch, useSelector } from "react-redux";
 
 //Redux
 import { selectCurrentUser } from "../../store/user/user.selector";
+import { signOutStart } from "../../store/user/user.action";
 
 //Components
 import { CustomLink, LINK_TYPE_CLASSES } from "../../components/custom-link/custom-link.comp";
@@ -24,7 +22,11 @@ import { Button, BUTTON_TYPE_CLASSES } from "../../components/button/button.comp
 
 const Navigation = () => {
 
+  const dispatch = useDispatch();
+
   const currentUser = useSelector(selectCurrentUser);
+
+  const signOutUser = () => dispatch(signOutStart());
 
   return (
     <>

@@ -1,6 +1,3 @@
-//Firebase
-import { getSettingsList } from "../../utils/firebase/firebase.utils";
-
 //Reducer shorthand
 import { createAction } from "../../utils/reducer/reducer.utils";
 
@@ -10,26 +7,32 @@ import { USER_ACTION_TYPES } from "./user.types";
 export const setCurrentUser = (user) =>
   createAction(USER_ACTION_TYPES.SET_CURRENT_USER, user);
 
-export const fetchSettingsStart = () =>
-  createAction(USER_ACTION_TYPES.FETCH_SETTINGS_START);
+export const checkUserSession = () =>
+  createAction(USER_ACTION_TYPES.CHECK_USER_SESSION);
 
-export const fetchSettingsSuccess = (settingsObject) =>
-  createAction(USER_ACTION_TYPES.FETCH_SETTINGS_SUCCESS, settingsObject);
+export const emailSignInStart = (email, password) =>
+  createAction(USER_ACTION_TYPES.EMAIL_SIGN_IN_START, { email, password });
 
-export const fetchSettingsFailed = (error) =>
-  createAction(USER_ACTION_TYPES.FETCH_SETTINGS_FAILED, error);
+export const signInSuccess = (user) =>
+  createAction(USER_ACTION_TYPES.SIGN_IN_SUCCESS, user);
 
-export const fetchSettingsAsync = (currentUser) => async (dispatch) => {
-  dispatch(fetchSettingsStart());
+export const signInFailed = (error) =>
+  createAction(USER_ACTION_TYPES.SIGN_IN_FAILED, error);
 
-  if (!currentUser) {
-    dispatch(fetchSettingsSuccess({}));
-  } else {
-    try {
-      const settingsObject = await getSettingsList(currentUser);
-      dispatch(fetchSettingsSuccess(settingsObject));
-    } catch (error) {
-      dispatch(fetchSettingsFailed(error));
-    }
-  }
-};
+export const signUpStart = (email, password, username) =>
+  createAction(USER_ACTION_TYPES.SIGN_UP_START, { email, password, username });
+
+export const signUpSuccess = (user, additionalDetails) =>
+  createAction(USER_ACTION_TYPES.SIGN_UP_SUCCESS, { user, additionalDetails });
+
+export const signUpFailed = (error) =>
+  createAction(USER_ACTION_TYPES.SIGN_UP_FAILED, error);
+
+export const signOutStart = () =>
+  createAction(USER_ACTION_TYPES.SIGN_OUT_START);
+
+export const signOutSuccess = () =>
+  createAction(USER_ACTION_TYPES.SIGN_OUT_SUCCESS);
+
+export const signOutFailed = (error) =>
+  createAction(USER_ACTION_TYPES.SIGN_OUT_FAILED, error);

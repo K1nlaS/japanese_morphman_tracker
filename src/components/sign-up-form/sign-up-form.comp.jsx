@@ -7,14 +7,7 @@ import FormInput from "../form-input/form-input.comp";
 import { Button } from "../button/button.comp";
 
 //Redux
-import { fetchSettingsAsync } from "../../store/user/user.action";
-
-//Firebase
-import {
-  createAuthUserWithEmailAndPassword,
-  createUserDocumentFromAuth
-} from "../../utils/firebase/firebase.utils";
-
+import { signUpStart } from "../../store/user/user.action";
 
 const defaultFormFields = {
   email: "",
@@ -44,10 +37,7 @@ const SignUpForm = () => {
     }
 
     try {
-      const { user } = await createAuthUserWithEmailAndPassword(email, password);
-
-      await createUserDocumentFromAuth(user, { username });
-      dispatch(fetchSettingsAsync(user));
+      dispatch(signUpStart(email, password, username));
 
       resetFormFields();
     } catch (error) {

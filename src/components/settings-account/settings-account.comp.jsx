@@ -9,7 +9,7 @@ import { updateUserSettings, updateUserEmail, updateUserPassword } from "../../u
 import { selectCurrentUser, selectSettings } from "../../store/user/user.selector";
 
 //Redux
-import { fetchSettingsAsync } from "../../store/user/user.action";
+import { checkUserSession } from "../../store/user/user.action";
 
 //Components
 import FormInput from "../form-input/form-input.comp";
@@ -58,7 +58,7 @@ const SettingsAccount = () => {
   const usernameSubmitHandler = async () => {
     if (username.length > 0 && username.length <= 20) {
       await updateUserSettings(currentUser, { username });
-      dispatch(fetchSettingsAsync(currentUser));
+      dispatch(checkUserSession());
     }
   };
 
@@ -72,7 +72,7 @@ const SettingsAccount = () => {
     if (email.length > 0) {
       await updateUserEmail(currentUser, email);
       await updateUserSettings(currentUser, { email });
-      dispatch(fetchSettingsAsync(currentUser));
+      dispatch(checkUserSession());
     }
   };
 
@@ -85,7 +85,7 @@ const SettingsAccount = () => {
   const passwordSubmitHandler = async () => {
     if (newPassword === confirmPassword) {
       await updateUserPassword(currentUser, newPassword);
-      dispatch(fetchSettingsAsync(currentUser));
+      dispatch(checkUserSession());
       setpasswordFields(passwords);
     }
   };

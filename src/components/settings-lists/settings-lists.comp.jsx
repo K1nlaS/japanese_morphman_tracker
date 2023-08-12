@@ -1,6 +1,6 @@
 //Misc
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSettingsAsync } from "../../store/user/user.action";
+import { checkUserSession } from "../../store/user/user.action";
 import { selectCurrentUser } from "../../store/user/user.selector";
 
 //Firebase
@@ -26,13 +26,13 @@ const SettingsLists = () => {
   const listOrderChangeHandler = async (selectedOption) => {
     const toPost = { defaultSort: selectedOption.value };
     await updateUserSettings(currentUser, toPost);
-    dispatch(fetchSettingsAsync(currentUser));
+    dispatch(checkUserSession());
   };
 
   const titleLanguageChangeHandler = async (selectedOption) => {
     const toPost = { titleLanguage: selectedOption.value };
     await updateUserSettings(currentUser, toPost);
-    dispatch(fetchSettingsAsync(currentUser));
+    dispatch(checkUserSession());
   };
 
   return (

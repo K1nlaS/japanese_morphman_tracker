@@ -1,7 +1,7 @@
 //Misc
 import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 //Routes
 import Navigation from "./routes/navigation/navigation.route";
@@ -14,35 +14,22 @@ import ProtectedRoute from "./components/protected-route/protected-route.comp";
 import SettingsLists from "./components/settings-lists/settings-lists.comp";
 import SettingsAccount from "./components/settings-account/settings-account.comp";
 
-//Firebase
-import {
-  onAuthStateChangedListener,
-  createUserDocumentFromAuth,
-} from "./utils/firebase/firebase.utils";
-
 //Redux
-import { fetchSettingsAsync, setCurrentUser } from "./store/user/user.action";
-import { selectCurrentUser } from "./store/user/user.selector";
+import { checkUserSession } from "./store/user/user.action";
 
 const App = () => {
 
   const dispatch = useDispatch();
 
-  const currentUser = useSelector(selectCurrentUser);
+  // const currentUser = useSelector(selectCurrentUser);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChangedListener((user) => {
-      if (user) {
-        createUserDocumentFromAuth(user);
-      }
-      dispatch(setCurrentUser(user));
-    });
-    return unsubscribe;
-  }, [dispatch]);
+    dispatch(checkUserSession());
+  }, []);
 
-  useEffect(() => {
-    dispatch(fetchSettingsAsync(currentUser));
-  }, [dispatch, currentUser]);
+  // useEffect(() => {
+  //   dispatch(fetchSettingsAsync(currentUser));
+  // }, [dispatch, currentUser]);
 
   return (
     <Routes>

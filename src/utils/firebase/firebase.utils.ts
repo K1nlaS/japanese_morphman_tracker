@@ -28,7 +28,7 @@ import {
 	deleteDoc,
 	arrayUnion,
 	DocumentReference,
-	QueryDocumentSnapshot,
+	DocumentSnapshot,
 } from "firebase/firestore";
 
 //Anilist API
@@ -58,18 +58,15 @@ initializeApp(firbaseConfig);
 export const auth = getAuth();
 export const db = getFirestore();
 
-export type UserData = {
-	email: string;
-	createdAt: Date;
-	titleLanguage: string;
-	defaultSort: string;
+export type AdditionalInformation = {
+	username?: string;
 };
 
 // Users Related
 export const createUserDocumentFromAuth = async (
 	userAuth: User,
-	additionalInfo = {}
-): Promise<UserData | void> => {
+	additionalInfo: AdditionalInformation = {} as AdditionalInformation
+): Promise<DocumentSnapshot | void> => {
 	if (!userAuth) return;
 
 	// Getting the document reference to the specific user
@@ -98,7 +95,20 @@ export const createUserDocumentFromAuth = async (
 		}
 	}
 
-	return userSnapshot.data() as UserData;
+	return userSnapshot;
+};
+
+export const getCurrentUser = () => {
+	return new Promise((resolve, reject) => {
+		const unsubscribe = onAuthStateChanged(
+			auth,
+			userAuth => {
+				unsubscribe();
+				resolve(userAuth);
+			},
+			reject
+		);
+	});
 };
 
 export const createAuthUserWithEmailAndPassword = async (
@@ -350,16 +360,6 @@ export const listBatchUpdate = async (
 };
 
 //// Settings Related
-
-// Returns an object of user's settings
-export const getSettingsList = async (userAuth: User) => {
-	if (!userAuth) return;
-
-	const userRef = doc(db, "users", userAuth.uid);
-	const data = await getDoc(userRef);
-
-	return { ...data.data(), id: userAuth.uid };
-};
 
 // Updating user's settings
 export const updateUserSettings = async (userAuth: User, postData) => {

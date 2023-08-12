@@ -15,7 +15,7 @@ import BatchUpdateForm from "../../components/batch-updater/batch-updater.comp";
 import { LIST_CONTAINER } from "./home.styles";
 
 //Redux
-import { fetchListAsync, setSearchString } from "../../store/list/list.action";
+import { fetchListStart, setSearchString } from "../../store/list/list.action";
 
 //Selectors
 import { selectCurrentUser } from "../../store/user/user.selector";
@@ -35,10 +35,10 @@ function Home() {
   const [isBatchFormModalOpen, setIsBatchFormModalOpen] = useState(false);
   const [filteredList, setFilteredList] = useState(list);
 
-  useEffect(() => {
-    dispatch(fetchListAsync(currentUser));
-    dispatch(setSearchString(""));
-  }, [dispatch, currentUser]);
+  // useEffect(() => {
+  //   dispatch(fetchListStart());
+  //   dispatch(setSearchString(""));
+  // }, [dispatch, currentUser]);
 
   useEffect(() => {
     const anilistTitleFilter = (anilistTitles) => {
