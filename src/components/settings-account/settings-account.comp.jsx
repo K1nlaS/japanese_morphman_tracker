@@ -9,7 +9,7 @@ import { updateUserEmail, updateUserPassword } from "../../utils/firebase/fireba
 import { selectCurrentUser } from "../../store/user/user.selector";
 
 //Redux
-import { checkUserSession } from "../../store/user/user.action";
+import { checkUserSession, updateListSettingsStart } from "../../store/user/user.action";
 
 //Components
 import FormInput from "../form-input/form-input.comp";
@@ -55,10 +55,9 @@ const SettingsAccount = () => {
     setUsername(value);
   };
 
-  const usernameSubmitHandler = async () => {
+  const usernameSubmitHandler = () => {
     if (username.length > 0 && username.length <= 20) {
-      // await updateUserSettings(currentUser, { username });
-      dispatch(checkUserSession());
+      dispatch(updateListSettingsStart({ username: { username } }));
     }
   };
 

@@ -370,6 +370,8 @@ export const listBatchUpdate = async (
 type settings = {
 	defaultSort?: string;
 	titleLanguage?: string;
+	username?: string;
+	email?: string;
 };
 
 export const updateListSettings = async (

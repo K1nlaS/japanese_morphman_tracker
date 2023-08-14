@@ -67,7 +67,9 @@ export function* signOut() {
   }
 }
 
-export function* updateSettings({ payload: { toPost } }) {
+export function* updateSettings({ payload }) {
+  let { toPost } = payload;
+  toPost = payload.username ? payload.username : toPost;
   try {
     const userAuth = yield call(getCurrentUser);
     yield call(updateListSettings, userAuth, toPost);
