@@ -367,12 +367,23 @@ export const listBatchUpdate = async (
 //// Settings Related
 
 // Updating user's settings
-export const updateUserSettings = async (userAuth: User, postData) => {
+type settings = {
+	defaultSort?: string;
+	titleLanguage?: string;
+};
+
+export const updateListSettings = async (
+	userAuth: User,
+	postData: settings
+) => {
 	if (!userAuth || !postData) return;
 
 	const userRef = doc(db, "users", userAuth.uid);
-
-	await updateDoc(userRef, { ...postData });
+	try {
+		await updateDoc(userRef, { ...postData });
+	} catch (error) {
+		throw new Error("An error occurred while updating list settings.");
+	}
 };
 
 //Updating user's email
@@ -382,7 +393,7 @@ export const updateUserEmail = async (userAuth: User, email: string) => {
 	try {
 		await updateEmail(userAuth, email);
 	} catch (error) {
-		console.log(error);
+		throw new Error("An error occurred while updating email.");
 	}
 };
 
@@ -396,6 +407,6 @@ export const updateUserPassword = async (
 	try {
 		await updatePassword(userAuth, newPassword);
 	} catch (error) {
-		console.log(error);
+		throw new Error("An error occurred while updating password.");
 	}
 };

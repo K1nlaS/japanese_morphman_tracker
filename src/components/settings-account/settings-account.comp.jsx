@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
 //Firebase
-import { updateUserSettings, updateUserEmail, updateUserPassword } from "../../utils/firebase/firebase.utils";
+import { updateUserEmail, updateUserPassword } from "../../utils/firebase/firebase.utils";
 
 //Selectors
-import { selectCurrentUser, selectSettings } from "../../store/user/user.selector";
+import { selectCurrentUser } from "../../store/user/user.selector";
 
 //Redux
 import { checkUserSession } from "../../store/user/user.action";
@@ -36,8 +36,8 @@ const SettingsAccount = () => {
 
   const dispatch = useDispatch();
 
-  const { username: dataUsername, email: dataEmail } = useSelector(selectSettings);
   const currentUser = useSelector(selectCurrentUser);
+  const { username: dataUsername, email: dataEmail } = currentUser;
 
   const [username, setUsername] = useState(usernameTemp);
   const [email, setEmail] = useState(emailTemp);
@@ -57,7 +57,7 @@ const SettingsAccount = () => {
 
   const usernameSubmitHandler = async () => {
     if (username.length > 0 && username.length <= 20) {
-      await updateUserSettings(currentUser, { username });
+      // await updateUserSettings(currentUser, { username });
       dispatch(checkUserSession());
     }
   };
@@ -71,7 +71,7 @@ const SettingsAccount = () => {
   const emailSubmitHandler = async () => {
     if (email.length > 0) {
       await updateUserEmail(currentUser, email);
-      await updateUserSettings(currentUser, { email });
+      // await updateUserSettings(currentUser, { email });
       dispatch(checkUserSession());
     }
   };

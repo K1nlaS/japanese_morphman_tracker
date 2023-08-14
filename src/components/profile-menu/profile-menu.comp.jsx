@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 
 //Selectors
-import { selectSettings } from "../../store/user/user.selector";
+import { selectCurrentUser } from "../../store/user/user.selector";
 
 //Icons
 import { MdKeyboardArrowDown } from "react-icons/md";
@@ -24,7 +24,7 @@ import {
 const ProfileMenu = ({ children }) => {
 
   const [isDropDown, setIsDropDown] = useState(false);
-  const { username } = useSelector(selectSettings);
+  const { username } = useSelector(selectCurrentUser);
 
   const onProfileEnterHandler = () => {
     setIsDropDown(true);

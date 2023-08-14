@@ -1,7 +1,7 @@
 //Misc
 import { useSelector } from "react-redux";
 import Select from "react-select";
-import { selectSettings } from "../../store/user/user.selector";
+import { selectCurrentUser } from "../../store/user/user.selector";
 
 //Select Styles
 const customStyles = {
@@ -62,7 +62,7 @@ const options = [
 
 const DropDownSort = ({ specificStyles, ...otherProps }) => {
 
-  const { defaultSort } = useSelector(selectSettings);
+  const { defaultSort } = useSelector(selectCurrentUser);
   const defaultOption = { value: defaultSort, label: defaultSort };
 
   return (

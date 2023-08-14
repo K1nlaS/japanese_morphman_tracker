@@ -1,13 +1,10 @@
 //Misc
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import defaultBanner from "../../assets/404_banner.jpg";
 
 //Icons
 import { MdEdit } from "react-icons/md";
-
-//Selectors
-import { selectCurrentUser } from "../../store/user/user.selector";
 
 //Redux
 // import { deleteShowList, updateShowList } from "../../store/list/list.action";
@@ -59,8 +56,6 @@ const defaultFormFields = {
 };
 
 const EditShowForm = ({ show, closeModal }) => {
-
-  const currentUser = useSelector(selectCurrentUser);
 
   const dispatch = useDispatch();
 
@@ -115,15 +110,14 @@ const EditShowForm = ({ show, closeModal }) => {
     setFormFields({ ...formFields, type: value });
   };
 
-  const formSubmitHandler = async (e) => {
+  const formSubmitHandler = (e) => {
     e.preventDefault();
     closeModal(false);
 
     dispatch(updateShowListStart(formFields));
   };
 
-  const deleteClickHandler = async () => {
-
+  const deleteClickHandler = () => {
     dispatch(deleteShowListStart({ id }));
     closeModal(false);
   };

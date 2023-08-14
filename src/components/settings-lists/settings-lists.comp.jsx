@@ -1,10 +1,6 @@
 //Misc
-import { useDispatch, useSelector } from "react-redux";
-import { checkUserSession } from "../../store/user/user.action";
-import { selectCurrentUser } from "../../store/user/user.selector";
-
-//Firebase
-import { updateUserSettings } from "../../utils/firebase/firebase.utils";
+import { useDispatch } from "react-redux";
+import { updateListSettingsStart } from "../../store/user/user.action";
 
 //Components
 import DropDownSort from "../dropdown-sort/dropdown-sort.comp";
@@ -17,22 +13,21 @@ import {
   SETTINGS_LIST_CONTAINER
 } from "./settings-lists.styles";
 
+
 const SettingsLists = () => {
 
   const dispatch = useDispatch();
 
-  const currentUser = useSelector(selectCurrentUser);
-
-  const listOrderChangeHandler = async (selectedOption) => {
+  const listOrderChangeHandler = (selectedOption) => {
     const toPost = { defaultSort: selectedOption.value };
-    await updateUserSettings(currentUser, toPost);
-    dispatch(checkUserSession());
+
+    dispatch(updateListSettingsStart({ toPost }));
   };
 
-  const titleLanguageChangeHandler = async (selectedOption) => {
+  const titleLanguageChangeHandler = (selectedOption) => {
     const toPost = { titleLanguage: selectedOption.value };
-    await updateUserSettings(currentUser, toPost);
-    dispatch(checkUserSession());
+
+    dispatch(updateListSettingsStart({ toPost }));
   };
 
   return (

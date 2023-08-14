@@ -6,9 +6,11 @@ import {
   signUpSuccess,
   signUpFailed,
   signOutSuccess,
-  signOutFailed
+  signOutFailed,
+  updateListSettingsFailed,
+  updateListSettingsSuccess
 } from "./user.action";
-import { getCurrentUser, createUserDocumentFromAuth, signInAuthUserWithEmailAndPassword, createAuthUserWithEmailAndPassword, signOutUser } from "../../utils/firebase/firebase.utils";
+import { getCurrentUser, createUserDocumentFromAuth, signInAuthUserWithEmailAndPassword, createAuthUserWithEmailAndPassword, signOutUser, updateListSettings } from "../../utils/firebase/firebase.utils";
 
 //User Auth Check
 export function* getSnapshotFromUserAuth(userAuth, additionalDetails) {
@@ -65,6 +67,15 @@ export function* signOut() {
   }
 }
 
+export function* updateSettings({ payload: { toPost } }) {
+  try {
+    const userAuth = yield call(getCurrentUser);
+    yield call(updateListSettings, userAuth, toPost);
+    yield put(updateListSettingsSuccess(toPost));
+  } catch (error) {
+    yield put(updateListSettingsFailed(error));
+  }
+}
 
 // Entry Point Sagas
 export function* onEmailSignInStart() {
@@ -87,6 +98,10 @@ export function* onSignOutStart() {
   yield takeLatest(USER_ACTION_TYPES.SIGN_OUT_START, signOut);
 }
 
+export function* onUpdateListSettings() {
+  yield takeLatest(USER_ACTION_TYPES.UPDATE_LIST_SETTINGS_START, updateSettings);
+}
+
 // Sagas Export
 export function* userSagas() {
   yield all([
@@ -95,5 +110,6 @@ export function* userSagas() {
     call(onSignUpStart),
     call(onSignUpSuccess),
     call(onSignOutStart),
+    call(onUpdateListSettings),
   ]);
 }

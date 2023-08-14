@@ -1,6 +1,6 @@
 //Misc
 import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 //Components
 import FormInput from "../form-input/form-input.comp";
@@ -13,13 +13,8 @@ import {
   FORM_CONTAINER
 } from "./add-show-form.styles";
 
-//Redux
-import { selectCurrentUser } from "../../store/user/user.selector";
-
 //Firebase
-import { addNewListDocument, getCollectionItem } from "../../utils/firebase/firebase.utils";
 import { addShowListStart } from "../../store/list/list.action";
-import { addShow } from "../../store/list/list.saga";
 
 const typeSelectOptions = [
   { value: "TV", label: "TV" },
@@ -65,12 +60,11 @@ const AddShowFormComponent = ({ closeModal }) => {
     setFormFields({ ...formFields, status: value });
   };
 
-  const formSubmitHandler = async (event) => {
-    event.preventDefault();
+  const formSubmitHandler = (e) => {
+    e.preventDefault();
     closeModal(false);
 
     dispatch(addShowListStart({ formFields }));
-
   };
 
 
