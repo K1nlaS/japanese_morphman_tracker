@@ -135,7 +135,9 @@ export const onAuthStateChangedListener = (callback: NextOrObserver<User>) =>
 //// List Related
 
 //Returns list of user's shows from firestore
-export const getCollectionList = async (userAuth: User) => {
+export const getCollectionList = async (
+	userAuth: User
+): Promise<any | void> => {
 	if (!userAuth) return;
 
 	const userListRef = collection(db, "users", userAuth.uid, "list");
@@ -147,7 +149,7 @@ export const getCollectionList = async (userAuth: User) => {
 export const getCollectionItem = async (
 	userAuth: User,
 	showRef: DocumentReference
-) => {
+): Promise<any | void> => {
 	if (!userAuth) return;
 
 	const show = await getDoc(showRef);
@@ -157,7 +159,7 @@ export const getCollectionItem = async (
 //Adds new entry to the user's list of shows
 export const addNewListDocument = async (
 	userAuth: User,
-	postData: Show
+	postData: any
 ): Promise<DocumentReference> => {
 	if (!userAuth || !postData) throw new Error("Invalid userAuth or postData");
 
@@ -212,7 +214,10 @@ export const addNewListDocument = async (
 };
 
 //Updating signle list entry
-export const updateListDocument = async (userAuth: User, postData: Show) => {
+export const updateListDocument = async (
+	userAuth: User,
+	postData: any
+): Promise<DocumentReference | void> => {
 	if (!userAuth || !postData) return;
 
 	const userListRef = collection(db, "users", userAuth.uid, "list");
@@ -289,7 +294,7 @@ export const updateListDocument = async (userAuth: User, postData: Show) => {
 export const deleteListDocument = async (
 	userAuth: User,
 	documentId: string
-) => {
+): Promise<any | void> => {
 	if (!userAuth || !documentId) return;
 
 	const listDocumentRef = doc(db, "users", userAuth.uid, "list", documentId);

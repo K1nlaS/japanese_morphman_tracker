@@ -35,10 +35,11 @@ function Home() {
   const [isBatchFormModalOpen, setIsBatchFormModalOpen] = useState(false);
   const [filteredList, setFilteredList] = useState(list);
 
-  // useEffect(() => {
-  //   dispatch(fetchListStart());
-  //   dispatch(setSearchString(""));
-  // }, [dispatch, currentUser]);
+
+  useEffect(() => {
+    dispatch(fetchListStart());
+    dispatch(setSearchString(""));
+  }, [dispatch]);
 
   useEffect(() => {
     const anilistTitleFilter = (anilistTitles) => {
@@ -51,7 +52,6 @@ function Home() {
       return Object.values(anilistTitles).some(title => title.toLowerCase().includes(searchString.toLowerCase()));
     };
 
-    // console.log(searchString);
     let newFilteredList = list
       .filter(show => {
         return show.title.toLowerCase().includes(searchString.toLowerCase()) || anilistTitleFilter(show.Media.title);

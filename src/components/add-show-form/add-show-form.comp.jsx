@@ -18,7 +18,8 @@ import { selectCurrentUser } from "../../store/user/user.selector";
 
 //Firebase
 import { addNewListDocument, getCollectionItem } from "../../utils/firebase/firebase.utils";
-import { addShowList } from "../../store/list/list.action";
+import { addShowListStart } from "../../store/list/list.action";
+import { addShow } from "../../store/list/list.saga";
 
 const typeSelectOptions = [
   { value: "TV", label: "TV" },
@@ -49,8 +50,6 @@ const AddShowFormComponent = ({ closeModal }) => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { title, knownInstances, lineReadability, uknownMorphs } = formFields;
 
-  const currentUser = useSelector(selectCurrentUser);
-
   const inputChangeHandler = (event) => {
     const { name, value } = event.target;
     setFormFields({ ...formFields, [name]: value });
@@ -68,15 +67,10 @@ const AddShowFormComponent = ({ closeModal }) => {
 
   const formSubmitHandler = async (event) => {
     event.preventDefault();
+    closeModal(false);
 
-    try {
-      closeModal(false);
-      const newShow = await addNewListDocument(currentUser, formFields);
-      const show = await getCollectionItem(currentUser, newShow);
-      dispatch(addShowList(show));
-    } catch (error) {
-      console.log(error.code);
-    }
+    dispatch(addShowListStart({ formFields }));
+
   };
 
 

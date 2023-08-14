@@ -1,6 +1,3 @@
-//Firebase
-import { getCollectionList } from "../../utils/firebase/firebase.utils";
-
 //Reducer shorthand
 import {
 	createAction,
@@ -8,10 +5,24 @@ import {
 	ActionWithPayLoad,
 	withMatcher,
 } from "../../utils/reducer/reducer.utils";
-import { Dispatch } from "redux";
 
 //Action types
 import { LIST_ACTION_TYPES, Show } from "./list.types";
+
+type FormFields = {
+	title: string;
+	knownInstances: string;
+	lineReadability: string;
+	uknownMorphs: string;
+	type: { value: string; label: string };
+	status: { value: string; label: string };
+};
+
+type UpdatedFormFields = FormFields & {
+	id: string;
+	status: string;
+	type: string;
+};
 
 //DB List Actions
 export type FetchCategoriesStart = Action<LIST_ACTION_TYPES.FETCH_LIST_START>;
@@ -24,17 +35,45 @@ export type FetchCategoriesSuccess = ActionWithPayLoad<
 	Show[]
 >;
 
-//Local Actions
-export type AddShowList = ActionWithPayLoad<
-	LIST_ACTION_TYPES.ADD_LIST_SHOW,
+//Add Show
+export type AddShowListStart = ActionWithPayLoad<
+	LIST_ACTION_TYPES.ADD_LIST_SHOW_START,
+	FormFields
+>;
+export type AddShowListFailed = ActionWithPayLoad<
+	LIST_ACTION_TYPES.ADD_LIST_SHOW_FAILED,
+	Error
+>;
+export type AddShowListSuccess = ActionWithPayLoad<
+	LIST_ACTION_TYPES.ADD_LIST_SHOW_SUCCESS,
 	Show
 >;
-export type UpdateShowList = ActionWithPayLoad<
-	LIST_ACTION_TYPES.UPDATE_LIST_SHOW,
+
+//Update Show
+export type UpdateShowListStart = ActionWithPayLoad<
+	LIST_ACTION_TYPES.UPDATE_LIST_SHOW_START,
+	UpdatedFormFields
+>;
+export type UpdateShowListFailed = ActionWithPayLoad<
+	LIST_ACTION_TYPES.UPDATE_LIST_SHOW_FAILED,
+	Error
+>;
+export type UpdateShowListSuccess = ActionWithPayLoad<
+	LIST_ACTION_TYPES.UPDATE_LIST_SHOW_SUCCESS,
 	Show
 >;
-export type DeleteShowList = ActionWithPayLoad<
-	LIST_ACTION_TYPES.DELETE_LIST_SHOW,
+
+//Delete Show
+export type DeleteShowListStart = ActionWithPayLoad<
+	LIST_ACTION_TYPES.DELETE_LIST_SHOW_START,
+	string
+>;
+export type DeleteShowListFailed = ActionWithPayLoad<
+	LIST_ACTION_TYPES.DELETE_LIST_SHOW_FAILED,
+	Error
+>;
+export type DeleteShowListSuccess = ActionWithPayLoad<
+	LIST_ACTION_TYPES.DELETE_LIST_SHOW_SUCCESS,
 	Show
 >;
 
@@ -75,51 +114,60 @@ export const fetchListFailed = withMatcher(
 		createAction(LIST_ACTION_TYPES.FETCH_LIST_FAILED, error)
 );
 
-export const fetchListAsync =
-	(currentUser: any) => async (dispatch: Dispatch<ListAction>) => {
-		dispatch(fetchListStart());
-
-		if (!currentUser) {
-			dispatch(fetchListSuccess([]));
-		} else {
-			try {
-				const list = await getCollectionList(currentUser);
-				dispatch(fetchListSuccess(list));
-			} catch (error: any) {
-				dispatch(fetchListFailed(error));
-			}
-		}
-	};
-
-//Local DB Actions
-export const addShowList = withMatcher(
-	(newShow: Show): AddShowList =>
-		createAction(LIST_ACTION_TYPES.ADD_LIST_SHOW, newShow)
+//Add Show
+export const addShowListStart = withMatcher(
+	(formFields: FormFields): AddShowListStart =>
+		createAction(LIST_ACTION_TYPES.ADD_LIST_SHOW_START, formFields)
+);
+export const addShowListFailed = withMatcher(
+	(error: Error): AddShowListFailed =>
+		createAction(LIST_ACTION_TYPES.ADD_LIST_SHOW_FAILED, error)
+);
+export const addShowListSuccess = withMatcher(
+	(show: any): AddShowListSuccess =>
+		createAction(LIST_ACTION_TYPES.ADD_LIST_SHOW_SUCCESS, show)
 );
 
-export const updateShowList = withMatcher(
-	(updatedShow: Show): UpdateShowList =>
-		createAction(LIST_ACTION_TYPES.UPDATE_LIST_SHOW, updatedShow)
+//Update Show
+export const updateShowListStart = withMatcher(
+	(formFields: UpdatedFormFields): UpdateShowListStart =>
+		createAction(LIST_ACTION_TYPES.UPDATE_LIST_SHOW_START, formFields)
+);
+export const updateShowListFailed = withMatcher(
+	(error: Error): UpdateShowListFailed =>
+		createAction(LIST_ACTION_TYPES.UPDATE_LIST_SHOW_FAILED, error)
+);
+export const updateShowListSuccess = withMatcher(
+	(updatedShow: Show): UpdateShowListSuccess =>
+		createAction(LIST_ACTION_TYPES.UPDATE_LIST_SHOW_SUCCESS, updatedShow)
 );
 
-export const deleteShowList = withMatcher(
-	(deletedShow: Show): DeleteShowList =>
-		createAction(LIST_ACTION_TYPES.DELETE_LIST_SHOW, deletedShow)
+//Delete Show
+export const deleteShowListStart = withMatcher(
+	(id: string): DeleteShowListStart =>
+		createAction(LIST_ACTION_TYPES.DELETE_LIST_SHOW_START, id)
+);
+export const deleteShowListFailed = withMatcher(
+	(error: Error): DeleteShowListFailed =>
+		createAction(LIST_ACTION_TYPES.DELETE_LIST_SHOW_FAILED, error)
+);
+export const deleteShowListSuccess = withMatcher(
+	(deletedShow: Show): DeleteShowListSuccess =>
+		createAction(LIST_ACTION_TYPES.DELETE_LIST_SHOW_SUCCESS, deletedShow)
 );
 
 //Filtered List Actions
+export const setSearchString = withMatcher(
+	(searchString: string): SetSearchString =>
+		createAction(LIST_ACTION_TYPES.SET_SEARCH_STRING, searchString)
+);
 
-export const setSearchString =
-	(searchString: string) =>
-	(dispatch: Dispatch<ListAction>): SetSearchString =>
-		dispatch(createAction(LIST_ACTION_TYPES.SET_SEARCH_STRING, searchString));
+export const setFilterType = withMatcher(
+	(filterType: string): SetFilterType =>
+		createAction(LIST_ACTION_TYPES.SET_FILTER_TYPE, filterType)
+);
 
-export const setFilterType =
-	(filterType: string) =>
-	(dispatch: Dispatch<ListAction>): SetFilterType =>
-		dispatch(createAction(LIST_ACTION_TYPES.SET_FILTER_TYPE, filterType));
-
-export const setFilterSort =
-	(filterSort: string) =>
-	(dispatch: Dispatch<ListAction>): SetFilterSort =>
-		dispatch(createAction(LIST_ACTION_TYPES.SET_FILTER_SORT, filterSort));
+export const setFilterSort = withMatcher(
+	(filterSort: string): SetFilterSort =>
+		createAction(LIST_ACTION_TYPES.SET_FILTER_SORT, filterSort)
+);

@@ -5,14 +5,14 @@ import { useDispatch, useSelector } from "react-redux";
 //Firebase
 import { listBatchUpdate } from "../../utils/firebase/firebase.utils";
 
-//Redux
-import { fetchListAsync } from "../../store/list/list.action";
-
 //Selectors
 import { selectCurrentUser } from "../../store/user/user.selector";
 
 //Components
 import { Button } from "../button/button.comp";
+
+//Saga
+import { fetchListStart } from "../../store/list/list.action";
 
 //Styled Components
 import {
@@ -58,7 +58,7 @@ const BatchUpdateForm = ({ closeModal }) => {
 
   const fileSubmitHandler = async () => {
     await listBatchUpdate(currentUser, rawFile);
-    dispatch(fetchListAsync(currentUser));
+    dispatch(fetchListStart(currentUser));
     closeModal(false);
   };
 
