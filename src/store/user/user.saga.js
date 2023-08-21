@@ -8,9 +8,11 @@ import {
   signOutSuccess,
   signOutFailed,
   updateListSettingsFailed,
-  updateListSettingsSuccess
+  updateListSettingsSuccess,
+  updateEmailSuccess,
+  updateEmailFailed
 } from "./user.action";
-import { getCurrentUser, createUserDocumentFromAuth, signInAuthUserWithEmailAndPassword, createAuthUserWithEmailAndPassword, signOutUser, updateListSettings } from "../../utils/firebase/firebase.utils";
+import { getCurrentUser, createUserDocumentFromAuth, signInAuthUserWithEmailAndPassword, createAuthUserWithEmailAndPassword, signOutUser, updateListSettings, updateUserEmail } from "../../utils/firebase/firebase.utils";
 
 //User Auth Check
 export function* getSnapshotFromUserAuth(userAuth, additionalDetails) {
@@ -79,6 +81,17 @@ export function* updateSettings({ payload }) {
   }
 }
 
+export function* updateEmail({ payload: { email } }) {
+  try {
+    const userAuth = yield call(getCurrentUser);
+    yield call(updateUserEmail, userAuth, email);
+    yield call(updateListSettings, userAuth, { email });
+    yield put(updateEmailSuccess({ email }));
+  } catch (error) {
+    yield put(updateEmailFailed(error));
+  }
+}
+
 // Entry Point Sagas
 export function* onEmailSignInStart() {
   yield takeLatest(USER_ACTION_TYPES.EMAIL_SIGN_IN_START, signInWithEmail);
@@ -104,6 +117,10 @@ export function* onUpdateListSettings() {
   yield takeLatest(USER_ACTION_TYPES.UPDATE_LIST_SETTINGS_START, updateSettings);
 }
 
+export function* onUpdateEmail() {
+  yield takeLatest(USER_ACTION_TYPES.UPDATE_EMAIL_START, updateEmail);
+}
+
 // Sagas Export
 export function* userSagas() {
   yield all([
@@ -113,5 +130,6 @@ export function* userSagas() {
     call(onSignUpSuccess),
     call(onSignOutStart),
     call(onUpdateListSettings),
+    call(onUpdateEmail),
   ]);
 }

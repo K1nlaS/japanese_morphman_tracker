@@ -98,7 +98,7 @@ export const createUserDocumentFromAuth = async (
 	return userSnapshot;
 };
 
-export const getCurrentUser = () => {
+export const getCurrentUser = (): Promise<User | null> => {
 	return new Promise((resolve, reject) => {
 		const unsubscribe = onAuthStateChanged(
 			auth,
@@ -395,20 +395,22 @@ export const updateUserEmail = async (userAuth: User, email: string) => {
 	try {
 		await updateEmail(userAuth, email);
 	} catch (error) {
-		throw new Error("An error occurred while updating email.");
+		console.error("Error updating email:", error);
 	}
 };
 
 //Updateing user's password
 export const updateUserPassword = async (
-	userAuth: User,
 	newPassword: string
-) => {
-	if (!userAuth || !newPassword) return;
+): Promise<void> => {
+	if (!newPassword) return;
 
 	try {
+		const userAuth = await getCurrentUser();
+		if (!userAuth) return;
+
 		await updatePassword(userAuth, newPassword);
 	} catch (error) {
-		throw new Error("An error occurred while updating password.");
+		console.error("Error updating password:", error);
 	}
 };

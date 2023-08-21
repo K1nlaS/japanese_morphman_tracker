@@ -3,13 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
 //Firebase
-import { updateUserEmail, updateUserPassword } from "../../utils/firebase/firebase.utils";
+import { updateUserPassword } from "../../utils/firebase/firebase.utils";
 
 //Selectors
 import { selectCurrentUser } from "../../store/user/user.selector";
 
 //Redux
-import { checkUserSession, updateListSettingsStart } from "../../store/user/user.action";
+import { checkUserSession, updateEmailStart, updateListSettingsStart } from "../../store/user/user.action";
 
 //Components
 import FormInput from "../form-input/form-input.comp";
@@ -67,10 +67,9 @@ const SettingsAccount = () => {
     setEmail(value);
   };
 
-  const emailSubmitHandler = async () => {
+  const emailSubmitHandler = () => {
     if (email.length > 0) {
-      await updateUserEmail(currentUser, email);
-      // await updateUserSettings(currentUser, { email });
+      dispatch(updateEmailStart({ email }));
       dispatch(checkUserSession());
     }
   };
@@ -83,7 +82,7 @@ const SettingsAccount = () => {
 
   const passwordSubmitHandler = async () => {
     if (newPassword === confirmPassword) {
-      await updateUserPassword(currentUser, newPassword);
+      await updateUserPassword(newPassword);
       dispatch(checkUserSession());
       setpasswordFields(passwords);
     }

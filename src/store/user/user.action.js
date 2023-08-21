@@ -51,3 +51,13 @@ export const updateListSettingsSuccess = (postData) =>
 
 export const updateListSettingsFailed = (error) =>
   createAction(USER_ACTION_TYPES.UPDATE_LIST_SETTINGS_FAILED, error);
+
+//Update Email
+export const updateEmailStart = (newEmail) =>
+  createAction(USER_ACTION_TYPES.UPDATE_EMAIL_START, newEmail);
+
+export const updateEmailSuccess = (newEmail) =>
+  createAction(USER_ACTION_TYPES.UPDATE_EMAIL_SUCCESS, newEmail);
+
+export const updateEmailFailed = (error) =>
+  createAction(USER_ACTION_TYPES.UPDATE_EMAIL_FAILED, error);
