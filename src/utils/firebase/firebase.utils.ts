@@ -394,6 +394,7 @@ export const updateUserEmail = async (userAuth: User, email: string) => {
 
 	try {
 		await updateEmail(userAuth, email);
+		return true;
 	} catch (error) {
 		console.error("Error updating email:", error);
 	}

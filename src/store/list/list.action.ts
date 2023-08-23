@@ -91,14 +91,6 @@ export type SetFilterType = ActionWithPayLoad<
 	string
 >;
 
-export type ListAction =
-	| FetchCategoriesStart
-	| FetchCategoriesFailed
-	| FetchCategoriesSuccess
-	| SetSearchString
-	| SetFilterSort
-	| SetFilterType;
-
 //DB List Actions
 export const fetchListStart = withMatcher(
 	(): FetchCategoriesStart => createAction(LIST_ACTION_TYPES.FETCH_LIST_START)

@@ -84,9 +84,15 @@ export function* updateSettings({ payload }) {
 export function* updateEmail({ payload: { email } }) {
   try {
     const userAuth = yield call(getCurrentUser);
-    yield call(updateUserEmail, userAuth, email);
-    yield call(updateListSettings, userAuth, { email });
-    yield put(updateEmailSuccess({ email }));
+    const updateEmailResult = yield call(updateUserEmail, userAuth, email);
+    console.log(updateEmailResult);
+
+    if (updateEmailResult) {
+      yield call(updateListSettings, userAuth, { email });
+      yield put(updateEmailSuccess({ email }));
+    } else {
+      yield put(updateEmailFailed(new Error("Failed to update email.")));
+    }
   } catch (error) {
     yield put(updateEmailFailed(error));
   }
