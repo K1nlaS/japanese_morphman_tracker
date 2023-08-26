@@ -1,3 +1,6 @@
 import { ListState } from "./list.reducer";
+import { createSelector } from "reselect";
 
-export const selectList = (state: ListState) => state.list;
+export const selectListReducer = (state): ListState => state.list;
+
+export const selectList = createSelector(selectListReducer, list => list);
