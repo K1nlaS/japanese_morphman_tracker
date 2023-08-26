@@ -38,17 +38,6 @@ export const userReducer = (
 	if (signOutSuccess.match(action)) {
 		return { ...state, currentUser: null };
 	}
-	if (signInFailed.match(action)) {
-		return { ...state, isLoading: false, error: action.payload };
-	}
-	if (signOutFailed.match(action)) {
-		return { ...state, isLoading: false, error: action.payload };
-	}
-
-	//Sign Up
-	if (signUpFailed.match(action)) {
-		return { ...state, isLoading: false, error: action.payload };
-	}
 
 	//Update Settings
 	if (updateListSettingsSuccess.match(action)) {
@@ -60,9 +49,6 @@ export const userReducer = (
 	}
 	if (updateListSettingsStart.match(action)) {
 		return { ...state, isLoading: true };
-	}
-	if (updateListSettingsFailed.match(action)) {
-		return { ...state, isLoading: false, error: action.payload };
 	}
 
 	//Update Email
@@ -76,7 +62,15 @@ export const userReducer = (
 			isLoading: false,
 		};
 	}
-	if (updateEmailFailed.match(action)) {
+
+	//Fails
+	if (
+		updateEmailFailed.match(action) ||
+		updateListSettingsFailed.match(action) ||
+		signUpFailed.match(action) ||
+		signOutFailed.match(action) ||
+		signInFailed.match(action)
+	) {
 		return { ...state, isLoading: false, error: action.payload };
 	}
 

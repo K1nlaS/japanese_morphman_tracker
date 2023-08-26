@@ -48,9 +48,6 @@ export const listReducer = (
 	if (fetchListSuccess.match(action)) {
 		return { ...state, list: action.payload, isLoading: false };
 	}
-	if (fetchListFailed.match(action)) {
-		return { ...state, isLoading: false, error: action.payload };
-	}
 
 	//Add Show
 	if (addShowListStart.match(action)) {
@@ -58,9 +55,6 @@ export const listReducer = (
 	}
 	if (addShowListSuccess.match(action)) {
 		return { ...state, list: [...state.list, action.payload] };
-	}
-	if (addShowListFailed.match(action)) {
-		return { ...state, isLoading: false, error: action.payload };
 	}
 
 	//Update Show
@@ -73,9 +67,6 @@ export const listReducer = (
 		);
 		return { ...state, list: [...updatedList] };
 	}
-	if (updateShowListFailed.match(action)) {
-		return { ...state, isLoading: false, error: action.payload };
-	}
 
 	//Delete Show
 	if (deleteShowListStart.match(action)) {
@@ -87,9 +78,6 @@ export const listReducer = (
 		);
 		return { ...state, list: [...filteredList] };
 	}
-	if (deleteShowListFailed.match(action)) {
-		return { ...state, isLoading: false, error: action.payload };
-	}
 
 	//Local Changes
 	if (setFilterSort.match(action)) {
@@ -100,6 +88,16 @@ export const listReducer = (
 	}
 	if (setFilterType.match(action)) {
 		return { ...state, filterType: action.payload };
+	}
+
+	//Fails
+	if (
+		fetchListFailed.match(action) ||
+		addShowListFailed.match(action) ||
+		updateShowListFailed.match(action) ||
+		deleteShowListFailed.match(action)
+	) {
+		return { ...state, isLoading: false, error: action.payload };
 	}
 
 	return state;
