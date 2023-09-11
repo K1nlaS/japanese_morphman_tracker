@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentUser } from "../../store/user/user.selector";
 
 //Redux
-import { fetchListAsync } from "../../store/list/list.action";
+import { fetchListStart } from "../../store/list/list.action";
 
 //Firebase
 import { updateHistoryEntry } from "../../utils/firebase/firebase.utils";
@@ -75,7 +75,7 @@ const ItemHistoryEntry = ({ historyEntry, showId, arrayIndex }) => {
 
   const submitClickHandler = async () => {
     await updateHistoryEntry(currentUser, showId, formFields);
-    dispatch(fetchListAsync(currentUser));
+    dispatch(fetchListStart(currentUser));
   };
 
   return (

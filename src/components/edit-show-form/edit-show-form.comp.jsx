@@ -1,19 +1,13 @@
 //Misc
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import defaultBanner from "../../assets/404_banner.jpg";
 
 //Icons
 import { MdEdit } from "react-icons/md";
 
-//Firebase
-import { updateListDocument, deleteListDocument, getCollectionItem } from "../../utils/firebase/firebase.utils";
-
-//Selectors
-import { selectCurrentUser } from "../../store/user/user.selector";
-
 //Redux
-import { deleteShowList, updateShowList } from "../../store/list/list.action";
+// import { deleteShowList, updateShowList } from "../../store/list/list.action";
 
 //Components
 import { Button, BUTTON_TYPE_CLASSES } from "../button/button.comp";
@@ -35,6 +29,7 @@ import {
   DATES,
   DATE,
 } from "./edit-show-form.styles";
+import { deleteShowListStart, updateShowListStart } from "../../store/list/list.action";
 
 const statusSelectOptions = [
   { value: "Planning", label: "Planning" },
@@ -61,8 +56,6 @@ const defaultFormFields = {
 };
 
 const EditShowForm = ({ show, closeModal }) => {
-
-  const currentUser = useSelector(selectCurrentUser);
 
   const dispatch = useDispatch();
 
@@ -117,21 +110,15 @@ const EditShowForm = ({ show, closeModal }) => {
     setFormFields({ ...formFields, type: value });
   };
 
-  const formSubmitHandler = async (e) => {
+  const formSubmitHandler = (e) => {
     e.preventDefault();
-
-    const updatedShowRef = await updateListDocument(currentUser, formFields);
     closeModal(false);
 
-    const updatedShow = await getCollectionItem(currentUser, updatedShowRef);
-    dispatch(updateShowList(updatedShow));
+    dispatch(updateShowListStart(formFields));
   };
 
-  const deleteClickHandler = async () => {
-    const deletedShowRef = await deleteListDocument(currentUser, id);
-    const deletedShow = await getCollectionItem(currentUser, deletedShowRef);
-
-    dispatch(deleteShowList(deletedShow));
+  const deleteClickHandler = () => {
+    dispatch(deleteShowListStart({ id }));
     closeModal(false);
   };
 

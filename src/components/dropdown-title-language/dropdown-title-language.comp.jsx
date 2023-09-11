@@ -1,7 +1,7 @@
 //Misc
 import { useSelector } from "react-redux";
 import Select from "react-select";
-import { selectSettings } from "../../store/user/user.selector";
+import { selectCurrentUser } from "../../store/user/user.selector";
 
 
 //Select Styles
@@ -61,7 +61,7 @@ const options = [
 
 const DropDownTitleLanguage = ({ ...otherProps }) => {
 
-  const { titleLanguage } = useSelector(selectSettings);
+  const { titleLanguage } = useSelector(selectCurrentUser);
   const defaultOption = { value: titleLanguage, label: titleLanguage };
 
   return (

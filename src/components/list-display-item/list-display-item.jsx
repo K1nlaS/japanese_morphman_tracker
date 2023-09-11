@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import defaultBanner from "../../assets/404_banner.jpg";
 
 //Selectors
-import { selectSettings } from "../../store/user/user.selector";
+import { selectCurrentUser } from "../../store/user/user.selector";
 
 //Icons
 import { BiDotsHorizontalRounded } from "react-icons/bi";
@@ -32,7 +32,7 @@ import {
 
 const ListDisplayItem = ({ show }) => {
 
-  const { titleLanguage } = useSelector(selectSettings);
+  const { titleLanguage } = useSelector(selectCurrentUser);
 
   const { title, lineReadability, knownInstances, uknownMorphs, type, Media = {} } = show;
   const { coverImage = "", siteUrl = "", title: mediaTitle = null } = Media;

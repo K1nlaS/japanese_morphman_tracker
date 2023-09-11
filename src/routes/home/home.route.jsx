@@ -15,11 +15,11 @@ import BatchUpdateForm from "../../components/batch-updater/batch-updater.comp";
 import { LIST_CONTAINER } from "./home.styles";
 
 //Redux
-import { fetchListAsync, setSearchString } from "../../store/list/list.action";
+import { fetchListStart, setSearchString } from "../../store/list/list.action";
 
 //Selectors
 import { selectCurrentUser } from "../../store/user/user.selector";
-import { selectFilterSort, selectFilterType, selectList, selectSearchString, } from "../../store/list/list.selector";
+import { selectList } from "../../store/list/list.selector";
 
 
 function Home() {
@@ -29,19 +29,17 @@ function Home() {
   const { status } = useParams();
 
   const currentUser = useSelector(selectCurrentUser);
-  const { list } = useSelector(selectList);
-  const searchString = useSelector(selectSearchString);
-  const filterType = useSelector(selectFilterType);
-  const filterSort = useSelector(selectFilterSort);
+  const { list, searchString, filterType, sortOption } = useSelector(selectList);
 
   const [isAddFormModalOpen, setIsModalOpen] = useState(false);
   const [isBatchFormModalOpen, setIsBatchFormModalOpen] = useState(false);
   const [filteredList, setFilteredList] = useState(list);
 
+
   useEffect(() => {
-    dispatch(fetchListAsync(currentUser));
+    dispatch(fetchListStart());
     dispatch(setSearchString(""));
-  }, [dispatch, currentUser]);
+  }, [dispatch]);
 
   useEffect(() => {
     const anilistTitleFilter = (anilistTitles) => {
@@ -70,9 +68,9 @@ function Home() {
     }
 
     //Filters the list if there are parameters to do so
-    if (filterSort) {
+    if (sortOption) {
 
-      switch (filterSort.value) {
+      switch (sortOption.value) {
         case "Title": newFilteredList = newFilteredList
           .sort((a, b) => {
             let fa = a.Media ? a.Media.title.romaji.toLowerCase() : a.title.toLowerCase();
@@ -113,7 +111,7 @@ function Home() {
     }
 
     setFilteredList(newFilteredList);
-  }, [searchString, list, status, filterType, filterSort]);
+  }, [searchString, list, status, filterType, sortOption]);
 
   return (
     <>

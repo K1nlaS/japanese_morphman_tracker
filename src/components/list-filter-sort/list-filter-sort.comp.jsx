@@ -16,7 +16,7 @@ import { FILTER_HEADER } from "../list-filter-status/list-filter-status.styles";
 import { setFilterSort } from "../../store/list/list.action";
 
 //Selectors
-import { selectFilterSort } from "../../store/list/list.selector";
+import { selectCurrentUser } from "../../store/user/user.selector";
 
 
 const sortSelectOptions = [
@@ -32,11 +32,12 @@ const ListFilterSort = () => {
 
   const dispatch = useDispatch();
 
-  const defaultSort = useSelector(selectFilterSort);
+  const { defaultSort } = useSelector(selectCurrentUser);
+  const sortFiltered = sortSelectOptions.find(option => option.value === defaultSort);
 
   useEffect(() => {
-    dispatch(setFilterSort(defaultSort));
-  }, [dispatch, defaultSort]);
+    dispatch(setFilterSort(sortFiltered));
+  }, [dispatch, sortFiltered]);
 
   const dropDownSortChangeHandler = (selectedOption) => {
     dispatch(setFilterSort(selectedOption));
@@ -47,7 +48,7 @@ const ListFilterSort = () => {
       <FILTER_HEADER>Sort</FILTER_HEADER>
 
       <SORT_BODY>
-        <DropDownSort onChange={dropDownSortChangeHandler} options={sortSelectOptions} defaultOption={defaultSort} />
+        <DropDownSort onChange={dropDownSortChangeHandler} options={sortSelectOptions} defaultOption={sortSelectOptions.find(option => option.value === defaultSort)} />
       </SORT_BODY>
     </SORT_CONTAINER>
   );

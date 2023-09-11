@@ -3,13 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
 //Firebase
-import { updateUserSettings, updateUserEmail, updateUserPassword } from "../../utils/firebase/firebase.utils";
+import { updateUserPassword } from "../../utils/firebase/firebase.utils";
 
 //Selectors
-import { selectCurrentUser, selectSettings } from "../../store/user/user.selector";
+import { selectCurrentUser } from "../../store/user/user.selector";
 
 //Redux
-import { fetchSettingsAsync } from "../../store/user/user.action";
+import { checkUserSession, updateEmailStart, updateListSettingsStart } from "../../store/user/user.action";
 
 //Components
 import FormInput from "../form-input/form-input.comp";
@@ -36,8 +36,8 @@ const SettingsAccount = () => {
 
   const dispatch = useDispatch();
 
-  const { username: dataUsername, email: dataEmail } = useSelector(selectSettings);
   const currentUser = useSelector(selectCurrentUser);
+  const { username: dataUsername, email: dataEmail } = currentUser;
 
   const [username, setUsername] = useState(usernameTemp);
   const [email, setEmail] = useState(emailTemp);
@@ -55,10 +55,9 @@ const SettingsAccount = () => {
     setUsername(value);
   };
 
-  const usernameSubmitHandler = async () => {
+  const usernameSubmitHandler = () => {
     if (username.length > 0 && username.length <= 20) {
-      await updateUserSettings(currentUser, { username });
-      dispatch(fetchSettingsAsync(currentUser));
+      dispatch(updateListSettingsStart({ username: { username } }));
     }
   };
 
@@ -68,11 +67,10 @@ const SettingsAccount = () => {
     setEmail(value);
   };
 
-  const emailSubmitHandler = async () => {
+  const emailSubmitHandler = () => {
     if (email.length > 0) {
-      await updateUserEmail(currentUser, email);
-      await updateUserSettings(currentUser, { email });
-      dispatch(fetchSettingsAsync(currentUser));
+      dispatch(updateEmailStart({ email }));
+      dispatch(checkUserSession());
     }
   };
 
@@ -84,8 +82,8 @@ const SettingsAccount = () => {
 
   const passwordSubmitHandler = async () => {
     if (newPassword === confirmPassword) {
-      await updateUserPassword(currentUser, newPassword);
-      dispatch(fetchSettingsAsync(currentUser));
+      await updateUserPassword(newPassword);
+      dispatch(checkUserSession());
       setpasswordFields(passwords);
     }
   };
