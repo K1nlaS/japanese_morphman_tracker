@@ -104,7 +104,7 @@ export const getCurrentUser = (): Promise<User | null> => {
 			auth,
 			userAuth => {
 				unsubscribe();
-				resolve(userAuth);
+				resolve(userAuth); // Ensure userAuth is of type User | null
 			},
 			reject
 		);
@@ -159,19 +159,20 @@ export const getCollectionItem = async (
 //Adds new entry to the user's list of shows
 export const addNewListDocument = async (
 	userAuth: User,
-	postData: any
+	showFields: any
 ): Promise<DocumentReference> => {
-	if (!userAuth || !postData) throw new Error("Invalid userAuth or postData");
+	if (!userAuth || !showFields)
+		throw new Error("Invalid userAuth or showFields");
 
 	const userListRef = collection(db, "users", userAuth.uid, "list");
 	const userListQuery = await getDocs(userListRef);
 
 	//Checks if there is an entry with the same title, if there is not it creates a new entry
-	if (!doesEntryExist(userListQuery, postData)) {
+	if (!doesEntryExist(userListQuery, showFields)) {
 		//Searches Anilist's API for the show
 		try {
-			const { data } = await fetchAnilistShow(postData.title);
-			Object.assign(postData, data);
+			const { data } = await fetchAnilistShow(showFields.title);
+			Object.assign(showFields, data);
 		} catch (error) {
 			console.log(error);
 		}
@@ -186,22 +187,24 @@ export const addNewListDocument = async (
 			minimumIntegerDigits: 2,
 		};
 
-		postData.lineReadability = parseFloat(
-			postData.lineReadability
+		showFields.lineReadability = parseFloat(
+			showFields.lineReadability
 		).toLocaleString(undefined, localeOptions);
-		postData.knownInstances = parseFloat(
-			postData.knownInstances
+		showFields.knownInstances = parseFloat(
+			showFields.knownInstances
 		).toLocaleString(undefined, localeOptions);
 
-		const uknownMorphs = "";
-		postData.status = postData.status
-			? postData.status
-			: (postData.status = "Planning");
-		postData.type = postData.type ? postData.type : (postData.type = "TV");
+		const unknownMorphs = "";
+		showFields.status = showFields.status
+			? showFields.status
+			: (showFields.status = "Planning");
+		showFields.type = showFields.type
+			? showFields.type
+			: (showFields.type = "TV");
 
 		const show = await addDoc(userListRef, {
-			uknownMorphs,
-			...postData,
+			unknownMorphs,
+			...showFields,
 			createdAt,
 			historyChange,
 			updatedAt: createdAt,

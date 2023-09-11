@@ -9,13 +9,13 @@ import {
 //Action types
 import { LIST_ACTION_TYPES, Show } from "./list.types";
 
-type FormFields = {
+export type FormFields = {
 	title: string;
 	knownInstances: string;
 	lineReadability: string;
-	uknownMorphs: string;
-	type: { value: string; label: string };
-	status: { value: string; label: string };
+	unknownMorphs: string;
+	type: string;
+	status: string;
 };
 
 type UpdatedFormFields = FormFields & {
