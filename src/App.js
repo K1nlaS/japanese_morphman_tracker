@@ -25,7 +25,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(checkUserSession());
-  }, []);
+  }, [dispatch]);
 
   // useEffect(() => {
   //   dispatch(fetchSettingsAsync(currentUser));
